@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { cn } from '@/lib/utils';
+// import Carousel from '@/components/Carousel';
 
 const font = Inter({
   subsets: ['latin'],
@@ -29,7 +30,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
         )}
       >
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-          <div className='max-w-2xl mx-auto py-10 px-4 prose-quoteless'>
+          <div className='relative h-4 w-4' />
+          {/* <Carousel /> */}
+          <div className='max-w-3xl mx-auto py-10 px-4 prose-quoteless'>
             <header>
               <div className='flex items-center justify-between'>
                 <ThemeToggle />
