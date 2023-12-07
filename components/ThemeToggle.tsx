@@ -11,9 +11,11 @@ export function ThemeToggle() {
       onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
       className='border rounded-md w-6 h-6 flex items-center justify-center'
     >
-      <span className='sr-only'>Toggle Theme</span>
-      {/* `typeof window !== 'undefined'` is a hack to compensate for Warning: Prop `d` did not match.*/}
-      {typeof window !== 'undefined' && theme !== 'dark' ? <BiSolidMoon /> : <BiSolidSun />}
+      <div>
+        <span className='sr-only'>Toggle Theme</span>
+        {/* `typeof window !== 'undefined'` is a hack to compensate for Warning: Prop `d` did not match.*/}
+        {theme !== 'dark' && typeof window !== 'undefined' ? <BiSolidMoon /> : <BiSolidSun />}
+      </div>
     </button>
   );
 }

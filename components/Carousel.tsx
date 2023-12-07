@@ -1,9 +1,9 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
 import useMeasure from 'react-use-measure';
 import { useEffect, useState } from 'react';
+import { useWidth } from '@/providers/WidthProvider';
 import { motion, useSpring, useTransform, MotionValue } from 'framer-motion';
 import { MdChevronLeft, MdChevronRight, MdPauseCircle, MdPlayCircle } from 'react-icons/md';
 import { cn } from '@/lib/utils';
@@ -11,16 +11,31 @@ import { movieData } from '@/data/movies';
 
 const elements = movieData;
 
-export default function Carousel({ infinite = true, dots = true, autoplay = true }) {
-  const STEPS = 5; // only odd numbers
+type CarouselProps = {
+  infinite?: boolean;
+  dots?: boolean;
+  autoplay?: boolean;
+  controls?: boolean;
+  className?: string;
+};
 
-  const elementBtnRatio = 0.5;
-  const elementWidth = window.innerWidth / (STEPS + elementBtnRatio);
+export default function Carousel({ infinite = true, dots, controls, autoplay, className }: CarouselProps) {
+  const { steps, elementBtnRatio, elementWidth, setElementWidth } = useWidth();
+
+  const handleWindowResize = () => {
+    const elementWidth = window.innerWidth / (steps + elementBtnRatio);
+    setElementWidth(elementWidth);
+  };
+
+  useEffect(() => {
+    handleWindowResize(); // Calculate on initial render
+    window.addEventListener('resize', handleWindowResize); // on resize event
+    return () => window.removeEventListener('resize', handleWindowResize); // cleanup
+  }, [steps, elementBtnRatio, setElementWidth]);
 
   let [paused, setPaused] = useState(true);
   let [count, setCount] = useState(0);
   let [refImage, { width, height, left }] = useMeasure();
-
   let animatedValue = useSpring(count, { stiffness: 50, damping: 12, duration: 1000 });
 
   useEffect(() => {
@@ -30,9 +45,9 @@ export default function Carousel({ infinite = true, dots = true, autoplay = true
   const handleLeftButtonClick = () => {
     setCount((prev) => {
       if (infinite) {
-        return prev - STEPS;
+        return prev - steps;
       } else {
-        return prev - STEPS < 0 ? elements.length - 1 : prev - STEPS;
+        return prev - steps < 0 ? elements.length - 1 : prev - steps;
       }
     });
   };
@@ -40,9 +55,9 @@ export default function Carousel({ infinite = true, dots = true, autoplay = true
   const handleRightButtonClick = () => {
     setCount((prevCount) => {
       if (infinite) {
-        return prevCount + STEPS;
+        return prevCount + steps;
       } else {
-        return prevCount + STEPS >= elements.length ? 0 : prevCount + STEPS;
+        return prevCount + steps >= elements.length ? 0 : prevCount + steps;
       }
     });
   };
@@ -62,7 +77,7 @@ export default function Carousel({ infinite = true, dots = true, autoplay = true
   const isInView = (id: number) => {
     const validCount = ((count % elements.length) + elements.length) % elements.length;
     const distance = Math.min(Math.abs(validCount - id), elements.length - Math.abs(validCount - id));
-    return distance <= STEPS / 2;
+    return distance <= steps / 2;
   };
 
   const viewDistanceValue = (id: number) => {
@@ -72,87 +87,95 @@ export default function Carousel({ infinite = true, dots = true, autoplay = true
   };
 
   return (
-    <div className='relative pb-0 overflow-visible'>
-      {/* CAROUSEL */}
-      <div ref={refImage} style={{ maxWidth: elementWidth + 'px' }} className={cn('flex px-2 mx-auto aspect-video')}>
-        <div className={'relative w-full'}>
-          {elements.map((element, index) => (
-            <Element
-              key={index}
-              id={element.id}
-              infinite={infinite}
-              motionValue={animatedValue}
-              src={element.src}
-              width={width}
-              alt={element.tagline}
-              inView={isInView(element.id)}
-              viewDistance={viewDistanceValue(element.id)}
-            />
-          ))}
+    <div className={className}>
+      <div className='relative pb-0 overflow-visible'>
+        {/* CAROUSEL */}
+        <div
+          ref={refImage}
+          style={{ maxWidth: elementWidth + 'px' }}
+          className={cn('flex px-2 mx-auto aspect-video bg-red-500')}
+        >
+          <div className={'relative w-full'}>
+            {elements.map((element, index) => (
+              <Element
+                key={index}
+                id={element.id}
+                infinite={infinite}
+                motionValue={animatedValue}
+                src={element.src}
+                width={width}
+                alt={element.tagline}
+                inView={isInView(element.id)}
+                viewDistance={viewDistanceValue(element.id)}
+              />
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* LEFT & RIGHT BUTTONS */}
-      <button
-        onClick={handleLeftButtonClick}
-        className='absolute top-0 left-0 bg-red-500/10 flex items-center justify-center'
-        style={{ height: height, width: elementWidth * (elementBtnRatio / 2) + 'px' }}
-      >
-        <MdChevronLeft className='h-10 w-10 text-black dark:text-white' />
-      </button>
+        {/* LEFT & RIGHT BUTTONS */}
+        <button
+          onClick={handleLeftButtonClick}
+          className='absolute top-0 left-0 bg-transparent flex items-center justify-center'
+          style={{ height: height, width: elementWidth * (elementBtnRatio / 2) + 'px' }}
+        >
+          <MdChevronLeft className='h-10 w-10 text-black dark:text-white' />
+        </button>
 
-      <button
-        onClick={handleRightButtonClick}
-        className='absolute top-0 right-0 bg-red-500/10 flex items-center justify-center'
-        style={{ height: height, width: elementWidth * (elementBtnRatio / 2) + 'px' }}
-      >
-        <MdChevronRight className='h-10 w-10 text-black dark:text-white' />
-      </button>
+        <button
+          onClick={handleRightButtonClick}
+          className='absolute top-0 right-0 bg-transparent flex items-center justify-center'
+          style={{ height: height, width: elementWidth * (elementBtnRatio / 2) + 'px' }}
+        >
+          <MdChevronRight className='h-10 w-10 text-black dark:text-white' />
+        </button>
 
-      <div className={cn('relative w-full flex items-center h-8 mx-auto')}>
-        {/* DOTS */}
-        {dots && (
-          <div className='w-full flex justify-center gap-3'>
-            {elements.map((_, index) => {
-              if (index % STEPS === 0) {
-                return (
+        {controls && (
+          <div className={cn('relative w-full flex items-center h-8 mx-auto')}>
+            {/* DOTS */}
+            {dots && (
+              <div className='w-full flex justify-center gap-3'>
+                {elements.map((_, index) => {
+                  if (index % steps === 0) {
+                    return (
+                      <button
+                        key={index}
+                        onClick={() => handleDotButtonClick(index)}
+                        className={cn(
+                          'w-2 h-2 rounded-full bg-gray-rg transition-all duration-300',
+                          ((count % elements.length) + elements.length) % elements.length === index
+                            ? 'w-6 bg-black dark:bg-white'
+                            : 'bg-black/20 dark:bg-white/20'
+                        )}
+                      />
+                    );
+                  }
+                  return null;
+                })}
+                {/* Cover the remaining elements */}
+                {elements.length % steps !== 0 && (
                   <button
-                    key={index}
-                    onClick={() => handleDotButtonClick(index)}
+                    onClick={() => handleDotButtonClick(elements.length - (elements.length % steps))}
                     className={cn(
                       'w-2 h-2 rounded-full bg-gray-rg transition-all duration-300',
-                      ((count % elements.length) + elements.length) % elements.length === index
+                      ((count % elements.length) + elements.length) % elements.length === elements.length - 1
                         ? 'w-6 bg-black dark:bg-white'
-                        : 'bg-black/20 dark:bg-white/20'
+                        : 'bg-red=500 dark:bg-white/20'
                     )}
                   />
-                );
-              }
-              return null;
-            })}
-            {/* Cover the remaining elements */}
-            {elements.length % STEPS !== 0 && (
-              <button
-                onClick={() => handleDotButtonClick(elements.length - (elements.length % STEPS))}
-                className={cn(
-                  'w-2 h-2 rounded-full bg-gray-rg transition-all duration-300',
-                  ((count % elements.length) + elements.length) % elements.length === elements.length - 1
-                    ? 'w-6 bg-black dark:bg-white'
-                    : 'bg-red=500 dark:bg-white/20'
                 )}
-              />
+              </div>
+            )}
+
+            {/* AUTOPLAY */}
+            {autoplay && (
+              <button
+                onClick={() => setPaused((prev) => !prev)}
+                className={'absolute right-1 bg-black text-white p-0 m-0 w-6 h-6 rounded-full'}
+              >
+                {paused ? <MdPlayCircle size={24} /> : <MdPauseCircle size={24} />}
+              </button>
             )}
           </div>
-        )}
-
-        {/* AUTOPLAY */}
-        {autoplay && (
-          <button
-            onClick={() => setPaused((prev) => !prev)}
-            className={'absolute right-1 bg-black text-white p-0 m-0 w-6 h-6 rounded-full'}
-          >
-            {paused ? <MdPlayCircle size={24} /> : <MdPauseCircle size={24} />}
-          </button>
         )}
       </div>
     </div>

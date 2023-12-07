@@ -1,10 +1,11 @@
 import './globals.css';
-import Link from 'next/link';
 import { Inter } from 'next/font/google';
-import { ThemeProvider } from '@/components/ThemeProvider';
-import { ThemeToggle } from '@/components/ThemeToggle';
+import { WidthProvider } from '@/providers/WidthProvider';
+import { ThemeProvider } from '@/providers/ThemeProvider';
 import { cn } from '@/lib/utils';
-// import Carousel from '@/components/Carousel';
+import CarouselWrapper from '@/components/CarouselWrapper';
+import Modal from '@/components/Modal';
+import Header from '@/components/Header';
 
 const font = Inter({
   subsets: ['latin'],
@@ -30,20 +31,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
         )}
       >
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-          <div className='relative h-4 w-4' />
-          {/* <Carousel /> */}
-          <div className='max-w-3xl mx-auto py-10 px-4 prose-quoteless'>
-            <header>
-              <div className='flex items-center justify-between'>
-                <ThemeToggle />
-                <nav className='ml-auto text-sm font-medium space-x-6'>
-                  <Link href='/'>Home</Link>
-                  <Link href='/about'>About</Link>
-                </nav>
-              </div>
-            </header>
-            <main>{children}</main>
-          </div>
+          <WidthProvider>
+            <>
+              <Header className='z-0 fixed -translate-x-1/2 left-1/2' />
+              <Modal className='absolute z-50 -translate-x-1/2 left-1/2'>
+                <main className='prose-quoteless z-50'>{children}</main>
+              </Modal>
+              <CarouselWrapper className='z-0' />
+            </>
+          </WidthProvider>
         </ThemeProvider>
       </body>
     </html>
