@@ -13,9 +13,9 @@ export default function CarouselWrapper({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        'fixed w-full h-auto mx-auto bottom-16 z-0 transform transition-transform duration-300',
+        'fixed w-full h-auto mx-auto bottom-0 z-0 transform transition-transform duration-300',
         className,
-        showList ? 'translate-y-full' : 'translate-y-0'
+        showList ? 'translate-y-20' : '-translate-y-8'
       )}
     >
       <div style={{ width: containerWidth }} className=' h-auto mx-auto flex items-center justify-between mb-4 px-2'>

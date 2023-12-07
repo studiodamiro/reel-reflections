@@ -4,7 +4,7 @@ import { WidthProvider } from '@/providers/WidthProvider';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 import { cn } from '@/lib/utils';
 import CarouselWrapper from '@/components/CarouselWrapper';
-import Modal from '@/components/Modal';
+import Main from '@/components/Main';
 import Header from '@/components/Header';
 
 const font = Inter({
@@ -32,13 +32,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
       >
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
           <WidthProvider>
-            <>
-              <Header className='z-0 fixed -translate-x-1/2 left-1/2' />
-              <Modal className='absolute z-50 -translate-x-1/2 left-1/2'>
-                <main className='prose-quoteless z-50'>{children}</main>
-              </Modal>
-              <CarouselWrapper className='z-0' />
-            </>
+            <Header className='z-0 fixed -translate-x-1/2 left-1/2' />
+            <Main className='absolute z-50 -translate-x-1/2 left-1/2'>{children}</Main>
+            <CarouselWrapper className='z-0' />
           </WidthProvider>
         </ThemeProvider>
       </body>
