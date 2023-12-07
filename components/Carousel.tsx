@@ -93,7 +93,7 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
         <div
           ref={refImage}
           style={{ maxWidth: elementWidth + 'px' }}
-          className={cn('flex px-2 mx-auto aspect-video bg-red-500')}
+          className={cn('flex px-1 md:px-2 mx-auto aspect-video')}
         >
           <div className={'relative w-full'}>
             {elements.map((element, index) => (
@@ -215,7 +215,7 @@ function Element({ src, alt, id, motionValue, infinite, width, inView, viewDista
       <button
         onClick={() => console.log(viewDistance)}
         className={cn(
-          'relative w-full h-full overflow-hidden m-0 p-0 rounded-md shadow-gray-md',
+          'relative w-full h-full overflow-hidden m-0 p-0 rounded-sm md:rounded-md shadow-gray-md',
           'opacity-30 transition-all duration-700 object-cover object-center',
           inView && 'opacity-100',
           'transform transition origin-center hover:scale-110 hover:duration-200 hover:delay-500',

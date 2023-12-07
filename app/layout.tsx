@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import CarouselWrapper from '@/components/CarouselWrapper';
 import Main from '@/components/Main';
 import Header from '@/components/Header';
+import Curtain from './Curtain';
 
 const font = Inter({
   subsets: ['latin'],
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <WidthProvider>
             <Header className='z-0 fixed -translate-x-1/2 left-1/2' />
             <Main className='absolute z-50 -translate-x-1/2 left-1/2'>{children}</Main>
+            {/* <Curtain /> */}
             <CarouselWrapper className='z-0' />
           </WidthProvider>
         </ThemeProvider>
