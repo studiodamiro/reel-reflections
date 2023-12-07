@@ -31,18 +31,16 @@ export const WidthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const handleWindowResize = () => {
     setWindowWidth(window.innerWidth);
-    if (windowWidth < 640) {
+    if (windowWidth < 580) {
       setBreakpoint('sm');
-    } else if (windowWidth < 768) {
+      setSteps(3);
+    } else if (windowWidth < 2048) {
       setBreakpoint('md');
-    } else if (windowWidth < 1024) {
+      setSteps(5);
+    } else {
       setBreakpoint('lg');
-    } else if (windowWidth < 1280) {
-      setBreakpoint('xl');
-    } else if (windowWidth < 1536) {
-      setBreakpoint('2xl');
+      setSteps(7);
     }
-    breakpoint === 'sm' || breakpoint === 'md' ? setSteps(3) : setSteps(5);
     // console.log(breakpoint, windowWidth);
   };
 

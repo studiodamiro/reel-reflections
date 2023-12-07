@@ -23,7 +23,7 @@ export default function CarouselWrapper({ className }: { className?: string }) {
         className=' h-auto mx-auto flex items-center justify-between mb-4 px-4 md:px-6'
       >
         <button onClick={() => setShowList(!showList)} className='flex items-center space-x-2'>
-          <span className='tracking-wider font-bold uppercase text-lg'>MOVIE LIST</span>
+          <span className='tracking-wider font-bold uppercase text-md: md:text-lg'>MOVIE LIST</span>
           <MdChevronLeft className={cn('w-6 h-6 -rotate-90 transition-rotate duration-300', showList && 'rotate-90')} />
         </button>
         <p>selection</p>
