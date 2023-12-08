@@ -8,6 +8,7 @@ import { motion, useSpring, useTransform, MotionValue } from 'framer-motion';
 import { MdChevronLeft, MdChevronRight, MdPauseCircle, MdPlayCircle } from 'react-icons/md';
 import { cn } from '@/lib/utils';
 import { movieData } from '@/data/movies';
+import TimedFunctionExecutor from './TimedFunctionExecutor';
 
 const elements = movieData;
 
@@ -20,6 +21,7 @@ type CarouselProps = {
 };
 
 export default function Carousel({ infinite = true, dots, controls, autoplay, className }: CarouselProps) {
+  const AUTOPLAYDELAY = 5000;
   const { numberOfElements, elementBtnRatio, elementWidth, setElementWidth } = useWidth();
 
   const handleWindowResize = () => {
@@ -168,12 +170,19 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
 
             {/* AUTOPLAY */}
             {autoplay && (
-              <button
-                onClick={() => setPaused((prev) => !prev)}
-                className={'absolute right-1 bg-black text-white p-0 m-0 w-6 h-6 rounded-full'}
-              >
-                {paused ? <MdPlayCircle size={24} /> : <MdPauseCircle size={24} />}
-              </button>
+              <>
+                <button
+                  onClick={() => setPaused((prev) => !prev)}
+                  className={'absolute right-1 bg-black text-white p-0 m-0 w-6 h-6 rounded-full'}
+                >
+                  {paused ? <MdPlayCircle size={24} /> : <MdPauseCircle size={24} />}
+                </button>
+                <TimedFunctionExecutor
+                  delayMs={AUTOPLAYDELAY}
+                  targetFunction={() => handleRightButtonClick()}
+                  isPaused={paused}
+                />
+              </>
             )}
           </div>
         )}

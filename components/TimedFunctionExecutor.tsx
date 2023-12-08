@@ -3,27 +3,23 @@ import { useEffect } from 'react';
 type TimedFunctionProps = {
   delayMs: number;
   targetFunction: () => void;
-  infiniteLoop?: boolean;
   isPaused?: boolean;
 };
 
-export default function TimedFunctionExecutor({
-  delayMs,
-  // infiniteLoop = false,
-  targetFunction,
-  isPaused = false,
-}: TimedFunctionProps) {
+export default function TimedFunctionExecutor({ delayMs, targetFunction, isPaused = false }: TimedFunctionProps) {
   useEffect(() => {
-    let intervalId: NodeJS.Timeout | null = null;
+    let intervalID: NodeJS.Timeout | null = null;
 
     if (!isPaused) {
-      intervalId = setInterval(() => {
+      intervalID = setInterval(() => {
         targetFunction();
       }, delayMs);
     }
 
     return () => {
-      clearInterval(intervalId!);
+      clearInterval(intervalID!);
     };
   }, [delayMs, targetFunction, isPaused]);
+
+  return null;
 }
