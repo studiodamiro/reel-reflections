@@ -20,10 +20,10 @@ type CarouselProps = {
 };
 
 export default function Carousel({ infinite = true, dots, controls, autoplay, className }: CarouselProps) {
-  const { steps, elementBtnRatio, elementWidth, setElementWidth } = useWidth();
+  const { numberOfElements, elementBtnRatio, elementWidth, setElementWidth } = useWidth();
 
   const handleWindowResize = () => {
-    const elementWidth = window.innerWidth / (steps + elementBtnRatio);
+    const elementWidth = window.innerWidth / (numberOfElements + elementBtnRatio);
     setElementWidth(elementWidth);
   };
 
@@ -31,7 +31,7 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
     handleWindowResize(); // Calculate on initial render
     window.addEventListener('resize', handleWindowResize); // on resize event
     return () => window.removeEventListener('resize', handleWindowResize); // cleanup
-  }, [steps, elementBtnRatio, setElementWidth]);
+  }, [numberOfElements, elementBtnRatio, setElementWidth]);
 
   let [paused, setPaused] = useState(true);
   let [count, setCount] = useState(0);
@@ -45,9 +45,9 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
   const handleLeftButtonClick = () => {
     setCount((prev) => {
       if (infinite) {
-        return prev - steps;
+        return prev - numberOfElements;
       } else {
-        return prev - steps < 0 ? elements.length - 1 : prev - steps;
+        return prev - numberOfElements < 0 ? elements.length - 1 : prev - numberOfElements;
       }
     });
   };
@@ -55,9 +55,9 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
   const handleRightButtonClick = () => {
     setCount((prevCount) => {
       if (infinite) {
-        return prevCount + steps;
+        return prevCount + numberOfElements;
       } else {
-        return prevCount + steps >= elements.length ? 0 : prevCount + steps;
+        return prevCount + numberOfElements >= elements.length ? 0 : prevCount + numberOfElements;
       }
     });
   };
@@ -77,7 +77,7 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
   const isInView = (id: number) => {
     const validCount = ((count % elements.length) + elements.length) % elements.length;
     const distance = Math.min(Math.abs(validCount - id), elements.length - Math.abs(validCount - id));
-    return distance <= steps / 2;
+    return distance <= numberOfElements / 2;
   };
 
   const viewDistanceValue = (id: number) => {
@@ -135,7 +135,7 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
             {dots && (
               <div className='w-full flex justify-center gap-3'>
                 {elements.map((_, index) => {
-                  if (index % steps === 0) {
+                  if (index % numberOfElements === 0) {
                     return (
                       <button
                         key={index}
@@ -152,9 +152,9 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
                   return null;
                 })}
                 {/* Cover the remaining elements */}
-                {elements.length % steps !== 0 && (
+                {elements.length % numberOfElements !== 0 && (
                   <button
-                    onClick={() => handleDotButtonClick(elements.length - (elements.length % steps))}
+                    onClick={() => handleDotButtonClick(elements.length - (elements.length % numberOfElements))}
                     className={cn(
                       'w-2 h-2 rounded-full bg-gray-rg transition-all duration-300',
                       ((count % elements.length) + elements.length) % elements.length === elements.length - 1

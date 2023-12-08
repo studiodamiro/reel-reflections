@@ -1,4 +1,5 @@
 import './globals.css';
+import { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 import { WidthProvider } from '@/providers/WidthProvider';
 import { ThemeProvider } from '@/providers/ThemeProvider';
@@ -19,7 +20,7 @@ export const metadata = {
 };
 
 interface RootLayoutProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
@@ -28,7 +29,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body
         className={cn(
           font.className,
-          'antialiased min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50'
+          'antialiased min-h-screen',
+          'bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50',
+          'transition-colors duration-300'
         )}
       >
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>

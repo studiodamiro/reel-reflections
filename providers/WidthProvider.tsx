@@ -1,9 +1,9 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 
 type WidthType = {
-  steps: number;
+  numberOfElements: number;
   elementWidth: number;
   elementBtnRatio: number;
   windowWidth: number;
@@ -20,26 +20,26 @@ export const useWidth = () => {
   return context;
 };
 
-export const WidthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [steps, setSteps] = useState(3); // use only odd numbers
-  const [elementWidth, setElementWidth] = useState(0);
-  const [breakpoint, setBreakpoint] = useState('sm');
-  const [windowWidth, setWindowWidth] = useState(0);
+export const WidthProvider = ({ children }: { children: ReactNode }) => {
+  const [numberOfElements, setNumberOfElements] = useState(3); // use only odd numbers
+  const [elementWidth, setElementWidth] = useState(320);
+  const [windowWidth, setWindowWidth] = useState(1024);
+  const [breakpoint, setBreakpoint] = useState('md');
 
   const elementBtnRatio = 0.5;
-  const containerWidth = elementWidth * steps;
+  const containerWidth = elementWidth * numberOfElements;
 
   const handleWindowResize = () => {
     setWindowWidth(window.innerWidth);
     if (windowWidth < 580) {
       setBreakpoint('sm');
-      setSteps(3);
+      setNumberOfElements(3);
     } else if (windowWidth < 2048) {
       setBreakpoint('md');
-      setSteps(5);
+      setNumberOfElements(5);
     } else {
       setBreakpoint('lg');
-      setSteps(7);
+      setNumberOfElements(7);
     }
     // console.log(breakpoint, windowWidth);
   };
@@ -52,7 +52,15 @@ export const WidthProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <WidthContext.Provider
-      value={{ steps, elementBtnRatio, containerWidth, elementWidth, windowWidth, breakpoint, setElementWidth }}
+      value={{
+        numberOfElements,
+        elementBtnRatio,
+        containerWidth,
+        elementWidth,
+        windowWidth,
+        breakpoint,
+        setElementWidth,
+      }}
     >
       {children}
     </WidthContext.Provider>

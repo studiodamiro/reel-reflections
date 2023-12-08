@@ -1,8 +1,9 @@
 'use client';
 
 import { useWidth } from '@/providers/WidthProvider';
+import { ReactNode } from 'react';
 
-export default function Article({ children }: { children: React.ReactNode }) {
+export default function Article({ children }: { children: ReactNode }) {
   const { containerWidth } = useWidth();
 
   return (
