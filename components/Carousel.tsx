@@ -225,7 +225,7 @@ function Element({ src, alt, id, motionValue, infinite, width, inView, viewDista
         onClick={() => console.log(viewDistance)}
         className={cn(
           'relative w-full h-full overflow-hidden m-0 p-0 rounded-sm md:rounded-md shadow-gray-md',
-          'opacity-30 transition-all duration-700 object-cover object-center',
+          'opacity-30 transition-all duration-700 object-cover object-center shadow-md shadow-black/50',
           inView && 'opacity-100',
           'transform transition origin-center hover:scale-110 hover:duration-200 hover:delay-500',
           viewDistance === -2 && 'origin-right',

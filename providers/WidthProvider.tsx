@@ -2,7 +2,7 @@
 
 import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 
-type WidthType = {
+interface WidthProps {
   numberOfElements: number;
   elementWidth: number;
   elementBtnRatio: number;
@@ -10,9 +10,9 @@ type WidthType = {
   containerWidth: number;
   breakpoint: string;
   setElementWidth: React.Dispatch<React.SetStateAction<number>>;
-};
+}
 
-const WidthContext = createContext<WidthType | undefined>(undefined);
+const WidthContext = createContext<WidthProps | undefined>(undefined);
 
 export const useWidth = () => {
   const context = useContext(WidthContext);
@@ -20,7 +20,11 @@ export const useWidth = () => {
   return context;
 };
 
-export const WidthProvider = ({ children }: { children: ReactNode }) => {
+interface WidthProviderProps {
+  children: ReactNode;
+}
+
+export const WidthProvider = ({ children }: WidthProviderProps) => {
   const [numberOfElements, setNumberOfElements] = useState(3); // use only odd numbers
   const [elementWidth, setElementWidth] = useState(320);
   const [windowWidth, setWindowWidth] = useState(1024);

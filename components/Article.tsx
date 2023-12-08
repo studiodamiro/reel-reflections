@@ -4,7 +4,11 @@ import { cn } from '@/lib/utils';
 import { useWidth } from '@/providers/WidthProvider';
 import { ReactNode } from 'react';
 
-export default function Article({ children }: { children: ReactNode }) {
+interface ArticleProps {
+  children: ReactNode;
+}
+
+export default function Article({ children }: ArticleProps) {
   const { containerWidth } = useWidth();
 
   return (
