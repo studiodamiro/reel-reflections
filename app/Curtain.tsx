@@ -22,11 +22,11 @@ export default function Curtain({ className }: CurtainProps) {
           transition={{ duration: 0.3 }}
           className={cn(
             className,
-            'bg-slate-200/20 dark:bg-slate-950/80 backdrop-blur-lg',
-            'fixed top-0 left-0 w-full h-full'
+            'fixed top-0 left-0 w-full h-full',
+            'bg-slate-200/20 dark:bg-slate-950/80 backdrop-blur-lg'
           )}
         >
-          <Link href='/' className='absolute top-0 left-0 w-full h-full cursor-default' />
+          {/* <Link href='/' className='absolute top-0 left-0 w-full h-full cursor-default' /> */}
         </motion.div>
       )}
     </AnimatePresence>

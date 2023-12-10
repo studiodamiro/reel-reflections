@@ -1,6 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 import { useWidth } from '@/providers/WidthProvider';
 import { ReactNode, useEffect, useRef } from 'react';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
@@ -12,9 +13,12 @@ interface ArticleProps {
 export default function Article({ children }: ArticleProps) {
   const { containerWidth } = useWidth();
   const homeRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
+
+  const handleClick = () => {};
 
   const clickOutsideFunction = () => {
-    console.log('clicked outside');
+    router.push('/'); // navigate to root
   };
 
   useOnClickOutside(homeRef, () => clickOutsideFunction());
