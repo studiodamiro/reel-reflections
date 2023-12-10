@@ -43,23 +43,23 @@ export const movieData = [
   },
   {
     id: 6,
+    src: '/images/blog-post-1.jpg',
+    title: 'The after party',
+    genre: 'Comedy',
+    tagline: 'Till death do they party',
+  },
+  {
+    id: 7,
     src: '/images/blog-post-3.jpg',
     title: 'The morning show',
     genre: 'Drama',
     tagline: 'Control is an illusion',
   },
   {
-    id: 7,
+    id: 8,
     src: '/images/blog-post-4.jpg',
     title: 'Rose Byrne Physical',
     genre: 'Comedy',
     tagline: 'New season',
-  },
-  {
-    id: 8,
-    src: '/images/blog-post-1.jpg',
-    title: 'The after party',
-    genre: 'Comedy',
-    tagline: 'Till death do they party',
   },
 ];

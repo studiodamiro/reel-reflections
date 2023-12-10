@@ -10,7 +10,7 @@ export function ThemeToggle() {
   return (
     <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
       <div>
-        <span className='sr-only'>Toggle Theme</span>
+        <span className='sr-only'>Toggle Theme Button</span>
         <Hydrate>{theme !== 'dark' ? <BiSolidMoon /> : <BiSolidSun />}</Hydrate>
       </div>
     </button>

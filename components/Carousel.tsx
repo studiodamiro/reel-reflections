@@ -2,13 +2,13 @@
 
 import Image from 'next/image';
 import useMeasure from 'react-use-measure';
+import useTimedFunction from '@/hooks/useTimedFunction';
 import { useEffect, useState } from 'react';
 import { useWidth } from '@/providers/WidthProvider';
 import { motion, useSpring, useTransform, MotionValue } from 'framer-motion';
 import { MdChevronLeft, MdChevronRight, MdPauseCircle, MdPlayCircle } from 'react-icons/md';
 import { cn } from '@/lib/utils';
 import { movieData } from '@/data/movies';
-import TimedFunctionExecutor from './TimedFunctionExecutor';
 
 const elements = movieData;
 
@@ -21,7 +21,7 @@ type CarouselProps = {
 };
 
 export default function Carousel({ infinite = true, dots, controls, autoplay, className }: CarouselProps) {
-  const AUTOPLAYDELAY = 5000;
+  const AUTOPLAY_INTERVAL = 5000;
   const { numberOfElements, elementBtnRatio, elementWidth, setElementWidth } = useWidth();
 
   useEffect(() => {
@@ -92,6 +92,14 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
     const validCount = ((count % elements.length) + elements.length) % elements.length;
     return (id - validCount + elements.length) % elements.length;
   };
+
+  useTimedFunction({
+    interval: AUTOPLAY_INTERVAL,
+    targetFunction: () => {
+      handleRightButtonClick();
+    },
+    isPaused: paused,
+  });
 
   return (
     <div className={className}>
@@ -183,11 +191,6 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
                 >
                   {paused ? <MdPlayCircle size={24} /> : <MdPauseCircle size={24} />}
                 </button>
-                <TimedFunctionExecutor
-                  delayMs={AUTOPLAYDELAY}
-                  targetFunction={() => handleRightButtonClick()}
-                  isPaused={paused}
-                />
               </>
             )}
           </div>
