@@ -3,7 +3,7 @@
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { useWidth } from '@/providers/WidthProvider';
-import { ReactNode, useEffect, useRef } from 'react';
+import { ReactNode, useRef } from 'react';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import { MdClose } from 'react-icons/md';
 
@@ -16,19 +16,11 @@ export default function Article({ children }: ArticleProps) {
   const homeRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
 
-  const clickOutsideFunction = () => {
+  const navToHome = () => {
     router.push('/'); // navigate to root
   };
 
-  useOnClickOutside(homeRef, () => clickOutsideFunction());
-
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') clickOutsideFunction();
-    };
-    document.addEventListener('keydown', handler);
-    return () => document.removeEventListener('keydown', handler);
-  }, []);
+  useOnClickOutside(homeRef, navToHome);
 
   return (
     <article
@@ -40,7 +32,7 @@ export default function Article({ children }: ArticleProps) {
         'relative rounded-lg overflow-hidden max-w-3xl'
       )}
     >
-      <button onClick={clickOutsideFunction} className='absolute top-4 right-4 md:top-6 md:right-6'>
+      <button onClick={navToHome} className='absolute top-4 right-4 md:top-6 md:right-6'>
         <span className='sr-only'>Close Article Button</span>
         <MdClose />
       </button>

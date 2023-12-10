@@ -4,7 +4,8 @@ type Event = MouseEvent | TouchEvent;
 
 export const useOnClickOutside = <T extends HTMLElement = HTMLElement>(
   ref: RefObject<T>,
-  handler: (event: Event) => void
+  handler: (event: Event | KeyboardEvent) => void,
+  key: string = 'Escape'
 ) => {
   useEffect(() => {
     const listener = (event: Event) => {
@@ -13,15 +14,23 @@ export const useOnClickOutside = <T extends HTMLElement = HTMLElement>(
         return;
       }
 
-      handler(event); // Call the handler only if the click is outside of the element passed.
+      handler(event);
+    };
+
+    const escapeHandler = (e: KeyboardEvent) => {
+      if (e.key === key) {
+        handler(e);
+      }
     };
 
     document.addEventListener('mousedown', listener);
     document.addEventListener('touchstart', listener);
+    document.addEventListener('keydown', escapeHandler);
 
     return () => {
       document.removeEventListener('mousedown', listener);
       document.removeEventListener('touchstart', listener);
+      document.removeEventListener('keydown', escapeHandler);
     };
-  }, [ref, handler]); // Reload only if ref or handler changes
+  }, [ref, handler]);
 };

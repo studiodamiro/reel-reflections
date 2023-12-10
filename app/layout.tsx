@@ -39,9 +39,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <WidthProvider>
             <Curtain className='z-50' />
             <Header className='z-10 fixed -translate-x-1/2 left-1/2' />
+            {/* <MovieDetail /> */}
             <Main className='absolute z-50 -translate-x-1/2 left-1/2'>{children}</Main>
-            <BackgroundSlider />
             <CarouselWrapper className='z-10' />
+            <BackgroundSlider />
           </WidthProvider>
         </ThemeProvider>
       </body>
