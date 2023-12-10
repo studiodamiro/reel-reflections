@@ -16,7 +16,7 @@ export default function Article({ children }: ArticleProps) {
       style={{ width: containerWidth + 'px' }}
       className={cn(
         'prose dark:prose-invert prose-sm prose-quoteless px-4 md:px-6 py-10',
-        'bg-slate-300/30 dark:bg-slate-900/70 backdrop-blur-xl shadow-lg dark:shadow-black',
+        'bg-slate-300/70 dark:bg-slate-900/70 shadow-lg dark:shadow-black',
         'rounded-lg overflow-hidden max-w-3xl'
       )}
     >

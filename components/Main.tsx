@@ -1,22 +1,34 @@
 'use client';
 
-import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { ReactNode, useEffect, useState, useRef } from 'react';
+import { ReactNode, useEffect, useState, MouseEvent } from 'react';
 import { MdClose } from 'react-icons/md';
+import { usePathname, useRouter } from 'next/navigation';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface WidthProviderProps {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
 }
 
 export default function Main({ className, children }: WidthProviderProps) {
+  const DURATION = 0.3;
+  const router = useRouter();
+  const pathname = usePathname();
+  const [animate, setAnimate] = useState(false);
+
   return (
-    <main className={cn('relative flex flex-col items-center justify-center mt-16 pb-16 max-w-3xl', className)}>
-      <Link href='/' className='absolute z-20 top-4 md:top-6 right-4 md:right-6'>
-        <MdClose />
-      </Link>
-      {children}
-    </main>
+    <AnimatePresence>
+      {pathname !== '/' && (
+        <motion.main
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: DURATION }}
+          className={cn(className, 'flex flex-col items-center justify-center py-16 max-w-3xl')}
+        >
+          {children}
+        </motion.main>
+      )}
+    </AnimatePresence>
   );
 }

@@ -24,11 +24,6 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
   const AUTOPLAYDELAY = 5000;
   const { numberOfElements, elementBtnRatio, elementWidth, setElementWidth } = useWidth();
 
-  const handleWindowResize = () => {
-    const elementWidth = window.innerWidth / (numberOfElements + elementBtnRatio);
-    setElementWidth(elementWidth);
-  };
-
   useEffect(() => {
     handleWindowResize(); // Calculate on initial render
     window.addEventListener('resize', handleWindowResize); // on resize event
@@ -43,6 +38,11 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
   useEffect(() => {
     animatedValue.set(count);
   }, [animatedValue, count]);
+
+  const handleWindowResize = () => {
+    const elementWidth = window.innerWidth / (numberOfElements + elementBtnRatio);
+    setElementWidth(elementWidth);
+  };
 
   const handleLeftButtonClick = () => {
     setCount((prev) => {
@@ -78,14 +78,19 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
 
   const isInView = (id: number) => {
     const validCount = ((count % elements.length) + elements.length) % elements.length;
-    const distance = Math.min(Math.abs(validCount - id), elements.length - Math.abs(validCount - id));
-    return distance <= numberOfElements / 2;
+
+    // CENTERED
+    // const distance = Math.min(Math.abs(validCount - id), elements.length - Math.abs(validCount - id));
+    // return distance <= numberOfElements / 2;
+
+    // LEFT
+    const distance = (id - validCount + elements.length) % elements.length;
+    return distance <= numberOfElements - 1;
   };
 
   const viewDistanceValue = (id: number) => {
     const validCount = ((count % elements.length) + elements.length) % elements.length;
-    const distance = (validCount - id + elements.length) % elements.length;
-    return distance <= elements.length / 2 ? distance : distance - elements.length;
+    return (id - validCount + elements.length) % elements.length;
   };
 
   return (
@@ -95,7 +100,7 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
         <div
           ref={refImage}
           style={{ maxWidth: elementWidth + 'px' }}
-          className={cn('flex px-1 md:px-2 mx-auto aspect-video')}
+          className={cn('flex px-1 md:px-2 aspect-video mx-auto')}
         >
           <div className={'relative w-full'}>
             {elements.map((element, index) => (
@@ -109,6 +114,7 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
                 alt={element.tagline}
                 inView={isInView(element.id)}
                 viewDistance={viewDistanceValue(element.id)}
+                numberOfElements={numberOfElements}
               />
             ))}
           </div>
@@ -117,16 +123,16 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
         {/* LEFT & RIGHT BUTTONS */}
         <button
           onClick={handleLeftButtonClick}
-          className='absolute top-0 left-0 bg-transparent flex items-center justify-center'
           style={{ height: height, width: elementWidth * (elementBtnRatio / 2) + 'px' }}
+          className='absolute top-0 left-0 bg-blue-500/10 flex items-center justify-center '
         >
           <MdChevronLeft className='h-10 w-10 text-black dark:text-white' />
         </button>
 
         <button
           onClick={handleRightButtonClick}
-          className='absolute top-0 right-0 bg-transparent flex items-center justify-center'
           style={{ height: height, width: elementWidth * (elementBtnRatio / 2) + 'px' }}
+          className='absolute top-0 right-0 bg-transparent flex items-center justify-center'
         >
           <MdChevronRight className='h-10 w-10 text-black dark:text-white' />
         </button>
@@ -200,36 +206,46 @@ type ElementProps = {
   alt: string;
   inView: boolean;
   viewDistance: number;
+  numberOfElements: number;
 };
 
-function Element({ src, alt, id, motionValue, infinite, width, inView, viewDistance }: ElementProps) {
+function Element({ src, alt, id, motionValue, infinite, width, inView, viewDistance, numberOfElements }: ElementProps) {
   let x = useTransform(motionValue, (latest: number) => {
     let length = elements.length;
     let placeValue = latest % length;
 
+    // offset left: Math.floor(numberOfElements / 2) * -1
+    // offset right: Math.floor(numberOfElements / 2) * 1
+    // no offset (centered): 0
+    const offset = Math.floor(numberOfElements / 2) * -1;
+
     if (infinite) {
-      let offset = (length + id - placeValue) % length;
-      let memo = offset * width;
-      if (offset > Math.floor(length / 2)) memo -= width * length;
+      let offsetValue = (length + id - placeValue + offset) % length; // Update the offset calculation using the 'offset' prop
+      let memo = offsetValue * width;
+      if (offsetValue > Math.floor(length / 2)) memo -= width * length;
       return memo;
     } else {
-      let offset = id - latest;
-      let memo = offset * width;
+      let offsetValue = id - latest + offset; // Update the offset calculation using the 'offset' prop
+      let memo = offsetValue * width;
       return memo;
     }
   });
 
+  const hadleElementClick = (id: number) => {
+    console.log(id, viewDistance, inView);
+  };
+
   return (
     <motion.span style={{ x: x }} className={cn('absolute inset-0 flex justify-center group hover:z-10')}>
       <button
-        onClick={() => console.log(viewDistance)}
+        onClick={() => hadleElementClick(id)}
         className={cn(
           'relative w-full h-full overflow-hidden m-0 p-0 rounded-sm md:rounded-md shadow-gray-md',
           'opacity-30 transition-all duration-700 object-cover object-center shadow-md shadow-black/50',
           inView && 'opacity-100',
           'transform transition origin-center hover:scale-110 hover:duration-200 hover:delay-500',
-          viewDistance === -2 && 'origin-right',
-          viewDistance === 2 && 'origin-left'
+          viewDistance === 0 && 'origin-left',
+          viewDistance === numberOfElements - 1 && 'origin-right'
         )}
       >
         <Image src={src} alt={alt} sizes='full' fill priority />

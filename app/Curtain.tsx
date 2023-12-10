@@ -5,7 +5,11 @@ import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
-export default function Curtain({ className }: { className?: string }) {
+interface CurtainProps {
+  className?: string;
+}
+
+export default function Curtain({ className }: CurtainProps) {
   const pathname = usePathname();
 
   return (

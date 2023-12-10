@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import { ReactNode, createContext, useContext, useEffect, useState, Dispatch, SetStateAction } from 'react';
 
 interface WidthProps {
   numberOfElements: number;
@@ -9,7 +9,7 @@ interface WidthProps {
   windowWidth: number;
   containerWidth: number;
   breakpoint: string;
-  setElementWidth: React.Dispatch<React.SetStateAction<number>>;
+  setElementWidth: Dispatch<SetStateAction<number>>;
 }
 
 const WidthContext = createContext<WidthProps | undefined>(undefined);
@@ -38,7 +38,7 @@ export const WidthProvider = ({ children }: WidthProviderProps) => {
     if (windowWidth < 580) {
       setBreakpoint('sm');
       setNumberOfElements(3);
-    } else if (windowWidth < 2048) {
+    } else if (windowWidth < 1400) {
       setBreakpoint('md');
       setNumberOfElements(5);
     } else {
