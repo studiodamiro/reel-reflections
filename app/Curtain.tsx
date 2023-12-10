@@ -22,7 +22,7 @@ export default function Curtain({ className }: CurtainProps) {
           transition={{ duration: 0.3 }}
           className={cn(
             className,
-            'bg-slate-200/20 dark:bg-slate-950/20 backdrop-blur-lg',
+            'bg-slate-200/20 dark:bg-slate-950/80 backdrop-blur-lg',
             'fixed top-0 left-0 w-full h-full'
           )}
         >
