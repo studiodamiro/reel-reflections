@@ -8,9 +8,7 @@ import { useWidth } from '@/providers/WidthProvider';
 import { motion, useSpring, useTransform, MotionValue } from 'framer-motion';
 import { MdChevronLeft, MdChevronRight, MdPauseCircle, MdPlayCircle } from 'react-icons/md';
 import { cn } from '@/lib/utils';
-import { movieData } from '@/data/movies';
-
-const elements = movieData;
+import { allPosts as elements, type Post } from 'contentlayer/generated';
 
 type CarouselProps = {
   infinite?: boolean;
@@ -20,20 +18,21 @@ type CarouselProps = {
   className?: string;
 };
 
+// const elements = movieData;
+const AUTOPLAY_INTERVAL = 5000;
+
 export default function Carousel({ infinite = true, dots, controls, autoplay, className }: CarouselProps) {
-  const AUTOPLAY_INTERVAL = 5000;
   const { numberOfElements, elementBtnRatio, elementWidth, setElementWidth } = useWidth();
+  const [paused, setPaused] = useState(true);
+  const [count, setCount] = useState(0);
+  const [refImage, { width, height, left }] = useMeasure();
+  const animatedValue = useSpring(count, { stiffness: 50, damping: 12, duration: 1000 });
 
   useEffect(() => {
     handleWindowResize(); // Calculate on initial render
     window.addEventListener('resize', handleWindowResize); // on resize event
     return () => window.removeEventListener('resize', handleWindowResize); // cleanup
   }, [numberOfElements, elementBtnRatio, setElementWidth]);
-
-  let [paused, setPaused] = useState(true);
-  let [count, setCount] = useState(0);
-  let [refImage, { width, height, left }] = useMeasure();
-  let animatedValue = useSpring(count, { stiffness: 50, damping: 12, duration: 1000 });
 
   useEffect(() => {
     animatedValue.set(count);
@@ -114,15 +113,14 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
             {elements.map((element, index) => (
               <Element
                 key={index}
-                id={element.id}
+                id={index}
                 infinite={infinite}
                 motionValue={animatedValue}
-                src={element.src}
                 width={width}
-                alt={element.tagline}
-                inView={isInView(element.id)}
-                viewDistance={viewDistanceValue(element.id)}
+                inView={isInView(index)}
+                viewDistance={viewDistanceValue(index)}
                 numberOfElements={numberOfElements}
+                element={element}
               />
             ))}
           </div>
@@ -203,19 +201,18 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
 type ElementProps = {
   motionValue: MotionValue<number>;
   id: number;
-  src: string;
   infinite: boolean;
   width: number;
-  alt: string;
   inView: boolean;
   viewDistance: number;
   numberOfElements: number;
+  element: Post;
 };
 
-function Element({ src, alt, id, motionValue, infinite, width, inView, viewDistance, numberOfElements }: ElementProps) {
-  let x = useTransform(motionValue, (latest: number) => {
-    let length = elements.length;
-    let placeValue = latest % length;
+function Element({ id, motionValue, infinite, width, inView, viewDistance, numberOfElements, element }: ElementProps) {
+  const x = useTransform(motionValue, (latest: number) => {
+    const length = elements.length;
+    const placeValue = latest % length;
 
     // offset left: Math.floor(numberOfElements / 2) * -1
     // offset right: Math.floor(numberOfElements / 2) * 1
@@ -223,12 +220,12 @@ function Element({ src, alt, id, motionValue, infinite, width, inView, viewDista
     const offset = Math.floor(numberOfElements / 2) * -1;
 
     if (infinite) {
-      let offsetValue = (length + id - placeValue + offset) % length; // Update the offset calculation using the 'offset' prop
+      const offsetValue = (length + id - placeValue + offset) % length; // Update the offset calculation using the 'offset' prop
       let memo = offsetValue * width;
       if (offsetValue > Math.floor(length / 2)) memo -= width * length;
       return memo;
     } else {
-      let offsetValue = id - latest + offset; // Update the offset calculation using the 'offset' prop
+      const offsetValue = id - latest + offset; // Update the offset calculation using the 'offset' prop
       let memo = offsetValue * width;
       return memo;
     }
@@ -240,7 +237,7 @@ function Element({ src, alt, id, motionValue, infinite, width, inView, viewDista
 
   return (
     <motion.span style={{ x: x }} className={cn('absolute inset-0 flex justify-center group hover:z-10')}>
-      <button
+      <div
         onClick={() => hadleElementClick(id)}
         className={cn(
           'relative w-full h-full overflow-hidden m-0 p-0 rounded-sm md:rounded-md shadow-gray-md',
@@ -251,8 +248,10 @@ function Element({ src, alt, id, motionValue, infinite, width, inView, viewDista
           viewDistance === numberOfElements - 1 && 'origin-right'
         )}
       >
-        <Image src={src} alt={alt} sizes='full' fill priority />
-      </button>
+        <div className='absolute inset-0 bg-red500'>
+          {element.release.substring(0, 4)} - {element.title}
+        </div>
+      </div>
     </motion.span>
   );
 }

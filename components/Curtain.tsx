@@ -1,6 +1,4 @@
 'use client';
-
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
@@ -25,9 +23,7 @@ export default function Curtain({ className }: CurtainProps) {
             'fixed top-0 left-0 w-full h-full',
             'bg-slate-200/20 dark:bg-slate-950/80 backdrop-blur-lg'
           )}
-        >
-          {/* <Link href='/' className='absolute top-0 left-0 w-full h-full cursor-default' /> */}
-        </motion.div>
+        />
       )}
     </AnimatePresence>
   );
