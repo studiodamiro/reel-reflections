@@ -3,6 +3,7 @@ import { MovieType } from '@/lib/fetchMovies';
 import { MotionValue, motion, useTransform } from 'framer-motion';
 import { image_url } from '@/lib/constants';
 import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 
 type ElementProps = {
   motionValue: MotionValue<number>;
@@ -27,8 +28,8 @@ export function CarouselElement({
   numberOfElements,
   element,
 }: ElementProps) {
-  let x = useTransform(motionValue, (latest: number) => {
-    let placeValue = latest % length;
+  const x = useTransform(motionValue, (latest: number) => {
+    const placeValue = latest % length;
 
     // offset left: Math.floor(numberOfElements / 2) * -1
     // offset right: Math.floor(numberOfElements / 2) * 1
@@ -36,25 +37,27 @@ export function CarouselElement({
     const offset = Math.floor(numberOfElements / 2) * -1;
 
     if (infinite) {
-      let offsetValue = (length + id - placeValue + offset) % length;
+      const offsetValue = (length + id - placeValue + offset) % length;
       let memo = numberOfElements % 2 === 0 ? offsetValue * width + width / 2 : offsetValue * width;
       if (offsetValue > Math.floor(length / 2)) memo -= width * length;
       return memo;
     } else {
-      let offsetValue = id - latest + offset;
+      const offsetValue = id - latest + offset;
       let memo = offsetValue * width;
       return memo;
     }
   });
 
-  const hadleElementClick = (id: number) => {
-    console.log(id, viewDistance, inView);
+  const router = useRouter();
+
+  const navToPost = (slug: string) => {
+    router.push(`${slug}`);
   };
 
   return (
     <motion.span style={{ x: x }} className={cn('absolute inset-0 flex justify-center group hover:z-10')}>
       <button
-        onClick={() => hadleElementClick(id)}
+        onClick={() => element.slug && navToPost(element.slug)}
         className={cn(
           'group',
           'relative w-full h-full overflow-hidden m-0 p-0 rounded-sm md:rounded-md shadow-gray-md',

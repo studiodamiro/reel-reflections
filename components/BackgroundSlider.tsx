@@ -52,9 +52,9 @@ export default function BackgroundSlider({ elements }: BackgroundSliderProps) {
       </AnimatePresence>
       <div
         className={cn(
-          'absolute w-screen h-screen top-0 left-0',
+          'absolute w-screen h-screen top-0 left-0 bg-blend-multiply',
           'bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))]',
-          'from-transparent from-30% via-slate-900/50 to-80% to-slate-900'
+          'from-transparent from-0% via-slate-900/50 to-80% to-slate-900'
         )}
       />
     </div>
