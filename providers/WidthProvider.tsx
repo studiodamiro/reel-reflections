@@ -35,14 +35,23 @@ export const WidthProvider = ({ children }: WidthProviderProps) => {
 
   const handleWindowResize = () => {
     setWindowWidth(window.innerWidth);
-    if (windowWidth < 580) {
+    if (windowWidth < 480) {
       setBreakpoint('sm');
-      setNumberOfElements(3);
-    } else if (windowWidth < 1400) {
+      setNumberOfElements(2);
+    } else if (windowWidth < 768) {
       setBreakpoint('md');
-      setNumberOfElements(5);
-    } else {
+      setNumberOfElements(3);
+    } else if (windowWidth < 1024) {
       setBreakpoint('lg');
+      setNumberOfElements(4);
+    } else if (windowWidth < 1200) {
+      setBreakpoint('xl');
+      setNumberOfElements(5);
+    } else if (windowWidth < 1800) {
+      setBreakpoint('2xl');
+      setNumberOfElements(6);
+    } else {
+      setBreakpoint('3xl');
       setNumberOfElements(7);
     }
     // console.log(breakpoint, windowWidth);

@@ -134,7 +134,7 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
         <button
           onClick={handleLeftButtonClick}
           style={{ height: height, width: elementWidth * (elementBtnRatio / 2) + 'px' }}
-          className='absolute top-0 left-0 bg-blue-500/10 flex items-center justify-center '
+          className='absolute top-0 left-0 bg-transparent flex items-center justify-center '
         >
           <MdChevronLeft className='h-10 w-10 text-black dark:text-white' />
         </button>

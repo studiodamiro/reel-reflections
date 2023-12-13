@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useWidth } from '@/providers/WidthProvider';
 import { MdChevronLeft } from 'react-icons/md';
 import { cn } from '@/lib/utils';
 import { MovieType } from '@/lib/fetchMovies';
-import Carousel from './ui/Carousel';
+import { useOnClickOutside } from '@/hooks/useOnClickOutside';
+import Carousel from './Carousel';
 
 interface CarouselWrapperProps {
   className?: string;
@@ -16,8 +17,12 @@ export default function CarouselWrapper({ elements, className }: CarouselWrapper
   const { containerWidth } = useWidth();
   const [showList, setShowList] = useState(false);
 
+  const ref = useRef<HTMLDivElement>(null);
+  useOnClickOutside(ref, () => setShowList(false));
+
   return (
     <div
+      ref={ref}
       className={cn(
         'fixed w-full h-auto mx-auto bottom-0 z-0 transform transition-transform duration-300',
         className,
