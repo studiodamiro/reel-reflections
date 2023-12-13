@@ -1,22 +1,30 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { movieData } from '@/data/movies';
 import useTimedFunction from '@/hooks/useTimedFunction';
+import { MovieType } from '@/lib/fetchMovies';
+import { image_url } from '@/lib/constants';
 
-const elements = movieData;
+interface BackgroundSliderProps {
+  elements: MovieType[];
+}
 
-export default function BackgroundSlider() {
+export default function BackgroundSlider({ elements }: BackgroundSliderProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const currentImage = elements[currentImageIndex];
+  const [currentImage, setCurrentImage] = useState<MovieType | null>(null);
+
+  useEffect(() => {
+    setCurrentImage(elements[currentImageIndex]);
+  }, [currentImageIndex]);
 
   useTimedFunction({
     interval: 5000,
     targetFunction: () => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % elements.length);
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (elements?.length ?? 0));
     },
   });
 
@@ -24,16 +32,17 @@ export default function BackgroundSlider() {
     <div className='fixed top-0 left-0 w-full h-full opacity-50'>
       <AnimatePresence mode='wait'>
         <motion.div
-          key={currentImage.src}
+          key={currentImage?.id}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { duration: 0.7 } }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className='relative top-0 left-0 w-full h-full'
+          className='relative top-0 left-0 w-full h-full text-7xl'
         >
+          {/* {currentImage?.title} */}
           <Image
-            src={currentImage.src}
-            alt={currentImage.title + ' poster image'}
+            src={`${image_url}${currentImage?.backdrops?.[0]}`}
+            alt={currentImage?.title + 'poster image'}
             fill
             priority
             sizes='full'

@@ -25,10 +25,6 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
   const length = elements.length;
 
   useEffect(() => {
-    console.log(length);
-  }, []);
-
-  useEffect(() => {
     handleWindowResize(); // Calculate on initial render
     window.addEventListener('resize', handleWindowResize); // on resize event
     return () => window.removeEventListener('resize', handleWindowResize); // cleanup

@@ -1,4 +1,5 @@
 import './globals.css';
+
 import { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 import { WidthProvider } from '@/providers/WidthProvider';
@@ -45,7 +46,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             {/* <MovieDetail /> */}
             <Main className='absolute z-50 -translate-x-1/2 left-1/2'>{children}</Main>
             <CarouselWrapper elements={movies} className='z-10' />
-            <BackgroundSlider />
+            <BackgroundSlider elements={movies} />
           </WidthProvider>
         </ThemeProvider>
       </body>
