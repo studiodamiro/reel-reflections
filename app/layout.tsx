@@ -9,6 +9,7 @@ import Header from '@/components/Header';
 import Curtain from '../components/Curtain';
 import BackgroundSlider from '@/components/BackgroundSlider';
 import CarouselWrapper from '@/components/CarouselWrapper';
+import fetchMovies from '@/lib/fetchMovies';
 
 const font = Inter({
   subsets: ['latin'],
@@ -24,7 +25,9 @@ interface RootLayoutProps {
   children: ReactNode;
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({ children }: RootLayoutProps) {
+  const movies = await fetchMovies();
+
   return (
     <html lang='en' suppressHydrationWarning>
       <body
@@ -41,7 +44,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <Header className='z-10 fixed -translate-x-1/2 left-1/2' />
             {/* <MovieDetail /> */}
             <Main className='absolute z-50 -translate-x-1/2 left-1/2'>{children}</Main>
-            <CarouselWrapper className='z-10' />
+            <CarouselWrapper elements={movies} className='z-10' />
             <BackgroundSlider />
           </WidthProvider>
         </ThemeProvider>

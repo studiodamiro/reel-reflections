@@ -7,13 +7,13 @@ export function requestMovie(title: string, release: string) {
 }
 
 export function requestGenreList() {
-  return `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`;
+  return `${api_url}/genre/movie/list?api_key=${API_KEY}`;
 }
 
 export function requestImages(id: number) {
-  return `https://api.themoviedb.org/3/movie/${id}/images?language=en-US&include_image_language=en,null&api_key=${API_KEY}`;
+  return `${api_url}/movie/${id}/images?language=en-US&include_image_language=en,null&api_key=${API_KEY}`;
 }
 
 export function requestVideos(id: number) {
-  return `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US&api_key=${API_KEY}`;
+  return `${api_url}/movie/${id}/videos?language=en-US&api_key=${API_KEY}`;
 }

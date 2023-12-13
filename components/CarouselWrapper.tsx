@@ -3,10 +3,16 @@
 import { useState } from 'react';
 import { useWidth } from '@/providers/WidthProvider';
 import { MdChevronLeft } from 'react-icons/md';
-import Carousel from './Carousel';
 import { cn } from '@/lib/utils';
+import { MovieType } from '@/lib/fetchMovies';
+import Carousel from './ui/Carousel';
 
-export default function CarouselWrapper({ className }: { className?: string }) {
+interface CarouselWrapperProps {
+  className?: string;
+  elements: MovieType[];
+}
+
+export default function CarouselWrapper({ elements, className }: CarouselWrapperProps) {
   const { containerWidth } = useWidth();
   const [showList, setShowList] = useState(false);
 
@@ -28,7 +34,7 @@ export default function CarouselWrapper({ className }: { className?: string }) {
         </button>
         <p>selection</p>
       </div>
-      <Carousel />
+      <Carousel elements={elements} />
     </div>
   );
 }

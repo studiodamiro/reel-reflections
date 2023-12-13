@@ -2,8 +2,8 @@ import { useEffect, useRef } from 'react';
 
 type UseTimedFunctionProps = {
   interval: number;
-  targetFunction: () => void;
   isPaused?: boolean;
+  targetFunction: () => void;
 };
 
 export default function useTimedFunction({ interval, targetFunction, isPaused = false }: UseTimedFunctionProps) {
@@ -15,9 +15,6 @@ export default function useTimedFunction({ interval, targetFunction, isPaused = 
         targetFunction();
       }, interval);
     }
-
-    return () => {
-      clearInterval(intervalRef.current!);
-    };
+    return () => clearInterval(intervalRef.current!);
   }, [interval, targetFunction, isPaused]);
 }
