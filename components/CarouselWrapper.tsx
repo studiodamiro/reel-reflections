@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { MovieType } from '@/lib/fetchMovies';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import Carousel from './Carousel';
+import { usePathname } from 'next/navigation';
 
 interface CarouselWrapperProps {
   className?: string;
@@ -17,8 +18,9 @@ export default function CarouselWrapper({ elements, className }: CarouselWrapper
   const { containerWidth } = useWidth();
   const [showList, setShowList] = useState(false);
 
+  const pathname = usePathname();
   const ref = useRef<HTMLDivElement>(null);
-  useOnClickOutside(ref, () => setShowList(false));
+  useOnClickOutside(ref, () => pathname === '/' && setShowList(false));
 
   return (
     <div

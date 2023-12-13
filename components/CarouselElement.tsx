@@ -6,14 +6,14 @@ import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 
 type ElementProps = {
-  motionValue: MotionValue<number>;
   id: number;
+  motionValue: MotionValue<number>;
   infinite: boolean;
   width: number;
   inView: boolean;
   viewDistance: number;
-  numberOfElements: number;
   length: number;
+  numberOfElements: number;
   element: MovieType;
 };
 
@@ -49,7 +49,6 @@ export function CarouselElement({
   });
 
   const router = useRouter();
-
   const navToPost = (slug: string) => {
     router.push(`${slug}`);
   };
@@ -59,8 +58,7 @@ export function CarouselElement({
       <button
         onClick={() => element.slug && navToPost(element.slug)}
         className={cn(
-          'group',
-          'relative w-full h-full overflow-hidden m-0 p-0 rounded-sm md:rounded-md shadow-gray-md',
+          'relative w-full h-full overflow-hidden m-0 p-0 rounded-sm md:rounded-md shadow-gray-md group',
           'opacity-30 transition-all duration-700 object-cover object-center shadow-md shadow-black/50',
           'transform transition origin-center hover:scale-110 hover:duration-200 hover:delay-500',
           inView && 'opacity-100',
