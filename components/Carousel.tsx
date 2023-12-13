@@ -111,7 +111,7 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
           <div className={'relative w-full'}>
             {elements.map((element, index: number | null | undefined) => (
               <CarouselElement
-                key={index}
+                key={element.slug}
                 id={index!}
                 infinite={infinite}
                 motionValue={animatedValue}
@@ -152,7 +152,7 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
                   if (index! % numberOfElements === 0) {
                     return (
                       <button
-                        key={index}
+                        key={element.id}
                         onClick={() => handleDotButtonClick(index!)}
                         className={cn(
                           'w-2 h-2 rounded-full bg-gray-rg transition-all duration-300',

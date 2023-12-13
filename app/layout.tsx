@@ -11,6 +11,7 @@ import Curtain from '../components/Curtain';
 import BackgroundSlider from '@/components/BackgroundSlider';
 import CarouselWrapper from '@/components/CarouselWrapper';
 import fetchMovies from '@/lib/fetchMovies';
+import { MoviesProvider } from '@/providers/MoviesProvider';
 
 const font = Inter({
   subsets: ['latin'],

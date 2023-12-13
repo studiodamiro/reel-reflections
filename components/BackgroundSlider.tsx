@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { movieData } from '@/data/movies';
 import useTimedFunction from '@/hooks/useTimedFunction';
 import { MovieType } from '@/lib/fetchMovies';
 import { image_url } from '@/lib/constants';
@@ -42,7 +41,7 @@ export default function BackgroundSlider({ elements }: BackgroundSliderProps) {
           {/* {currentImage?.title} */}
           <Image
             src={`${image_url}${currentImage?.backdrops?.[0]}`}
-            alt={currentImage?.title + 'poster image'}
+            alt={`${currentImage?.title} poster image`}
             fill
             priority
             sizes='full'
