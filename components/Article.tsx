@@ -27,8 +27,10 @@ export default function Article({ children, title }: ArticleProps) {
       ref={homeRef}
       style={{ width: containerWidth + 'px' }}
       className={cn(
-        'bg-slate-300/70 dark:bg-slate-800/70 shadow-lg dark:shadow-black',
-        'relative rounded-lg overflow-hidden max-w-3xl'
+        'relative rounded-lg overflow-hidden max-w-3xl shadow-lg dark:shadow-black',
+        'bg-gradient-to-t from-0% to-80%',
+        'from-slate-300/30 to-slate-300',
+        'dark:from-slate-900/50 dark:to-slate-900'
       )}
     >
       <button onClick={navToHome} className='absolute top-4 right-4 md:top-6 md:right-6'>
@@ -36,8 +38,9 @@ export default function Article({ children, title }: ArticleProps) {
         <MdClose />
       </button>
       <ArticleSlider title={title} />
-      {/* TODO: Add video link to youtube */}
-      <article className='mx-auto px-4 py-8 prose dark:prose-invert prose-sm prose-quoteless'>{children}</article>
+      <article className='px-4 sm:px-16 md:px-28 py-8 max-w-full mx-auto prose dark:prose-invert prose-sm prose-quoteless'>
+        {children}
+      </article>
     </div>
   );
 }

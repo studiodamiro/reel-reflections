@@ -34,7 +34,7 @@ export default function BackgroundSlider() {
           animate={{ opacity: 1, transition: { duration: 0.7 } }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className='relative top-0 left-0 w-full h-full text-7xl'
+          className='relative top-0 left-0 w-full h-full'
         >
           {/* {currentImage?.title} */}
           <Image

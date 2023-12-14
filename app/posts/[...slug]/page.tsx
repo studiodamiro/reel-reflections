@@ -17,9 +17,9 @@ export default async function PostPage({ params }: PostProps) {
 
   return (
     <Article title={post.title}>
+      <hr className='my-4' />
       <h1>{post.article}</h1>
       {post.description && <p className='text-xl'>{post.description}</p>}
-      <hr className='my-4' />
       <Mdx code={post.body.code} />
       <hr className='my-4' />
       {stringToDate(post.created)}
