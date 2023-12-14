@@ -2,8 +2,8 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { allPosts } from 'contentlayer/generated';
 import { Mdx } from '@/components/Mdx';
-import Article from '@/components/Article';
 import { stringToDate } from '@/lib/stringToDate';
+import ArticlePost from '@/components/ArticlePost';
 
 interface PostProps {
   params: {
@@ -27,16 +27,13 @@ export default async function PostPage({ params }: PostProps) {
   if (!post) notFound();
 
   return (
-    <Article title={post.title}>
-      <h1 style={{ textWrap: 'balance' }} className='text-balance text-center sm:text-left'>
-        {post.article}
-      </h1>
+    <ArticlePost title={post.title}>
       <hr className='my-4' />
       {post.description && <p className='text-xl'>{post.description}</p>}
       <Mdx code={post.body.code} />
       <hr className='my-4' />
       {stringToDate(post.created)}
-    </Article>
+    </ArticlePost>
   );
 }
 

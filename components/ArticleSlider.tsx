@@ -5,8 +5,10 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMovies } from '@/providers/MoviesProvider';
 import { image_url, video_url } from '@/lib/constants';
+import { usePalette } from 'color-thief-react';
 import { cn } from '@/lib/utils';
 import Logo from './Logo';
+import { adjustHexColor } from '@/lib/adjustColor';
 
 interface ArticleSliderProps {
   title: string;
@@ -20,10 +22,20 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
   const backdrops = element.backdrops;
   const logos = element.logos;
   const video = element.videos;
-
   const videoLink = `${video_url}${video}`;
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
+  const [color, setColor] = useState<string | null>(null);
+
+  const { data, loading, error } = usePalette(`${image_url}${logos?.[0]}`, 2, 'hex', {
+    crossOrigin: 'anonymous',
+    quality: 100,
+  });
+
+  useEffect(() => {
+    if (data) setColor(adjustHexColor(data![1], 'light', 10));
+  }, [data]);
 
   useEffect(() => {
     setCurrentImage(backdrops![currentImageIndex]);
@@ -65,22 +77,24 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
           </div>
 
           {/* DETAILS */}
-          <div className='relative flex flex-col sm:flex-row items-center'>
-            <div className='flex grow items-center justify-start text-xs uppercase tracking-wider py-2'>
+          <div className='relative flex flex-col gap-4 sm:flex-row items-center'>
+            <div className='flex grow items-center justify-start text-xs text-center sm:text-left uppercase tracking-wider py-2'>
               <span className='font-bold'>{element.release}</span>
-              <span>{element.vote_average}</span>
               <span className='px-2'> | </span>
-              <span className='whitespace-nowrap'>{element.genre?.map((genre) => genre).join(' ● ')}</span>
+              <span style={{ textWrap: 'balance' }} className=''>
+                {element.genre?.map((genre) => genre).join(' ● ')}
+              </span>
             </div>
             {videoLink !== video_url && (
               <Link
                 rel='noopener noreferrer'
                 target='_blank'
                 href={videoLink}
+                style={{ backgroundColor: color! }}
                 className={cn(
                   'relative px-3.5 py-1.5 flex-none rounded-full tracking-widest text-xs font-bold shadow-md',
                   'bg-slate-900/70 hover:bg-slate-900 dark:bg-white/70 hover:dark:bg-white dark:text-slate-900 text-white',
-                  'transition-colors duration-300'
+                  'transition-colors duration-300 ease-out'
                 )}
               >
                 PLAY TRAILER
@@ -106,6 +120,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
             />
           </motion.div>
         </AnimatePresence>
+
         <div
           className={cn(
             // 'hidden sm:block',
@@ -124,6 +139,12 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
             'dark:from-slate-900/0 dark:via-slate-900/20 dark:to-slate-900'
           )}
         />
+      </div>
+      <div
+        style={{ textWrap: 'balance', color: color! }}
+        className='px-4 sm:px-16 md:px-28 pt-16 text-3xl font-semibold transition-colors duration-300 ease-out'
+      >
+        {element.article}
       </div>
     </>
   );
