@@ -41,7 +41,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         )}
       >
         <MoviesProvider movies={movies}>
-          <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+          <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
             <WidthProvider>
               <Curtain className='z-50' />
               <Header className='z-10 fixed -translate-x-1/2 left-1/2' />

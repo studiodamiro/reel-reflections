@@ -28,7 +28,9 @@ export default async function PostPage({ params }: PostProps) {
 
   return (
     <Article title={post.title}>
-      <h1>{post.article}</h1>
+      <h1 style={{ textWrap: 'balance' }} className='text-balance'>
+        {post.article}
+      </h1>
       <hr className='my-4' />
       {post.description && <p className='text-xl'>{post.description}</p>}
       <Mdx code={post.body.code} />

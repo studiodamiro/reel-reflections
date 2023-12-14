@@ -21,49 +21,56 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
   const logos = element.logos;
   const video = element.videos;
 
-  if (!backdrops) return null;
-  if (!logos) return null;
-  if (!video) return null;
-
   const videoLink = `${video_url}${video}`;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
 
   useEffect(() => {
-    setCurrentImage(backdrops[currentImageIndex]);
+    setCurrentImage(backdrops![currentImageIndex]);
   }, [currentImageIndex]);
 
   useTimedFunction({
     interval: 5000,
     targetFunction: () => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (backdrops.length ?? 0));
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (backdrops?.length ?? 0));
     },
   });
 
   return (
     <>
       <div className='relative w-full object-cover object-center aspect-video'>
-        <div className='absolute z-20 w-full h-full flex flex-col gap-1 sm:gap-2 justify-center sm:justify-end px-4 sm:px-16 md:px-28'>
-          <Logo className='origin-center sm:origin-bottom-left scale-75 text-center sm:text-left' />
-          <div className='relative w-1/2 md:w-3/5 aspect-video mx-auto sm:m-0'>
+        <div className='absolute z-20 min-w-full min-h-full flex flex-col gap-1 sm:gap-4 justify-center sm:justify-end px-4 sm:px-16 md:px-28'>
+          <span className='relative grow-[3]' />
+          {/* REEL LOGO */}
+          <Logo className='relative origin-center sm:origin-bottom-left text-center sm:text-left text-sm' />
+
+          {/* MOVIE LOGO */}
+          <div className='relative w-1/2 grow-[1] mx-auto sm:m-0'>
             {logos ? (
               <Image
                 src={`${image_url}${logos[0]}`}
                 alt={`${title} poster image ${currentImageIndex + 1}`}
                 fill
                 sizes='full'
-                className='origin-bottom-left object-contain drop-shadow-lg shadow-black ml-0 sm:-ml-8'
+                className={cn(
+                  'origin-center sm:origin-bottom-left object-contain object-center sm:object-left-top drop-shadow-lg shadow-black'
+                  // 'ml-0 sm:-ml-8'
+                )}
               />
             ) : (
-              <h2>{element.title}</h2>
+              <h2 style={{ textWrap: 'balance' }} className='text-3xl font-bold'>
+                {element.title}
+              </h2>
             )}
           </div>
-          <div className='flex flex-col sm:flex-row items-center'>
-            <div className='flex flex-1 items-center justify-start text-xs uppercase tracking-wider py-2'>
+
+          {/* DETAILS */}
+          <div className='relative flex flex-col sm:flex-row items-center'>
+            <div className='flex grow items-center justify-start text-xs uppercase tracking-wider py-2'>
               <span className='font-bold'>{element.release}</span>
               <span>{element.vote_average}</span>
               <span className='px-2'> | </span>
-              {element.genre?.map((genre) => genre).join(' · ')}
+              <span className='flex-wrap'>{element.genre?.map((genre) => genre).join(' · ')}</span>
             </div>
             {videoLink !== video_url && (
               <Link
