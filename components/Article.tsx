@@ -7,6 +7,7 @@ import { useWidth } from '@/providers/WidthProvider';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import { MdClose } from 'react-icons/md';
 import ArticleSlider from './ArticleSlider';
+import { useMovies } from '@/providers/MoviesProvider';
 
 interface ArticleProps {
   title: string;
@@ -38,7 +39,7 @@ export default function Article({ children, title }: ArticleProps) {
         <MdClose />
       </button>
       <ArticleSlider title={title} />
-      <article className='px-4 sm:px-16 md:px-28 py-8 max-w-full mx-auto prose dark:prose-invert prose-sm prose-quoteless'>
+      <article className='px-4 sm:px-16 md:px-28 py-16 max-w-full mx-auto prose dark:prose-invert prose-sm prose-quoteless'>
         {children}
       </article>
     </div>

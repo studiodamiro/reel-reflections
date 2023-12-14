@@ -11,14 +11,25 @@ interface PostProps {
   };
 }
 
+export async function generateMetadata({ params }: PostProps): Promise<Metadata> {
+  const post = await getPostFromParams(params);
+
+  if (!post) return {};
+
+  return {
+    title: post.title,
+    description: post.description,
+  };
+}
+
 export default async function PostPage({ params }: PostProps) {
   const post = await getPostFromParams(params);
   if (!post) notFound();
 
   return (
     <Article title={post.title}>
-      <hr className='my-4' />
       <h1>{post.article}</h1>
+      <hr className='my-4' />
       {post.description && <p className='text-xl'>{post.description}</p>}
       <Mdx code={post.body.code} />
       <hr className='my-4' />
@@ -34,17 +45,6 @@ async function getPostFromParams(params: PostProps['params']) {
   if (!post) null;
 
   return post;
-}
-
-export async function generateMetadata({ params }: PostProps): Promise<Metadata> {
-  const post = await getPostFromParams(params);
-
-  if (!post) return {};
-
-  return {
-    title: post.title,
-    description: post.description,
-  };
 }
 
 export async function generateStaticParams(): Promise<PostProps['params'][]> {
