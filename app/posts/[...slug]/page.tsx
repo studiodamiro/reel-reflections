@@ -28,7 +28,7 @@ export default async function PostPage({ params }: PostProps) {
 
   return (
     <Article title={post.title}>
-      <h1 style={{ textWrap: 'balance' }} className='text-balance'>
+      <h1 style={{ textWrap: 'balance' }} className='text-balance text-center sm:text-left'>
         {post.article}
       </h1>
       <hr className='my-4' />

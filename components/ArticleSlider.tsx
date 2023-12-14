@@ -38,23 +38,23 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
 
   return (
     <>
-      <div className='relative w-full object-cover object-center aspect-video'>
+      <div className='relative w-full object-cover object-center aspect-video overflow-hidden'>
         <div className='absolute z-20 min-w-full min-h-full flex flex-col gap-1 sm:gap-4 justify-center sm:justify-end px-4 sm:px-16 md:px-28'>
-          <span className='relative grow-[3]' />
+          <span className='relative grow-0 sm:grow-[3]' />
           {/* REEL LOGO */}
-          <Logo className='relative origin-center sm:origin-bottom-left text-center sm:text-left text-sm' />
+          <Logo className='relative origin-center sm:origin-bottom-left text-left sm:text-center text-sm mt-4 sm:mt-0 mx-auto sm:ml-0' />
 
           {/* MOVIE LOGO */}
-          <div className='relative w-1/2 grow-[1] mx-auto sm:m-0'>
+          <div className='relative w-3/5 sm:w-1/2 grow-[1] mx-auto sm:ml-0'>
             {logos ? (
               <Image
                 src={`${image_url}${logos[0]}`}
                 alt={`${title} poster image ${currentImageIndex + 1}`}
                 fill
                 sizes='full'
+                priority
                 className={cn(
-                  'origin-center sm:origin-bottom-left object-contain object-center sm:object-left-top drop-shadow-lg shadow-black'
-                  // 'ml-0 sm:-ml-8'
+                  'origin-bottom-left object-contain object-center sm:object-left-top drop-shadow-lg shadow-black'
                 )}
               />
             ) : (
@@ -70,7 +70,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
               <span className='font-bold'>{element.release}</span>
               <span>{element.vote_average}</span>
               <span className='px-2'> | </span>
-              <span className='flex-wrap'>{element.genre?.map((genre) => genre).join(' · ')}</span>
+              <span className='whitespace-nowrap'>{element.genre?.map((genre) => genre).join(' ● ')}</span>
             </div>
             {videoLink !== video_url && (
               <Link
@@ -108,6 +108,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
         </AnimatePresence>
         <div
           className={cn(
+            // 'hidden sm:block',
             'absolute z-10 w-full aspect-video bg-blend-multiply',
             'bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))]',
             'from-0% via-60% to-80% ',

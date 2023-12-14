@@ -18,7 +18,7 @@ export default function Main({ className, children }: WidthProviderProps) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: DURATION }}
-        className={cn(className, 'flex flex-col items-center justify-center py-16')}
+        className={cn(className, 'flex flex-col items-center justify-center p-8 sm:py-16')}
       >
         {children}
       </motion.main>

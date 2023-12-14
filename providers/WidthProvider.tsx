@@ -27,14 +27,16 @@ interface WidthProviderProps {
 export const WidthProvider = ({ children }: WidthProviderProps) => {
   const [numberOfElements, setNumberOfElements] = useState(3); // use only odd numbers
   const [elementWidth, setElementWidth] = useState(320);
-  const [windowWidth, setWindowWidth] = useState(1024);
+  const [windowWidth, setWindowWidth] = useState(1200);
   const [breakpoint, setBreakpoint] = useState('md');
+  const [elementBtnRatio, setElementBtnRatio] = useState(0.8);
 
-  const elementBtnRatio = 0.5;
   const containerWidth = elementWidth * numberOfElements;
 
   const handleWindowResize = () => {
     setWindowWidth(window.innerWidth);
+    setElementBtnRatio(numberOfElements < 4 ? 0.3 : 0.8);
+
     if (windowWidth < 480) {
       setBreakpoint('sm');
       setNumberOfElements(2);
@@ -61,7 +63,7 @@ export const WidthProvider = ({ children }: WidthProviderProps) => {
     handleWindowResize(); // Calculate on initial render
     window.addEventListener('resize', handleWindowResize); // on resize event
     return () => window.removeEventListener('resize', handleWindowResize); // cleanup
-  }, [windowWidth, setWindowWidth]);
+  }, [windowWidth]);
 
   return (
     <WidthContext.Provider

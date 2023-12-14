@@ -34,7 +34,7 @@ export default function Article({ children, title }: ArticleProps) {
         'dark:from-slate-900/50 dark:to-slate-900'
       )}
     >
-      <button onClick={navToHome} className='absolute top-4 right-4 md:top-6 md:right-6'>
+      <button onClick={navToHome} className='absolute z-30 top-4 right-4 md:top-6 md:right-6'>
         <span className='sr-only'>Close Article Button</span>
         <MdClose />
       </button>
