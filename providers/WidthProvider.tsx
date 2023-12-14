@@ -35,7 +35,7 @@ export const WidthProvider = ({ children }: WidthProviderProps) => {
 
   const handleWindowResize = () => {
     setWindowWidth(window.innerWidth);
-    setElementBtnRatio(numberOfElements < 4 ? 0.3 : 0.8);
+    setElementBtnRatio(numberOfElements < 4 ? 0.4 : 0.8);
 
     if (windowWidth < 480) {
       setBreakpoint('sm');
