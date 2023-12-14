@@ -72,7 +72,6 @@ export function CarouselElement({
             alt={`Movie logo for ${element.title}`}
             sizes='full'
             fill
-            priority
             className='z-20 scale-[0.66] oject-center object-contain'
           />
           <div
@@ -86,7 +85,6 @@ export function CarouselElement({
             alt={`Movie backdrop for ${element.title}`}
             sizes='full'
             fill
-            priority
             className={cn(
               'z-0 object-center object-cover',
               'transition-full duration-700 delay-500',

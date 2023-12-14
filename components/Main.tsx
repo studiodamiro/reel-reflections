@@ -10,7 +10,7 @@ interface WidthProviderProps {
 }
 
 export default function Main({ className, children }: WidthProviderProps) {
-  const DURATION = 0.3;
+  const DURATION = 0.7;
 
   return (
     <AnimatePresence>

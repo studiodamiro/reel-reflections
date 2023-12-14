@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 import { WidthProvider } from '@/providers/WidthProvider';
 import { ThemeProvider } from '@/providers/ThemeProvider';
+import { MoviesProvider } from '@/providers/MoviesProvider';
 import { cn } from '@/lib/utils';
 import Main from '@/components/Main';
 import Header from '@/components/Header';
@@ -11,7 +12,6 @@ import Curtain from '../components/Curtain';
 import BackgroundSlider from '@/components/BackgroundSlider';
 import CarouselWrapper from '@/components/CarouselWrapper';
 import fetchMovies from '@/lib/fetchMovies';
-import { MoviesProvider } from '@/providers/MoviesProvider';
 
 const font = Inter({
   subsets: ['latin'],
@@ -40,16 +40,18 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           'transition-colors duration-300'
         )}
       >
-        <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-          <WidthProvider>
-            <Curtain className='z-50' />
-            <Header className='z-10 fixed -translate-x-1/2 left-1/2' />
-            {/* <MovieDetail /> */}
-            <Main className='absolute z-50 -translate-x-1/2 left-1/2'>{children}</Main>
-            <CarouselWrapper elements={movies} className='z-10' />
-            <BackgroundSlider elements={movies} />
-          </WidthProvider>
-        </ThemeProvider>
+        <MoviesProvider movies={movies}>
+          <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+            <WidthProvider>
+              <Curtain className='z-50' />
+              <Header className='z-10 fixed -translate-x-1/2 left-1/2' />
+              {/* <MovieDetail /> */}
+              <Main className='absolute z-50 -translate-x-1/2 left-1/2'>{children}</Main>
+              <CarouselWrapper className='z-10' />
+              <BackgroundSlider />
+            </WidthProvider>
+          </ThemeProvider>
+        </MoviesProvider>
       </body>
     </html>
   );

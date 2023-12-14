@@ -1,20 +1,18 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import { useWidth } from '@/providers/WidthProvider';
 import { MdChevronLeft } from 'react-icons/md';
 import { cn } from '@/lib/utils';
-import { MovieType } from '@/lib/fetchMovies';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import Carousel from './Carousel';
-import { usePathname } from 'next/navigation';
 
 interface CarouselWrapperProps {
   className?: string;
-  elements: MovieType[];
 }
 
-export default function CarouselWrapper({ elements, className }: CarouselWrapperProps) {
+export default function CarouselWrapper({ className }: CarouselWrapperProps) {
   const { containerWidth } = useWidth();
   const [showList, setShowList] = useState(false);
 
@@ -41,7 +39,7 @@ export default function CarouselWrapper({ elements, className }: CarouselWrapper
         </button>
         <p>selection</p>
       </div>
-      <Carousel elements={elements} />
+      <Carousel />
     </div>
   );
 }

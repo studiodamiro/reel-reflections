@@ -1,14 +1,14 @@
 'use client';
 
-import useMeasure from 'react-use-measure';
-import useTimedFunction from '@/hooks/useTimedFunction';
 import { useEffect, useState } from 'react';
 import { useWidth } from '@/providers/WidthProvider';
 import { useSpring } from 'framer-motion';
 import { MdChevronLeft, MdChevronRight, MdPauseCircle, MdPlayCircle } from 'react-icons/md';
 import { cn } from '@/lib/utils';
 import { CarouselElement } from './CarouselElement';
-import { MovieType } from '@/lib/fetchMovies';
+import { useMovies } from '@/providers/MoviesProvider';
+import useMeasure from 'react-use-measure';
+import useTimedFunction from '@/hooks/useTimedFunction';
 
 type CarouselProps = {
   infinite?: boolean;
@@ -16,10 +16,10 @@ type CarouselProps = {
   autoplay?: boolean;
   controls?: boolean;
   className?: string;
-  elements: MovieType[];
 };
 
-export default function Carousel({ infinite = true, dots, controls, autoplay, className, elements }: CarouselProps) {
+export default function Carousel({ infinite = true, dots, controls, autoplay, className }: CarouselProps) {
+  const elements = useMovies();
   const AUTOPLAY_INTERVAL = 5000;
   const { numberOfElements, elementBtnRatio, elementWidth, setElementWidth } = useWidth();
   const length = elements.length;

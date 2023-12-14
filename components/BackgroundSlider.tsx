@@ -7,12 +7,10 @@ import { cn } from '@/lib/utils';
 import useTimedFunction from '@/hooks/useTimedFunction';
 import { MovieType } from '@/lib/fetchMovies';
 import { image_url } from '@/lib/constants';
+import { useMovies } from '@/providers/MoviesProvider';
 
-interface BackgroundSliderProps {
-  elements: MovieType[];
-}
-
-export default function BackgroundSlider({ elements }: BackgroundSliderProps) {
+export default function BackgroundSlider() {
+  const elements = useMovies();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentImage, setCurrentImage] = useState<MovieType | null>(null);
 
@@ -43,7 +41,6 @@ export default function BackgroundSlider({ elements }: BackgroundSliderProps) {
             src={`${image_url}${currentImage?.backdrops?.[0]}`}
             alt={`${currentImage?.title} poster image`}
             fill
-            priority
             sizes='full'
             className='object-center object-cover'
           />
@@ -53,7 +50,7 @@ export default function BackgroundSlider({ elements }: BackgroundSliderProps) {
         className={cn(
           'absolute w-screen h-screen top-0 left-0 bg-blend-multiply',
           'bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))]',
-          'from-transparent from-0% via-slate-900/50 to-80% to-slate-900'
+          'from-transparent from-0% via-slate-900/20 to-80% to-slate-900'
         )}
       />
     </div>
