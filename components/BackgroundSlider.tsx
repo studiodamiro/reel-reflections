@@ -41,6 +41,7 @@ export default function BackgroundSlider() {
             src={`${image_url}${currentImage?.backdrops?.[0]}`}
             alt={`${currentImage?.title} poster image`}
             fill
+            priority
             sizes='full'
             className='object-center object-cover'
           />

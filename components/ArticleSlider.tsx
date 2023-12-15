@@ -10,7 +10,6 @@ import { cn } from '@/lib/utils';
 import Logo from './Logo';
 import adjustHexColor from '@/lib/adjustColor';
 import arrangeColors from '@/lib/arrangeColors';
-import invertColor from '@/lib/invertColor';
 
 interface ArticleSliderProps {
   title: string;
@@ -28,9 +27,9 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
+
   const [priColor, setPriColor] = useState<string | null>(null);
   const [secColor, setSecColor] = useState<string | null>(null);
-
   const { data, loading, error } = usePalette(`${image_url}${logos?.[0]}`, 4, 'hex', {
     crossOrigin: 'anonymous',
     quality: 10,
@@ -54,7 +53,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
   }, [currentImageIndex]);
 
   useTimedFunction({
-    interval: 5000,
+    interval: 6000,
     targetFunction: () => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (backdrops?.length ?? 0));
     },
@@ -74,9 +73,8 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
               <Image
                 src={`${image_url}${logos[0]}`}
                 alt={`${title} poster image ${currentImageIndex + 1}`}
-                fill
                 sizes='full'
-                priority
+                fill
                 className={cn(
                   'origin-bottom-left object-contain object-center sm:object-left-top drop-shadow-lg shadow-black'
                 )}
@@ -120,7 +118,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
         </div>
         <AnimatePresence mode='wait'>
           <motion.div
-            key={element.id}
+            key={currentImageIndex}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { duration: 0.7 } }}
             exit={{ opacity: 0 }}
@@ -132,14 +130,14 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
               alt={`${title} poster image ${currentImageIndex + 1}`}
               sizes='full'
               fill
-              priority
+              priority={true}
+              className='object-center object-cover'
             />
           </motion.div>
         </AnimatePresence>
 
         <div
           className={cn(
-            // 'hidden sm:block',
             'absolute z-10 w-full aspect-video bg-blend-multiply',
             'bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))]',
             'from-0% via-60% to-80% ',
@@ -156,12 +154,12 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
           )}
         />
       </div>
-      <div
+      <h1
         style={{ textWrap: 'balance', color: priColor! }}
-        className='px-4 sm:px-16 md:px-28 pt-16 text-3xl text-center sm:text-left font-semibold transition-colors duration-300 ease-out'
+        className='px-4 sm:px-16 md:px-28 pt-16 text-xl sm:text-3xl text-center sm:text-left font-semibold transition-colors duration-300 ease-out'
       >
         {element.article}
-      </div>
+      </h1>
     </>
   );
 }
