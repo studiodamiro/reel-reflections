@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import { useWidth } from '@/providers/WidthProvider';
 import { useSpring } from 'framer-motion';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
-import { cn } from '@/lib/utils';
 import { CarouselElement } from './CarouselElement';
 import { useMovies } from '@/providers/MoviesProvider';
+import { cn } from '@/lib/utils';
 import useMeasure from 'react-use-measure';
 
 type CarouselProps = {
@@ -16,6 +16,7 @@ type CarouselProps = {
 
 export default function Carousel({ infinite = true, className }: CarouselProps) {
   const { movies } = useMovies();
+  const AUTOPLAY_INTERVAL = 5000;
   const { numberOfElements, elementBtnRatio, elementWidth, setElementWidth } = useWidth();
   const length = movies.length;
 

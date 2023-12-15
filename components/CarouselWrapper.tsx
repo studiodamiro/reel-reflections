@@ -4,8 +4,8 @@ import { useState, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { useWidth } from '@/providers/WidthProvider';
 import { MdChevronLeft } from 'react-icons/md';
-import { cn } from '@/lib/utils';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
+import { cn } from '@/lib/utils';
 import Carousel from './Carousel';
 
 interface CarouselWrapperProps {

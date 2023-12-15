@@ -20,7 +20,7 @@ export default function BackgroundDetail() {
     <div
       style={{ width: containerWidth, paddingBottom: `${elementWidth + 30}px` }}
       className={cn(
-        'absolute inset-0 w-full min-h-screen mx-auto px-4 md:px-6 py-6 bg-red-500/20',
+        'fixed inset-0 w-full min-h-screen mx-auto px-4 md:px-6 py-6 bg-red-500/20',
         'flex flex-col justify-end'
       )}
     >
