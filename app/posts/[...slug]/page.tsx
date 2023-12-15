@@ -28,8 +28,8 @@ export default async function PostPage({ params }: PostProps) {
 
   return (
     <ArticlePost title={post.title}>
+      {post.description && <p className='text-xl pt-4'>{post.description}</p>}
       <hr className='my-4' />
-      {post.description && <p className='text-xl'>{post.description}</p>}
       <Mdx code={post.body.code} />
       <hr className='my-4' />
       {stringToDate(post.created)}
