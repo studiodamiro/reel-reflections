@@ -12,9 +12,9 @@ export default function Header({ className }: { className?: string }) {
     <div className={cn('', className)}>
       <header
         style={{ width: containerWidth }}
-        className='h-16 mx-auto px-4 md:px-6 flex flex-row justify-between items-center '
+        className='mx-auto px-4 md:px-6 py-6 flex flex-row justify-between items-start'
       >
-        <Logo />
+        <Logo className='scale-75 origin-top-left' />
         <Navigation />
       </header>
     </div>

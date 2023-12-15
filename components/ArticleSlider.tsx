@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 import Logo from './Logo';
 import adjustHexColor from '@/lib/adjustColor';
 import arrangeColors from '@/lib/arrangeColors';
+import ReelLogo from './ReelLogo';
 
 interface ArticleSliderProps {
   title: string;
@@ -51,6 +52,9 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
       const colors: string[] = arrangeColors(data);
       setPriColor(adjustHexColor(colors[1], 'light', 20));
       setSecColor(adjustHexColor(colors[1], 'light', 80));
+    } else {
+      setPriColor('#ffffff');
+      setSecColor('#cccccc');
     }
   }, [data]);
 
@@ -62,12 +66,16 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
     <>
       <div className='relative w-full object-cover object-center aspect-video overflow-hidden'>
         <div className='absolute z-20 min-w-full min-h-full flex flex-col gap-1 sm:gap-4 justify-center sm:justify-end px-4 sm:px-16 md:px-28'>
-          <span className='relative grow-0 sm:grow-[3]' />
           {/* REEL LOGO */}
-          <Logo className='relative origin-center sm:origin-bottom-left text-left sm:text-center text-sm mt-4 sm:mt-0 mx-auto sm:ml-0' />
+          <Logo
+            color={priColor!}
+            secColor={secColor!}
+            className='relative scale-50 origin-center sm:origin-bottom-left mx-auto sm:ml-0'
+          />
+          <span className='relative grow-0 sm:grow-[3]' />
 
           {/* MOVIE LOGO */}
-          <div className='relative w-3/5 sm:w-1/2 grow-[1] mx-auto sm:ml-0'>
+          <div className='relative w-3/5 sm:w-1/2 grow-[2] mx-auto sm:ml-0 origin-bottom-left '>
             {logos ? (
               <Image
                 src={`${image_url}${logos[0]}`}
@@ -75,7 +83,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
                 sizes='full'
                 fill
                 className={cn(
-                  'origin-bottom-left object-contain object-center sm:object-left-top drop-shadow-lg shadow-black'
+                  'origin-bottom-left object-contain object-center sm:object-left-top drop-shadow-lg shadow-black '
                 )}
               />
             ) : (
@@ -115,6 +123,8 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
             )}
           </div>
         </div>
+
+        {/* IMAGE SLIDER */}
         <AnimatePresence mode='wait'>
           <motion.div
             key={currentImageIndex}
@@ -135,11 +145,12 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
           </motion.div>
         </AnimatePresence>
 
+        {/* GRADIENTS */}
         <div
           className={cn(
             'absolute z-10 w-full aspect-video bg-blend-multiply',
             'bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))]',
-            'from-0% via-60% to-80% ',
+            'from-0% via-50% to-80% ',
             'from-transparent via-slate-300/20 to-slate-300',
             'from-transparent dark:via-slate-900/50 dark:to-slate-900'
           )}
@@ -153,6 +164,8 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
           )}
         />
       </div>
+
+      {/* TITLE */}
       <h1
         style={{ textWrap: 'balance', color: priColor! }}
         className='px-4 sm:px-16 md:px-28 pt-16 text-xl sm:text-3xl text-center sm:text-left font-semibold transition-colors duration-300 ease-out'

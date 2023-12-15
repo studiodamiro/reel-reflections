@@ -13,7 +13,7 @@ import BackgroundSlider from '@/components/BackgroundSlider';
 import CarouselWrapper from '@/components/CarouselWrapper';
 import fetchMovies from '@/lib/fetchMovies';
 
-const font = Inter({
+const inter = Inter({
   subsets: ['latin'],
   weight: ['400', '700'],
 });
@@ -34,7 +34,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
     <html lang='en' suppressHydrationWarning>
       <body
         className={cn(
-          font.className,
+          inter.className,
           'antialiased min-h-screen',
           'bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50',
           'transition-colors duration-300'

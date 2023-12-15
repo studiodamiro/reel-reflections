@@ -18,7 +18,6 @@ export default function ArticlePost({ children, title }: ArticleProps) {
   const { containerWidth } = useWidth();
   const homeRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
-
   const navToHome = () => router.push('/');
 
   useOnClickOutside(homeRef, navToHome);
