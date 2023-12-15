@@ -1,4 +1,4 @@
-export function adjustHexColor(hexColor: string, darkLight: 'dark' | 'light', percent: number) {
+export default function adjustHexColor(hexColor: string, darkLight: 'dark' | 'light', percent: number) {
   // Convert hex to RGB
   const r = parseInt(hexColor.substring(1, 3), 16);
   const g = parseInt(hexColor.substring(3, 5), 16);

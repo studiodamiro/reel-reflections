@@ -8,8 +8,9 @@ import { image_url, video_url } from '@/lib/constants';
 import { usePalette } from 'color-thief-react';
 import { cn } from '@/lib/utils';
 import Logo from './Logo';
-import { adjustHexColor } from '@/lib/adjustColor';
+import adjustHexColor from '@/lib/adjustColor';
 import arrangeColors from '@/lib/arrangeColors';
+import invertColor from '@/lib/invertColor';
 
 interface ArticleSliderProps {
   title: string;
@@ -27,18 +28,24 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
-  const [color, setColor] = useState<string | null>(null);
+  const [priColor, setPriColor] = useState<string | null>(null);
+  const [secColor, setSecColor] = useState<string | null>(null);
 
-  const { data, loading, error } = usePalette(`${image_url}${logos?.[0]}`, 3, 'hex', {
+  const { data, loading, error } = usePalette(`${image_url}${logos?.[0]}`, 4, 'hex', {
     crossOrigin: 'anonymous',
     quality: 10,
   });
+
+  const [isHover, setIsHover] = useState(false);
+  const handleMouseEnter = () => setIsHover(true);
+  const handleMouseLeave = () => setIsHover(false);
 
   useEffect(() => {
     // if (data) setColor(adjustHexColor(data![1], 'light', 100));
     if (data) {
       const colors: string[] = arrangeColors(data);
-      setColor(adjustHexColor(colors[0], 'light', 20));
+      setPriColor(adjustHexColor(colors[1], 'light', 20));
+      setSecColor(adjustHexColor(colors[1], 'light', 80));
     }
   }, [data]);
 
@@ -97,11 +104,13 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
                 rel='noopener noreferrer'
                 target='_blank'
                 href={videoLink}
-                style={{ backgroundColor: color! }}
+                style={{ backgroundColor: isHover ? secColor! : priColor! }}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
                 className={cn(
                   'relative px-3.5 py-1.5 flex-none rounded-full tracking-widest text-xs font-bold shadow-md items-center justify-center',
-                  'bg-slate-900/70 hover:bg-slate-900 dark:bg-white/70 hover:dark:bg-white dark:text-slate-900 text-white',
-                  'transition-colors duration-300 ease-out'
+                  'bg-slate-900/70  dark:bg-white/70  dark:text-slate-900 text-white opacity-80 hover:opacity-100',
+                  'transition-all duration-300 ease-out'
                 )}
               >
                 PLAY TRAILER
@@ -148,7 +157,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
         />
       </div>
       <div
-        style={{ textWrap: 'balance', color: color! }}
+        style={{ textWrap: 'balance', color: priColor! }}
         className='px-4 sm:px-16 md:px-28 pt-16 text-3xl text-center sm:text-left font-semibold transition-colors duration-300 ease-out'
       >
         {element.article}
