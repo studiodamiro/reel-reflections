@@ -1,6 +1,8 @@
 'use client';
 
+import Image from 'next/image';
 import { MovieType } from '@/lib/fetchMovies';
+import { image_url } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { useMovies } from '@/providers/MoviesProvider';
 import { useWidth } from '@/providers/WidthProvider';
@@ -8,13 +10,12 @@ import { useEffect, useState } from 'react';
 
 export default function BackgroundDetail() {
   const { containerWidth, elementWidth } = useWidth();
-  const { movies } = useMovies();
-  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+  const { movies, currentMovieIndex } = useMovies();
   const [currentImage, setCurrentImage] = useState<MovieType | null>(null);
 
   useEffect(() => {
-    setCurrentImage(movies[currentImageIndex] ?? null);
-  }, [currentImageIndex]);
+    setCurrentImage(movies[currentMovieIndex] ?? null);
+  }, [currentMovieIndex]);
 
   return (
     <div
@@ -24,7 +25,16 @@ export default function BackgroundDetail() {
         'flex flex-col justify-end'
       )}
     >
-      BackgroundDetail
+      <div className='relative w-1/2 sm:w-1/3 aspect-video bg-red-500/10'>
+        <Image
+          src={`${image_url}${currentImage?.logos?.[0]}`}
+          alt={`${currentImage?.title} poster image`}
+          sizes='full'
+          fill
+          priority
+          className='object-contain object-center-bottom sm:object-left-bottom drop-shadow-lg shadow-black bg-red-500'
+        />
+      </div>
     </div>
   );
 }

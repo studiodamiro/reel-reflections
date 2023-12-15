@@ -16,7 +16,6 @@ type CarouselProps = {
 
 export default function Carousel({ infinite = true, className }: CarouselProps) {
   const { movies } = useMovies();
-  const AUTOPLAY_INTERVAL = 5000;
   const { numberOfElements, elementBtnRatio, elementWidth, setElementWidth } = useWidth();
   const length = movies.length;
 
@@ -86,9 +85,9 @@ export default function Carousel({ infinite = true, className }: CarouselProps) 
           className={cn('flex px-1 md:px-2 aspect-video mx-auto')}
         >
           <div className={'relative w-full'}>
-            {movies.map((element, index: number | null | undefined) => (
+            {movies.map((movie, index: number | null | undefined) => (
               <CarouselElement
-                key={element.slug}
+                key={movie.slug}
                 id={index!}
                 infinite={infinite}
                 motionValue={animatedValue}
@@ -97,7 +96,7 @@ export default function Carousel({ infinite = true, className }: CarouselProps) 
                 viewDistance={viewDistanceValue(index!)}
                 numberOfElements={numberOfElements}
                 length={length}
-                element={element}
+                element={movie}
               />
             ))}
           </div>

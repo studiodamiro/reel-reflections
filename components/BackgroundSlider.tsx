@@ -31,9 +31,9 @@ export default function BackgroundSlider() {
           <Image
             src={`${image_url}${currentImage?.backdrops?.[0]}`}
             alt={`${currentImage?.title} poster image`}
+            sizes='full'
             fill
             priority
-            sizes='full'
             className='object-center object-cover'
           />
         </motion.div>

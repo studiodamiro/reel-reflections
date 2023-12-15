@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import useTimedFunction from '@/hooks/useTimedFunction';
@@ -28,16 +30,16 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
 
-  useEffect(() => {
-    setCurrentImage(backdrops![currentImageIndex]);
-  }, [currentImageIndex]);
-
   useTimedFunction({
-    interval: 6000,
+    interval: 5000,
     targetFunction: () => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (backdrops?.length ?? 0));
     },
   });
+
+  useEffect(() => {
+    setCurrentImage(backdrops![currentImageIndex]);
+  }, [currentImageIndex]);
 
   const [priColor, setPriColor] = useState<string | null>(null);
   const [secColor, setSecColor] = useState<string | null>(null);
@@ -81,6 +83,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
                 alt={`${title} poster image ${currentImageIndex + 1}`}
                 sizes='full'
                 fill
+                priority
                 className={cn(
                   'origin-bottom-left object-contain object-center sm:object-left-top drop-shadow-lg shadow-black '
                 )}
@@ -138,7 +141,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
               alt={`${title} poster image ${currentImageIndex + 1}`}
               sizes='full'
               fill
-              priority={true}
+              priority
               className='object-center object-cover'
             />
           </motion.div>
