@@ -10,22 +10,24 @@ type UseTimedFunctionProps = {
 export default function useTimedFunction({
   interval,
   delay = 0,
-  targetFunction,
   isPaused = false,
+  targetFunction,
 }: UseTimedFunctionProps) {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    if (!isPaused) {
-      setTimeout(() => {
-        intervalRef.current = setInterval(() => {
-          targetFunction();
-        }, interval);
-      }, delay);
+    function executeTimedFunction() {
+      intervalRef.current = setInterval(targetFunction, interval);
     }
+
+    if (!isPaused) {
+      timeoutRef.current = setTimeout(executeTimedFunction, delay);
+    }
+
     return () => {
+      clearTimeout(timeoutRef.current!);
       clearInterval(intervalRef.current!);
-      clearTimeout(delay);
     };
   }, [interval, delay, targetFunction, isPaused]);
 }

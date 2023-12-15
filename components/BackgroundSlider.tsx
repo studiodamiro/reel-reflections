@@ -11,11 +11,11 @@ import { useMovies } from '@/providers/MoviesProvider';
 
 export default function BackgroundSlider() {
   const elements = useMovies();
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
   const [currentImage, setCurrentImage] = useState<MovieType | null>(null);
 
   useEffect(() => {
-    setCurrentImage(elements[currentImageIndex]);
+    setCurrentImage(elements[currentImageIndex] ?? null);
   }, [currentImageIndex]);
 
   useTimedFunction({

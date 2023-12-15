@@ -39,7 +39,7 @@ export default function CarouselWrapper({ className }: CarouselWrapperProps) {
         </button>
         <p>selection</p>
       </div>
-      <Carousel />
+      <Carousel controls autoplay />
     </div>
   );
 }

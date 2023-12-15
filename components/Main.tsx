@@ -1,8 +1,5 @@
-'use client';
-
 import { cn } from '@/lib/utils';
 import { ReactNode } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 
 interface WidthProviderProps {
   children?: ReactNode;
@@ -10,18 +7,5 @@ interface WidthProviderProps {
 }
 
 export default function Main({ className, children }: WidthProviderProps) {
-  const DURATION = 0.7;
-
-  return (
-    <AnimatePresence>
-      <motion.main
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: DURATION }}
-        className={cn(className, 'flex flex-col items-center justify-center py-6 sm:py-16')}
-      >
-        {children}
-      </motion.main>
-    </AnimatePresence>
-  );
+  return <main className={cn('flex flex-col items-center justify-center py-6 sm:py-16', className)}>{children}</main>;
 }

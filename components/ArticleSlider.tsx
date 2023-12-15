@@ -28,26 +28,6 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
 
-  const [priColor, setPriColor] = useState<string | null>(null);
-  const [secColor, setSecColor] = useState<string | null>(null);
-  const { data, loading, error } = usePalette(`${image_url}${logos?.[0]}`, 4, 'hex', {
-    crossOrigin: 'anonymous',
-    quality: 10,
-  });
-
-  const [isHover, setIsHover] = useState(false);
-  const handleMouseEnter = () => setIsHover(true);
-  const handleMouseLeave = () => setIsHover(false);
-
-  useEffect(() => {
-    // if (data) setColor(adjustHexColor(data![1], 'light', 100));
-    if (data) {
-      const colors: string[] = arrangeColors(data);
-      setPriColor(adjustHexColor(colors[1], 'light', 20));
-      setSecColor(adjustHexColor(colors[1], 'light', 80));
-    }
-  }, [data]);
-
   useEffect(() => {
     setCurrentImage(backdrops![currentImageIndex]);
   }, [currentImageIndex]);
@@ -58,6 +38,25 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (backdrops?.length ?? 0));
     },
   });
+
+  const [priColor, setPriColor] = useState<string | null>(null);
+  const [secColor, setSecColor] = useState<string | null>(null);
+  const { data, loading, error } = usePalette(`${image_url}${logos?.[0]}`, 4, 'hex', {
+    crossOrigin: 'anonymous',
+    quality: 10,
+  });
+
+  useEffect(() => {
+    if (data) {
+      const colors: string[] = arrangeColors(data);
+      setPriColor(adjustHexColor(colors[1], 'light', 20));
+      setSecColor(adjustHexColor(colors[1], 'light', 80));
+    }
+  }, [data]);
+
+  const [isHover, setIsHover] = useState(false);
+  const handleMouseEnter = () => setIsHover(true);
+  const handleMouseLeave = () => setIsHover(false);
 
   return (
     <>
