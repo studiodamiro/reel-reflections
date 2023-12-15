@@ -10,14 +10,13 @@ import { cn } from '@/lib/utils';
 import Logo from './Logo';
 import adjustHexColor from '@/lib/adjustColor';
 import arrangeColors from '@/lib/arrangeColors';
-import ReelLogo from './ReelLogo';
 
 interface ArticleSliderProps {
   title: string;
 }
 
 export default function ArticleSlider({ title }: ArticleSliderProps) {
-  const movies = useMovies();
+  const { movies } = useMovies();
   const element = movies.find((movie) => movie.title === title);
   if (!element) return null;
 
