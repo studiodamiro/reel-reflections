@@ -12,6 +12,7 @@ import Curtain from '../components/Curtain';
 import BackgroundSlider from '@/components/BackgroundSlider';
 import CarouselWrapper from '@/components/CarouselWrapper';
 import fetchMovies from '@/lib/fetchMovies';
+import BackgroundDetail from '@/components/BackgroundDetail';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -45,8 +46,8 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             <WidthProvider>
               <Curtain className='z-50' />
               <Header className='z-10 fixed -translate-x-1/2 left-1/2' />
-              {/* <MovieDetail /> */}
               <Main className='absolute z-50 -translate-x-1/2 left-1/2'>{children}</Main>
+              <BackgroundDetail />
               <CarouselWrapper className='z-10' />
               <BackgroundSlider />
             </WidthProvider>

@@ -19,10 +19,10 @@ type CarouselProps = {
 };
 
 export default function Carousel({ infinite = true, dots, controls, autoplay, className }: CarouselProps) {
-  const elements = useMovies();
   const AUTOPLAY_INTERVAL = 5000;
+  const { movies } = useMovies();
   const { numberOfElements, elementBtnRatio, elementWidth, setElementWidth } = useWidth();
-  const length = elements.length;
+  const length = movies.length;
 
   useEffect(() => {
     handleWindowResize(); // Calculate on initial render
@@ -109,7 +109,7 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
           className={cn('flex px-1 md:px-2 aspect-video mx-auto')}
         >
           <div className={'relative w-full'}>
-            {elements.map((element, index: number | null | undefined) => (
+            {movies.map((element, index: number | null | undefined) => (
               <CarouselElement
                 key={element.slug}
                 id={index!}
@@ -148,7 +148,7 @@ export default function Carousel({ infinite = true, dots, controls, autoplay, cl
             {/* DOTS */}
             {dots && (
               <div className='w-full flex justify-center gap-3'>
-                {elements.map((element, index: number | null | undefined) => {
+                {movies.map((element, index: number | null | undefined) => {
                   if (index! % numberOfElements === 0) {
                     return (
                       <button

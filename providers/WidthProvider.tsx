@@ -14,9 +14,11 @@ interface WidthProps {
 
 const WidthContext = createContext<WidthProps | undefined>(undefined);
 
-export const useWidth = () => {
+export const useWidth = (): WidthProps => {
   const context = useContext(WidthContext);
-  if (!context) throw new Error('useWidth must be used within a WidthProvider');
+  if (!context) {
+    throw new Error('useWidth must be used within a WidthProvider');
+  }
   return context;
 };
 
@@ -25,45 +27,53 @@ interface WidthProviderProps {
 }
 
 export const WidthProvider = ({ children }: WidthProviderProps) => {
-  const [numberOfElements, setNumberOfElements] = useState(3); // use only odd numbers
-  const [elementWidth, setElementWidth] = useState(320);
-  const [windowWidth, setWindowWidth] = useState(1200);
-  const [breakpoint, setBreakpoint] = useState('md');
-  const [elementBtnRatio, setElementBtnRatio] = useState(0.8);
+  const [numberOfElements, setNumberOfElements] = useState<number>(3); // use only odd numbers
+  const [elementWidth, setElementWidth] = useState<number>(320);
+  const [windowWidth, setWindowWidth] = useState<number>(1200);
+  const [breakpoint, setBreakpoint] = useState<string>('md');
+  const [elementBtnRatio, setElementBtnRatio] = useState<number>(0.8);
 
   const containerWidth = elementWidth * numberOfElements;
 
   const handleWindowResize = () => {
-    setWindowWidth(window.innerWidth);
+    const newWindowWidth = window.innerWidth;
+    setWindowWidth(newWindowWidth);
     setElementBtnRatio(numberOfElements < 4 ? 0.4 : 0.8);
 
-    if (windowWidth < 480) {
-      setBreakpoint('sm');
-      setNumberOfElements(3);
-    } else if (windowWidth < 768) {
-      setBreakpoint('md');
-      setNumberOfElements(3);
-    } else if (windowWidth < 1024) {
-      setBreakpoint('lg');
-      setNumberOfElements(4);
-    } else if (windowWidth < 1200) {
-      setBreakpoint('xl');
-      setNumberOfElements(5);
-    } else if (windowWidth < 1800) {
-      setBreakpoint('2xl');
-      setNumberOfElements(6);
-    } else {
-      setBreakpoint('3xl');
-      setNumberOfElements(7);
+    let newBreakpoint = '3xl';
+    let newNumberOfElements = 7;
+
+    if (newWindowWidth < 480) {
+      newBreakpoint = 'sm';
+      newNumberOfElements = 3;
+    } else if (newWindowWidth < 768) {
+      newBreakpoint = 'md';
+      newNumberOfElements = 3;
+    } else if (newWindowWidth < 1024) {
+      newBreakpoint = 'lg';
+      newNumberOfElements = 4;
+    } else if (newWindowWidth < 1200) {
+      newBreakpoint = 'xl';
+      newNumberOfElements = 5;
+    } else if (newWindowWidth < 1800) {
+      newBreakpoint = '2xl';
+      newNumberOfElements = 6;
     }
-    // console.log(breakpoint, windowWidth);
+
+    setBreakpoint(newBreakpoint);
+    setNumberOfElements(newNumberOfElements);
   };
 
   useEffect(() => {
     handleWindowResize(); // Calculate on initial render
-    window.addEventListener('resize', handleWindowResize); // on resize event
-    return () => window.removeEventListener('resize', handleWindowResize); // cleanup
-  }, [windowWidth]);
+
+    const debouncedHandleResize = debounce(handleWindowResize, 200);
+    window.addEventListener('resize', debouncedHandleResize);
+
+    return () => {
+      window.removeEventListener('resize', debouncedHandleResize);
+    };
+  }, []);
 
   return (
     <WidthContext.Provider
@@ -80,4 +90,18 @@ export const WidthProvider = ({ children }: WidthProviderProps) => {
       {children}
     </WidthContext.Provider>
   );
+};
+
+// Debounce utility function
+const debounce = (callback: (...args: any[]) => void, delay: number) => {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+  return (...args: any[]) => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(() => {
+      callback.apply(null, args);
+      timeoutId = null;
+    }, delay);
+  };
 };

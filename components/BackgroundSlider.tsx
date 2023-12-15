@@ -4,26 +4,17 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import useTimedFunction from '@/hooks/useTimedFunction';
 import { MovieType } from '@/lib/fetchMovies';
 import { image_url } from '@/lib/constants';
 import { useMovies } from '@/providers/MoviesProvider';
 
 export default function BackgroundSlider() {
-  const elements = useMovies();
-  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+  const { movies, currentMovieIndex } = useMovies();
   const [currentImage, setCurrentImage] = useState<MovieType | null>(null);
 
   useEffect(() => {
-    setCurrentImage(elements[currentImageIndex] ?? null);
-  }, [currentImageIndex]);
-
-  useTimedFunction({
-    interval: 5000,
-    targetFunction: () => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % (elements?.length ?? 0));
-    },
-  });
+    setCurrentImage(movies[currentMovieIndex] ?? null);
+  }, [currentMovieIndex]);
 
   return (
     <div className='fixed top-0 left-0 w-full h-full opacity-50'>
