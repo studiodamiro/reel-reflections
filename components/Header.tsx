@@ -18,7 +18,7 @@ export default function Header({ className }: { className?: string }) {
         className='mx-auto px-4 md:px-6 flex flex-row justify-between items-center'
       >
         <Link href={'/'}>
-          <ReelLogo color={priColor} secColor={secColor} className='scale-[0.4] sm:scale-50 origin-left' />
+          <ReelLogo color={priColor} secColor={secColor} className='scale-[0.3] sm:scale-50 origin-left' />
         </Link>
         <Navigation />
       </header>

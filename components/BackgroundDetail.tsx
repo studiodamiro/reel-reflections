@@ -98,7 +98,7 @@ export default function BackgroundDetail({ className }: BackgroundDetailProps) {
         </div>
 
         {/* OVERVIEW */}
-        <div className='w-full sm:w-2/3 md:w-2/5 text-sm text-center sm:text-left line-clamp-3'>
+        <div className='w-full sm:w-2/3 lg:w-2/5 text-sm text-center sm:text-left line-clamp-3'>
           {currentMovie?.overview}
         </div>
       </div>

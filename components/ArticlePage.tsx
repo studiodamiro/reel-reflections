@@ -21,11 +21,11 @@ export default function ArticlePage({ children }: ArticleProps) {
   useOnClickOutside(homeRef, navToHome);
 
   return (
-    <div
+    <article
       ref={homeRef}
       style={{ width: containerWidth + 'px' }}
       className={cn(
-        'relative rounded-lg overflow-hidden max-w-3xl my-6 sm:my-16 shadow-lg dark:shadow-black',
+        'relative rounded-lg overflow-hidden max-w-3xl my-6 sm:my-16 shadow-md dark:shadow-black/20',
         'bg-gradient-to-t from-0% to-80%',
         'from-slate-300/30 to-slate-300',
         'dark:from-slate-900/50 dark:to-slate-900'
@@ -42,9 +42,9 @@ export default function ArticlePage({ children }: ArticleProps) {
         <span className='sr-only'>Close Article Button</span>
         <MdClose />
       </button>
-      <article className='px-4 sm:px-16 md:px-28 py-16 max-w-full mx-auto prose dark:prose-invert prose-sm prose-quoteless'>
+      <div className='px-4 sm:px-16 md:px-28 py-16 max-w-full mx-auto prose dark:prose-invert prose-sm prose-quoteless'>
         {children}
-      </article>
-    </div>
+      </div>
+    </article>
   );
 }

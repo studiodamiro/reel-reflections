@@ -27,7 +27,7 @@ export default function ArticlePost({ children, title }: ArticleProps) {
       ref={homeRef}
       style={{ width: containerWidth + 'px' }}
       className={cn(
-        'relative rounded-lg overflow-hidden max-w-3xl my-6 sm:my-16 shadow-lg dark:shadow-black',
+        'relative rounded-lg overflow-hidden max-w-3xl my-6 sm:my-16 shadow-md dark:shadow-black/20',
         'bg-gradient-to-t from-0% to-80%',
         'from-slate-300/30 to-slate-300',
         'dark:from-slate-900/50 dark:to-slate-900'
