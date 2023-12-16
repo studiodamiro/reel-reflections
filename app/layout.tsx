@@ -47,7 +47,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               <Curtain className='z-50' />
               <Header className='z-10 fixed -translate-x-1/2 left-1/2' />
               <Main className='absolute z-50 -translate-x-1/2 left-1/2'>{children}</Main>
-              <BackgroundDetail />
+              <BackgroundDetail className='z-40' />
               <CarouselWrapper className='z-10' />
               <BackgroundSlider />
             </WidthProvider>
