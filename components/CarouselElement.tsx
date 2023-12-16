@@ -50,7 +50,7 @@ export function CarouselElement({
 
   const router = useRouter();
   const navToPost = (slug: string) => {
-    router.push(`${slug}`);
+    router.push(slug);
   };
 
   return (

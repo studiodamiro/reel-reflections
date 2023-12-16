@@ -16,8 +16,9 @@ type CarouselProps = {
 
 export default function Carousel({ infinite = true, className }: CarouselProps) {
   const { movies } = useMovies();
+  const recentMovies = movies.slice(0, 10); // first 10 movies
   const { numberOfElements, elementBtnRatio, elementWidth, setElementWidth } = useWidth();
-  const length = movies.length;
+  const length = recentMovies.length;
 
   useEffect(() => {
     handleWindowResize(); // Calculate on initial render
@@ -85,7 +86,7 @@ export default function Carousel({ infinite = true, className }: CarouselProps) 
           className={cn('flex px-1 md:px-2 aspect-video mx-auto')}
         >
           <div className={'relative w-full'}>
-            {movies.map((movie, index: number | null | undefined) => (
+            {recentMovies.map((movie, index: number | null | undefined) => (
               <CarouselElement
                 key={movie.slug}
                 id={index!}

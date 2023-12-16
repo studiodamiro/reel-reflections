@@ -65,18 +65,19 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
 
   return (
     <>
-      <div className='relative w-full object-cover object-center aspect-video overflow-hidden'>
-        <div className='absolute z-20 min-w-full min-h-full flex flex-col gap-1 sm:gap-4 justify-center sm:justify-end px-4 sm:px-16 md:px-28'>
+      <div className='relative w-full object-cover object-center aspect-square sm:aspect-video overflow-hidden'>
+        <div className='absolute z-20 min-w-full min-h-full flex flex-col gap-4 justify-center sm:justify-end px-4 sm:px-16 md:px-28'>
           {/* REEL LOGO */}
+          <span className='block sm:hidden relative grow-[2] sm:grow-[3]' />
           <Logo
             color={priColor!}
             secColor={secColor!}
-            className='relative scale-50 origin-center sm:origin-bottom-left mx-auto sm:ml-0'
+            className='relative scale-50 origin-bottom sm:origin-bottom-left mx-auto sm:ml-0'
           />
-          <span className='relative grow-0 sm:grow-[3]' />
+          <span className='hidden sm:block relative grow-[2] sm:grow-[3]' />
 
           {/* MOVIE LOGO */}
-          <div className='relative w-3/5 sm:w-1/2 grow-[2] mx-auto sm:ml-0 origin-bottom-left '>
+          <div className='relative w-3/5 sm:w-1/2 grow-[3] sm:grow-[2] mx-auto sm:ml-0 origin-bottom-left'>
             {logos ? (
               <Image
                 src={`${image_url}${logos[0]}`}
@@ -84,9 +85,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
                 sizes='full'
                 fill
                 priority
-                className={cn(
-                  'origin-bottom-left object-contain object-center sm:object-left-top drop-shadow-lg shadow-black '
-                )}
+                className={cn('object-contain object-center sm:object-left-bottom drop-shadow-lg shadow-black')}
               />
             ) : (
               <h2 style={{ textWrap: 'balance' }} className='text-3xl font-bold'>
@@ -96,10 +95,10 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
           </div>
 
           {/* DETAILS */}
-          <div className='relative flex flex-col gap-2sm:gap-4 sm:flex-row items-center justify-start'>
+          <div className='relative flex flex-col gap-1 sm:gap-0 sm:flex-row items-center justify-start'>
             <div className='flex flex-row items-center justify-center'>
               <span className='tracking-widest font-bold scale-110 text-xs'>{element.release}</span>
-              <span className='px-2 hidden sm:block'>|</span>
+              <span className='px-4 hidden sm:block'>|</span>
             </div>
             <div className='flex grow items-center justify-start text-xs text-center sm:text-left uppercase tracking-wider py-2'>
               <span style={{ textWrap: 'balance' }} className=''>
