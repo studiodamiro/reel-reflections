@@ -25,7 +25,7 @@ export default function BackgroundSlider() {
           animate={{ opacity: 1, transition: { duration: 0.7 } }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className='fixed inset-0 w-full aspect-square sm:aspect-video'
+          className='relative inset-0 w-full aspect-square sm:aspect-video'
         >
           {/* {currentImage?.title} */}
           <Image
@@ -40,7 +40,7 @@ export default function BackgroundSlider() {
       </AnimatePresence>
       <div
         className={cn(
-          'fixed inset-0 w-full aspect-square sm:aspect-video',
+          'absolute inset-0 w-full aspect-square sm:aspect-video',
           'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))]',
           'sm:bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))]',
           'from-transparent from-0% via-slate-950/10 to-80% to-slate-950'
@@ -48,7 +48,7 @@ export default function BackgroundSlider() {
       />
       <div
         className={cn(
-          'fixed inset-0 w-full aspect-square sm:aspect-video bg-blend-multiply',
+          'absolute inset-0 w-full aspect-square sm:aspect-video bg-blend-multiply',
           'bg-gradient-to-b from-0% via-80% to-100% ',
           'from-slate-300/0 via-slate-300/20 to-slate-300',
           'dark:from-slate-900/0 dark:via-slate-950/20 dark:to-slate-950'

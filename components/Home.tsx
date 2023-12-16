@@ -3,6 +3,7 @@
 import Header from './Header';
 import BackgroundDetail from './BackgroundDetail';
 import CarouselWrapper from './CarouselWrapper';
+import BackgroundSlider from './BackgroundSlider';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
@@ -14,6 +15,7 @@ export default function Home() {
       <Header />
       <BackgroundDetail className='flex-1' />
       <CarouselWrapper className='z-10' />
+      <BackgroundSlider />
     </div>
   );
 }

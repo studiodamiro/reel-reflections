@@ -6,12 +6,8 @@ import { WidthProvider } from '@/providers/WidthProvider';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 import { MoviesProvider } from '@/providers/MoviesProvider';
 import { cn } from '@/lib/utils';
-import Header from '@/components/Header';
-import Curtain from '../components/Curtain';
-import BackgroundSlider from '@/components/BackgroundSlider';
-import CarouselWrapper from '@/components/CarouselWrapper';
 import fetchMovies from '@/lib/fetchMovies';
-import BackgroundDetail from '@/components/BackgroundDetail';
+import Curtain from '../components/Curtain';
 import Home from '@/components/Home';
 
 const inter = Inter({
@@ -47,7 +43,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               <Home />
               <Curtain className='z-40' />
               <main className='absolute z-50 flex items-center justify-center w-full'>{children}</main>
-              <BackgroundSlider />
             </WidthProvider>
           </ThemeProvider>
         </MoviesProvider>

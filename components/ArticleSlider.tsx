@@ -99,7 +99,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
           <div className='relative flex flex-col gap-1 sm:gap-0 sm:flex-row items-center justify-start'>
             <div className='flex flex-row items-center justify-center'>
               <span className='tracking-widest font-bold scale-110 text-xs'>{element.release}</span>
-              <span className='px-4 hidden sm:block'>|</span>
+              <span className='px-4 hidden sm:block opacity-50'>|</span>
             </div>
             <div className='flex grow items-center justify-start text-xs text-center sm:text-left uppercase tracking-wider py-2'>
               <span style={{ textWrap: 'balance' }} className=''>

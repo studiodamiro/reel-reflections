@@ -87,7 +87,7 @@ export default function BackgroundDetail({ className }: BackgroundDetailProps) {
           <div className='flex flex-col sm:flex-row gap-1 sm:gap-3'>
             <div className='flex flex-row items-center justify-center'>
               <span className='tracking-widest font-bold scale-110 text-sm'>{currentMovie?.release}</span>
-              <span className='pl-2 sm:pl-3 hidden sm:block'>|</span>
+              <span className='pl-2 sm:pl-3 hidden sm:block opacity-50'>|</span>
             </div>
             <div className='flex grow items-center justify-start text-sm text-center sm:text-left uppercase tracking-wider py-0 sm:py-2'>
               <span style={{ textWrap: 'balance' }} className=''>
