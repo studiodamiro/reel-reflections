@@ -1,4 +1,5 @@
 'use client';
+
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
@@ -21,7 +22,7 @@ export default function Curtain({ className }: CurtainProps) {
           className={cn(
             className,
             'fixed top-0 left-0 w-full h-full',
-            'bg-slate-200/30 dark:bg-slate-950/60 backdrop-blur-lg'
+            'bg-slate-200/30 dark:bg-slate-950/70 backdrop-blur-lg'
           )}
         />
       )}

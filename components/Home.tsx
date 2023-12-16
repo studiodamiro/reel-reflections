@@ -10,7 +10,7 @@ export default function Home() {
   const pathname = usePathname();
 
   return (
-    <div className={cn(pathname !== '/' && 'fixed', 'flex flex-col w-full min-h-screen gap-16')}>
+    <div className={cn(pathname !== '/' && 'fixed', 'flex flex-col w-full min-h-screen gap-16 overflow-hidden')}>
       <Header />
       <BackgroundDetail className='flex-1' />
       <CarouselWrapper className='z-10' />

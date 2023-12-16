@@ -9,12 +9,12 @@ import { image_url } from '@/lib/constants';
 import { useMovies } from '@/providers/MoviesProvider';
 
 export default function BackgroundSlider() {
-  const { movies, currentMovieIndex } = useMovies();
+  const { recentMovies, currentRecentMovieIndex } = useMovies();
   const [currentImage, setCurrentImage] = useState<MovieType | null>(null);
 
   useEffect(() => {
-    setCurrentImage(movies[currentMovieIndex] ?? null);
-  }, [currentMovieIndex]);
+    setCurrentImage(recentMovies[currentRecentMovieIndex] ?? null);
+  }, [currentRecentMovieIndex]);
 
   return (
     <div className='z-[-1] absolute inset-0 w-full aspect-square sm:aspect-video overflow-hidden'>

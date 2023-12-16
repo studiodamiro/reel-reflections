@@ -15,8 +15,7 @@ type CarouselProps = {
 };
 
 export default function Carousel({ infinite = true, className }: CarouselProps) {
-  const { movies } = useMovies();
-  const recentMovies = movies.slice(0, 10); // first 10 movies
+  const { recentMovies } = useMovies();
   const { numberOfElements, elementBtnRatio, elementWidth, setElementWidth } = useWidth();
   const length = recentMovies.length;
 

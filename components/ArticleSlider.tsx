@@ -51,8 +51,8 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
   useEffect(() => {
     if (data) {
       const colors: string[] = arrangeColors(data);
-      setPriColor(adjustHexColor(colors[1], 'light', 20));
-      setSecColor(adjustHexColor(colors[1], 'light', 80));
+      setPriColor(adjustHexColor(colors[0], 'light', 20));
+      setSecColor(adjustHexColor(colors[2], 'light', 20));
     } else {
       setPriColor('#ffffff');
       setSecColor('#cccccc');
@@ -111,7 +111,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
                 rel='noopener noreferrer'
                 target='_blank'
                 href={videoLink}
-                style={{ backgroundColor: isHover ? secColor! : priColor! }}
+                style={{ backgroundColor: isHover ? priColor! : secColor! }}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 className={cn(

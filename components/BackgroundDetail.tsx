@@ -20,15 +20,13 @@ export default function BackgroundDetail({ className }: BackgroundDetailProps) {
   const router = useRouter();
 
   const { containerWidth, elementWidth } = useWidth();
-  const { movies, currentMovieIndex } = useMovies();
+  const { recentMovies, currentRecentMovieIndex, priColor, secColor, setPriColor, setSecColor } = useMovies();
   const [currentMovie, setCurrentMovie] = useState<MovieType | null>(null);
 
   useEffect(() => {
-    setCurrentMovie(movies[currentMovieIndex] ?? null);
-  }, [currentMovieIndex]);
+    setCurrentMovie(recentMovies[currentRecentMovieIndex] ?? null);
+  }, [currentRecentMovieIndex]);
 
-  const [priColor, setPriColor] = useState<string | null>(null);
-  const [secColor, setSecColor] = useState<string | null>(null);
   const { data, loading, error } = usePalette(`${image_url}${currentMovie?.logos?.[0]}`, 4, 'hex', {
     crossOrigin: 'anonymous',
     quality: 10,
@@ -37,8 +35,8 @@ export default function BackgroundDetail({ className }: BackgroundDetailProps) {
   useEffect(() => {
     if (data) {
       const colors: string[] = arrangeColors(data);
-      setPriColor(adjustHexColor(colors[1], 'light', 20));
-      setSecColor(adjustHexColor(colors[1], 'light', 80));
+      setPriColor(adjustHexColor(colors[0], 'light', 20));
+      setSecColor(adjustHexColor(colors[2], 'light', 20));
     } else {
       setPriColor('#ffffff');
       setSecColor('#cccccc');
@@ -79,17 +77,17 @@ export default function BackgroundDetail({ className }: BackgroundDetailProps) {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             className={cn(
-              'relative px-3.5 py-1.5 rounded-full tracking-widest text-sm font-bold shadow-md items-center justify-center',
+              'relative px-4 py-1.5 my-4 sm:my-0 rounded-lg tracking-widest text-sm font-bold shadow-md items-center justify-center',
               'bg-slate-900/70 dark:bg-white/70 dark:text-slate-900 text-white opacity-80 hover:opacity-100',
               'transition-all duration-300 ease-out'
             )}
           >
             READ REFLECTION
           </button>
-          <div className='flex flex-col sm:flex-row gap-1 sm:gap-4'>
+          <div className='flex flex-col sm:flex-row gap-1 sm:gap-3'>
             <div className='flex flex-row items-center justify-center'>
               <span className='tracking-widest font-bold scale-110 text-sm'>{currentMovie?.release}</span>
-              <span className='pl-2 sm:pl-4 hidden sm:block'>|</span>
+              <span className='pl-2 sm:pl-3 hidden sm:block'>|</span>
             </div>
             <div className='flex grow items-center justify-start text-sm text-center sm:text-left uppercase tracking-wider py-0 sm:py-2'>
               <span style={{ textWrap: 'balance' }} className=''>

@@ -6,9 +6,9 @@ export type MovieType = {
   title: string;
   release?: string;
   article: string;
+  created?: string;
   slug?: string;
   overview?: string;
-  release_date?: string;
   vote_average?: number;
   backdrops?: string[];
   logos?: string[];
@@ -42,6 +42,7 @@ export default async function fetchMovies() {
             id: details.id,
             title: details.title,
             article: post.article,
+            created: post.created,
             slug: post.slug,
             release: details.release_date && details.release_date.slice(0, 4),
             overview: details.overview,

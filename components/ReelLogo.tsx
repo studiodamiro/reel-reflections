@@ -19,7 +19,7 @@ export default function ReelLogo({
   return (
     <div
       className={cn(
-        'relative flex w-[160px] transition-all duration-700 ease-out',
+        'relative flex w-[160px] transition-all duration-700 ease-out drop-shadow-md shadow-black',
         inline ? 'flex-row gap-8 items-center' : 'flex-col gap-4 items-center',
         className
       )}
