@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { useWidth } from '@/providers/WidthProvider';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
-import { MdClose } from 'react-icons/md';
+import { IoCloseSharp } from 'react-icons/io5';
 import ArticleSlider from './ArticleSlider';
 import Link from 'next/link';
 
@@ -33,9 +33,16 @@ export default function ArticlePost({ children, title }: ArticleProps) {
         'dark:from-slate-900/50 dark:to-slate-900'
       )}
     >
-      <Link href={'/'} className='absolute z-30 top-4 right-4 md:top-6 md:right-6'>
+      <Link
+        href={'/'}
+        className={cn(
+          'absolute z-30 top-4 right-4 md:top-6 md:right-6 rounded-lg w-6 aspect-square flex items-center justify-center',
+          'bg-slate-200/50 hover:bg-white text-slate-950 shadow-md shadow-black/20',
+          'transition-colors duration-300 ease-out'
+        )}
+      >
         <span className='sr-only'>Close Article Button</span>
-        <MdClose />
+        <IoCloseSharp />
       </Link>
       <ArticleSlider title={title} />
       <article className='px-4 sm:px-16 md:px-28 pb-16 max-w-full mx-auto prose dark:prose-invert prose-sm prose-quoteless'>

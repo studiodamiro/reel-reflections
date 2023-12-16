@@ -31,7 +31,14 @@ export default function ArticlePage({ children }: ArticleProps) {
         'dark:from-slate-900/50 dark:to-slate-900'
       )}
     >
-      <button onClick={navToHome} className='absolute z-30 top-4 right-4 md:top-6 md:right-6'>
+      <button
+        onClick={navToHome}
+        className={cn(
+          'absolute z-30 top-4 right-4 md:top-6 md:right-6 rounded-lg w-6 aspect-square flex items-center justify-center',
+          'bg-slate-200/50 hover:bg-white text-slate-950 shadow-md shadow-black/20',
+          'transition-colors duration-300 ease-out'
+        )}
+      >
         <span className='sr-only'>Close Article Button</span>
         <MdClose />
       </button>
