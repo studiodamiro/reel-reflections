@@ -56,13 +56,10 @@ export default function BackgroundDetail({ className }: BackgroundDetailProps) {
   return (
     <div
       style={{ width: containerWidth, bottom: elementWidth }}
-      className={cn(
-        'absolute left-1/2 -translate-x-1/2 w-full h-3/5 mx-auto px-4 md:px-6 py-6 flex flex-col justify-end gap-4 sm:gap-4 md:gap-6',
-        className
-      )}
+      className={cn('w-full mx-auto px-4 md:px-6 py-6 flex flex-col justify-end gap-4 sm:gap-4 md:gap-6', className)}
     >
       {/* LOGO */}
-      <div className='relative w-2/3 sm:w-1/4 h-1/4 mx-auto sm:ml-0'>
+      <div className='relative w-2/3 sm:w-1/4 aspect-video mx-auto sm:ml-0'>
         <Image
           src={`${image_url}${currentMovie?.logos?.[0]}`}
           alt={`${currentMovie?.title} poster image`}

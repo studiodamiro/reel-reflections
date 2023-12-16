@@ -17,7 +17,7 @@ export default function BackgroundSlider() {
   }, [currentMovieIndex]);
 
   return (
-    <div className='absolute top-0 left-0 w-full h-full opacity-50'>
+    <div className='z-[-1] absolute inset-0 w-full aspect-square sm:aspect-video overflow-hidden'>
       <AnimatePresence mode='wait'>
         <motion.div
           key={currentImage?.id}
@@ -25,7 +25,7 @@ export default function BackgroundSlider() {
           animate={{ opacity: 1, transition: { duration: 0.7 } }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className='relative top-0 left-0 w-full h-full'
+          className='fixed inset-0 w-full aspect-square sm:aspect-video'
         >
           {/* {currentImage?.title} */}
           <Image
@@ -40,9 +40,18 @@ export default function BackgroundSlider() {
       </AnimatePresence>
       <div
         className={cn(
-          'absolute w-screen h-screen top-0 left-0 bg-blend-multiply',
-          'bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))]',
-          'from-transparent from-0% via-slate-900/20 to-80% to-slate-900'
+          'fixed inset-0 w-full aspect-square sm:aspect-video',
+          'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))]',
+          'sm:bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))]',
+          'from-transparent from-0% via-slate-950/10 to-80% to-slate-950'
+        )}
+      />
+      <div
+        className={cn(
+          'fixed inset-0 w-full aspect-square sm:aspect-video bg-blend-multiply',
+          'bg-gradient-to-b from-0% via-80% to-100% ',
+          'from-slate-300/0 via-slate-300/20 to-slate-300',
+          'dark:from-slate-900/0 dark:via-slate-950/20 dark:to-slate-950'
         )}
       />
     </div>

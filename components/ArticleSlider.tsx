@@ -9,9 +9,9 @@ import { useMovies } from '@/providers/MoviesProvider';
 import { image_url, video_url } from '@/lib/constants';
 import { usePalette } from 'color-thief-react';
 import { cn } from '@/lib/utils';
-import Logo from './Logo';
 import adjustHexColor from '@/lib/adjustColor';
 import arrangeColors from '@/lib/arrangeColors';
+import ReelLogo from './ReelLogo';
 
 interface ArticleSliderProps {
   title: string;
@@ -69,7 +69,8 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
         <div className='absolute z-20 min-w-full min-h-full flex flex-col gap-4 justify-center sm:justify-end px-4 sm:px-16 md:px-28'>
           {/* REEL LOGO */}
           <span className='block sm:hidden relative grow-[2] sm:grow-[3]' />
-          <Logo
+          <ReelLogo
+            inline={false}
             color={priColor!}
             secColor={secColor!}
             className='relative scale-50 origin-bottom sm:origin-bottom-left mx-auto sm:ml-0'
@@ -85,7 +86,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
                 sizes='full'
                 fill
                 priority
-                className={cn('object-contain object-center sm:object-left-bottom drop-shadow-lg shadow-black')}
+                className={cn('object-contain object-bottom sm:object-left-bottom drop-shadow-lg shadow-black')}
               />
             ) : (
               <h2 style={{ textWrap: 'balance' }} className='text-3xl font-bold'>
@@ -150,7 +151,8 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
         <div
           className={cn(
             'absolute z-10 w-full aspect-video bg-blend-multiply',
-            'bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))]',
+            'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))]',
+            'sm:bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))]',
             'from-0% via-50% to-80% ',
             'from-transparent via-slate-300/20 to-slate-300',
             'from-transparent dark:via-slate-900/50 dark:to-slate-900'

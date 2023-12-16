@@ -3,7 +3,7 @@
 import Navigation from './Navigation';
 import { useWidth } from '@/providers/WidthProvider';
 import { cn } from '@/lib/utils';
-import Logo from './Logo';
+import ReelLogo from './ReelLogo';
 
 export default function Header({ className }: { className?: string }) {
   const { containerWidth } = useWidth();
@@ -12,9 +12,9 @@ export default function Header({ className }: { className?: string }) {
     <div className={cn('', className)}>
       <header
         style={{ width: containerWidth }}
-        className='mx-auto px-4 md:px-6 py-6 flex flex-row justify-between items-start'
+        className='mx-auto px-4 md:px-6 flex flex-row justify-between items-center'
       >
-        <Logo className='scale-75 origin-top-left' />
+        <ReelLogo className='scale-[0.4] sm:scale-50 origin-left' />
         <Navigation />
       </header>
     </div>
