@@ -118,7 +118,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
                 onMouseLeave={handleMouseLeave}
                 className={cn(
                   'relative px-3.5 py-1.5 flex-none rounded-lg tracking-widest text-xs font-bold shadow-md items-center justify-center',
-                  'bg-slate-900/70  dark:bg-white/70  dark:text-slate-900 text-white opacity-80 hover:opacity-100',
+                  'bg-slate-900/70 dark:bg-white/70 dark:text-slate-900 text-white opacity-80 hover:opacity-100',
                   'transition-all duration-300 ease-out'
                 )}
               >

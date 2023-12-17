@@ -11,14 +11,6 @@ module.exports = {
       },
     },
     extend: {
-      typography: {
-        quoteless: {
-          css: {
-            'blockquote p:first-of-type::before': { content: 'none' },
-            'blockquote p:first-of-type::after': { content: 'none' },
-          },
-        },
-      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -55,9 +47,9 @@ module.exports = {
         },
       },
       borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
+        // lg: 'var(--radius)',
+        // md: 'calc(var(--radius) - 4px)',
+        // sm: 'calc(var(--radius) - 8px)',
       },
       keyframes: {
         'accordion-down': {
@@ -75,5 +67,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require('@tailwindcss/typography'), require('tailwindcss-animate'), require('@tailwindcss/line-clamp')],
+  plugins: [require('@tailwindcss/typography'), require('tailwindcss-animate')],
 };

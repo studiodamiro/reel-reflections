@@ -9,7 +9,7 @@ export default function Navigation() {
       <Link
         href='/request-reflection'
         className={cn(
-          'rounded-sm sm:rounded-md w-full h-6 hidden sm:flex items-center justify-center px-4',
+          'rounded-md w-full h-6 hidden sm:flex items-center justify-center px-4',
           'uppercase font-semibold tracking-wider text-xs',
           'bg-slate-200/50 hover:bg-white text-slate-950 shadow-md shadow-black/20',
           'transition-colors duration-300 ease-out'
@@ -20,7 +20,7 @@ export default function Navigation() {
       <Link
         href='/about'
         className={cn(
-          'rounded-sm sm:rounded-md w-6 h-6 aspect-square flex items-center justify-center',
+          'rounded-md w-6 h-6 aspect-square flex items-center justify-center',
           'bg-slate-200/50 hover:bg-white text-slate-950 shadow-md shadow-black/20',
           'transition-colors duration-300 ease-out'
         )}
