@@ -1,10 +1,12 @@
 # reel-reflections
 
+A not so ordinary blog for my reflections to the movies I've seen.
+
 A Movie review blog using TMDB + Decap CMS hosted on Netlify
 
 ---
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/60abb502-f48c-4a22-a6b8-711cbb608399/deploy-status)](https://app.netlify.com/sites/next-mdx/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e54473d5-5f00-40c0-9f2a-6a1b547972b8/deploy-status)](https://app.netlify.com/sites/reel-reflections/deploys)
 
 - A supposed template using NextJS 13, ContentLayer and Decap CMS.
 - This is a forked repo from [Shadcn + ContentLayer](https://github.com/shadcn/next-contentlayer)

@@ -2,7 +2,7 @@
   "name": "reel-reflections",
   "version": "0.1.0",
   "private": true,
-  "description": "A supposed template using Next 13 and ContentLayer.",
+  "description": "A not so ordinary blog for my reflections to the movies I've seen.",
   "main": "contentlayer.config.js",
   "keywords": [],
   "author": "Damiro",
