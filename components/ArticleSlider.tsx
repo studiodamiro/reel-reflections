@@ -19,12 +19,12 @@ interface ArticleSliderProps {
 
 export default function ArticleSlider({ title }: ArticleSliderProps) {
   const { movies } = useMovies();
-  const element = movies.find((movie) => movie.title === title);
-  if (!element) return null;
+  const movie = movies.find((movie) => movie.title === title);
+  if (!movie) return null;
 
-  const backdrops = element.backdrops;
-  const logos = element.logos;
-  const video = element.videos;
+  const backdrops = movie.backdrops;
+  const logos = movie.logos;
+  const video = movie.videos;
   const videoLink = `${video_url}${video}`;
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -69,12 +69,14 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
         <div className='absolute z-20 min-w-full min-h-full flex flex-col gap-4 justify-center sm:justify-end px-4 sm:px-16 md:px-28'>
           {/* REEL LOGO */}
           <span className='block sm:hidden relative grow-[2] sm:grow-[3]' />
-          <ReelLogo
-            inline={false}
-            color={priColor!}
-            secColor={secColor!}
+          <motion.div
+            id={movie.title}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { duration: 0.7, delay: 1 } }}
             className='relative scale-50 origin-bottom sm:origin-bottom-left mx-auto sm:ml-0'
-          />
+          >
+            <ReelLogo inline={false} color={priColor!} secColor={secColor!} />
+          </motion.div>
           <span className='hidden sm:block relative grow-[2] sm:grow-[3]' />
 
           {/* MOVIE LOGO */}
@@ -90,7 +92,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
               />
             ) : (
               <h2 style={{ textWrap: 'balance' }} className='text-3xl font-bold'>
-                {element.title}
+                {movie.title}
               </h2>
             )}
           </div>
@@ -98,12 +100,12 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
           {/* DETAILS */}
           <div className='relative flex flex-col gap-1 sm:gap-0 sm:flex-row items-center justify-start'>
             <div className='flex flex-row items-center justify-center'>
-              <span className='tracking-widest font-bold scale-110 text-xs'>{element.release}</span>
+              <span className='tracking-widest font-bold scale-110 text-xs'>{movie.release}</span>
               <span className='px-4 hidden sm:block opacity-50'>|</span>
             </div>
             <div className='flex grow items-center justify-start text-xs text-center sm:text-left uppercase tracking-wider py-2'>
               <span style={{ textWrap: 'balance' }} className=''>
-                {element.genre?.map((genre) => genre).join(' ● ')}
+                {movie.genre?.map((genre) => genre).join(' ● ')}
               </span>
             </div>
             {videoLink !== video_url && (
@@ -173,7 +175,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
         style={{ textWrap: 'balance', color: priColor! }}
         className='px-4 sm:px-16 md:px-28 pt-16 text-xl sm:text-3xl text-center sm:text-left font-semibold transition-colors duration-300 ease-out'
       >
-        {element.article}
+        {movie.article}
       </h1>
     </>
   );

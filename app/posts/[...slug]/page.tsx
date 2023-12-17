@@ -28,7 +28,11 @@ export default async function PostPage({ params }: PostProps) {
 
   return (
     <ArticlePost title={post.title}>
-      {post.description && <p className='text-xl pt-4 text-center sm:text-left'>{post.description}</p>}
+      {post.description && (
+        <p className=' pt-4 text-center sm:text-left text-sm font-semibold sm:text-xl sm:font-normal'>
+          {post.description}
+        </p>
+      )}
       <hr className='my-4' />
       <Mdx code={post.body.code} />
       <hr className='my-4' />

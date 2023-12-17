@@ -31,7 +31,7 @@ interface MoviesProviderProps {
 }
 
 export const MoviesProvider = ({ movies, children }: MoviesProviderProps) => {
-  const INTERVAL = 6000;
+  const INTERVAL = 2000;
   const RECENT_QTY = 12;
 
   // Sort movies by created date
