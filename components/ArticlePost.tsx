@@ -10,12 +10,12 @@ import ArticleSlider from './ArticleSlider';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 
-interface ArticleProps {
+interface ArticlePostProps {
   title: string;
   children: ReactNode;
 }
 
-export default function ArticlePost({ children, title }: ArticleProps) {
+export default function ArticlePost({ children, title }: ArticlePostProps) {
   const { containerWidth } = useWidth();
   const homeRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
@@ -48,7 +48,7 @@ export default function ArticlePost({ children, title }: ArticleProps) {
             'transition-colors duration-300 ease-out'
           )}
         >
-          <span className='sr-only'>Close Article Button</span>
+          <span className='sr-only'>Close Post Button</span>
           <IoCloseSharp />
         </Link>
         <ArticleSlider title={title} />

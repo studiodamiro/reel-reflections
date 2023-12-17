@@ -1,9 +1,9 @@
+import Link from 'next/link';
 import Image from 'next/image';
-import { MovieType } from '@/lib/fetchMovies';
 import { MotionValue, motion, useTransform } from 'framer-motion';
+import { MovieType } from '@/lib/fetchMovies';
 import { image_url } from '@/lib/constants';
 import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
 
 type ElementProps = {
   id: number;
@@ -48,15 +48,10 @@ export function CarouselElement({
     }
   });
 
-  const router = useRouter();
-  const navToPost = (slug: string) => {
-    router.push(slug);
-  };
-
   return (
     <motion.span style={{ x: x }} className={cn('absolute inset-0 flex justify-center group hover:z-10')}>
-      <button
-        onClick={() => element.slug && navToPost(element.slug)}
+      <Link
+        href={`${element.slug}`}
         className={cn(
           'relative w-full h-full overflow-hidden m-0 p-0 rounded-sm md:rounded-md shadow-gray-md group',
           'opacity-30 transition-all duration-700 object-cover object-center shadow-md shadow-black/50',
@@ -93,7 +88,7 @@ export function CarouselElement({
             )}
           />
         </div>
-      </button>
+      </Link>
     </motion.span>
   );
 }

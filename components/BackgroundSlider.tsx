@@ -17,7 +17,7 @@ export default function BackgroundSlider() {
   }, [currentRecentMovieIndex]);
 
   return (
-    <div className='z-[-1] absolute inset-0 w-full aspect-square lg:aspect-video overflow-hidden'>
+    <div className='z-[-1] absolute inset-0 w-full min-h-screen aspect-square lg:aspect-video overflow-hidden'>
       <AnimatePresence mode='wait'>
         <motion.div
           key={currentImage?.id}

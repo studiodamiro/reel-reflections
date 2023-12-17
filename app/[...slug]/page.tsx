@@ -48,7 +48,7 @@ export default async function PagePage({ params }: PageProps) {
   }
 
   return (
-    <ArticlePage>
+    <ArticlePage title={page.title}>
       <h1>{page.title}</h1>
       {page.description && <p className=' pt-4 text-sm font-semibold sm:text-xl sm:font-normal'>{page.description}</p>}
       <hr className='my-4' />
