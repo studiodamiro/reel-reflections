@@ -7,6 +7,9 @@ const nextConfig = {
   images: {
     remotePatterns: [{ protocol: 'https', hostname: 'image.tmdb.org' }],
   },
+  async rewrites() {
+    return [{ source: '/:any*', destination: '/' }];
+  },
 };
 
 module.exports = withContentlayer(nextConfig);

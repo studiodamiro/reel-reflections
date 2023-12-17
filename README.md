@@ -6,7 +6,7 @@ A Movie review blog using TMDB + Decap CMS hosted on Netlify
 
 ---
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/e54473d5-5f00-40c0-9f2a-6a1b547972b8/deploy-status)](https://app.netlify.com/sites/reel-reflections/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d262ec95-f7af-4b86-9e47-740ebbdb3a95/deploy-status)](https://app.netlify.com/sites/reel-reflections/deploys)
 
 - A supposed template using NextJS 13, ContentLayer and Decap CMS.
 - This is a forked repo from [Shadcn + ContentLayer](https://github.com/shadcn/next-contentlayer)
