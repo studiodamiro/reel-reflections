@@ -72,7 +72,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
           <motion.div
             id={movie.title}
             initial={{ opacity: 0, y: 20, scale: 0.5 }}
-            animate={{ opacity: 1, y: 0, scale: 0.5, transition: { duration: 0.7, delay: 3, ease: 'easeIn' } }}
+            animate={{ opacity: 1, y: 0, scale: 0.5, transition: { duration: 0.7, delay: 5, ease: 'easeIn' } }}
             className='relative scale-50 origin-bottom sm:origin-bottom-left mx-auto sm:ml-0'
           >
             <ReelLogo inline={false} color={priColor!} secColor={secColor!} />

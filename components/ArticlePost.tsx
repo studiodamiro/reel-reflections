@@ -29,7 +29,7 @@ export default function ArticlePost({ children, title }: ArticleProps) {
         ref={homeRef}
         key={title}
         initial={{ opacity: 0, y: 100 }}
-        animate={{ opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeIn' } }}
+        animate={{ opacity: 1, y: 0, transition: { duration: 0.3 } }}
         exit={{ opacity: 0, y: 100 }}
         transition={{ duration: 0.3 }}
         style={{ width: containerWidth + 'px' }}
@@ -43,7 +43,7 @@ export default function ArticlePost({ children, title }: ArticleProps) {
         <Link
           href={'/'}
           className={cn(
-            'absolute z-30 top-4 right-4 md:top-6 md:right-6 rounded-lg w-6 aspect-square flex items-center justify-center',
+            'absolute z-30 top-4 right-4 md:top-6 md:right-6 rounded-sm sm:rounded-md w-6 aspect-square flex items-center justify-center',
             'bg-slate-200/50 hover:bg-white text-slate-950 shadow-md shadow-black/20',
             'transition-colors duration-300 ease-out'
           )}

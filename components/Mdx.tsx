@@ -1,6 +1,7 @@
 import NextImage, { ImageProps } from 'next/image';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import Counter from './Counter';
+import RequestReflectionForm from './RequestReflectionForm';
 
 const components = {
   // Image using next/image
@@ -14,6 +15,9 @@ const components = {
   // Sample custom component
   // USAGE: <Counter />
   Counter,
+
+  // Request reflection form
+  RequestReflectionForm,
 };
 
 interface MdxProps {
