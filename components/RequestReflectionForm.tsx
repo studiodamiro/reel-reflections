@@ -7,7 +7,7 @@ import { Label } from './ui/label';
 import { cn } from '@/lib/utils';
 import { Textarea } from './ui/textarea';
 import { z } from 'zod';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export default function RequestReflectionForm() {
   const RequestReflectionValidator = z.object({
