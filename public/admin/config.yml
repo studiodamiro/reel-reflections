@@ -1,6 +1,6 @@
-site_url: https://next-mdx.netlify.app
-display_url: https://next-mdx.netlify.app
-logo_url: https://next-mdx.netlify.app/next.svg
+site_url: https://reel-reflections.netlify.app
+display_url: https://reel-reflections.netlify.app
+logo_url: https://reel-reflections.netlify.app/logo-login.svg
 backend:
   name: git-gateway
   branch: main

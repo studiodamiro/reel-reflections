@@ -1,14 +1,14 @@
 'use client';
 
+import Link from 'next/link';
 import { ReactNode, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { cn } from '@/lib/utils';
+import { IoCloseSharp } from 'react-icons/io5';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useWidth } from '@/providers/WidthProvider';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
-import { IoCloseSharp } from 'react-icons/io5';
+import { cn } from '@/lib/utils';
 import ArticleSlider from './ArticleSlider';
-import Link from 'next/link';
-import { AnimatePresence, motion } from 'framer-motion';
 
 interface ArticlePostProps {
   title: string;
