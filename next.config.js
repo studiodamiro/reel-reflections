@@ -9,9 +9,9 @@ const nextConfig = {
   },
 
   // Remove while in devt on localhost
-  async rewrites() {
-    return [{ source: '/:any*', destination: '/' }];
-  },
+  // A must for prod SPA behavior tested on netlify
+  // TODO replace for better solution
+  rewrites: async () => [{ source: '/:any*', destination: '/' }],
 };
 
 module.exports = withContentlayer(nextConfig);

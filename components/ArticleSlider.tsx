@@ -22,7 +22,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
   const movie = movies.find((movie) => movie.title === title);
   if (!movie) return null;
 
-  const backdrops = movie.backdrops;
+  const backdrops = movie.backdrops?.slice(0, 3); // limit to 3 images
   const logos = movie.logos;
   const video = movie.videos;
   const videoLink = `${video_url}${video}`;
