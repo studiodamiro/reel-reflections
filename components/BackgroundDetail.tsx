@@ -1,17 +1,17 @@
 'use client';
 
 import Image from 'next/image';
-import { MovieType } from '@/lib/fetchMovies';
-import { image_url } from '@/lib/constants';
-import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { useMovies } from '@/providers/MoviesProvider';
 import { useWidth } from '@/providers/WidthProvider';
-import { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { usePalette } from 'color-thief-react';
+import { cn } from '@/lib/utils';
+import { MovieType } from '@/lib/fetchMovies';
+import { image_url } from '@/lib/constants';
 import adjustHexColor from '@/lib/adjustColor';
 import arrangeColors from '@/lib/arrangeColors';
-import { useRouter } from 'next/navigation';
-import { AnimatePresence, motion } from 'framer-motion';
 
 type BackgroundDetailProps = {
   className?: string;
@@ -22,10 +22,11 @@ export default function BackgroundDetail({ className }: BackgroundDetailProps) {
 
   const { containerWidth, elementWidth } = useWidth();
   const { recentMovies, currentRecentMovieIndex, priColor, secColor, setPriColor, setSecColor } = useMovies();
-  const [currentMovie, setCurrentMovie] = useState<MovieType | null>(null);
+  const [currentMovie, setCurrentMovie] = useState<MovieType | undefined>(undefined);
+  if (!recentMovies) return null;
 
   useEffect(() => {
-    setCurrentMovie(recentMovies[currentRecentMovieIndex] ?? null);
+    setCurrentMovie(recentMovies[currentRecentMovieIndex] ?? undefined);
   }, [currentRecentMovieIndex]);
 
   const { data, loading, error } = usePalette(`${image_url}${currentMovie?.logos?.[0]}`, 4, 'hex', {
@@ -65,14 +66,20 @@ export default function BackgroundDetail({ className }: BackgroundDetailProps) {
       >
         {/* LOGO */}
         <div className='relative w-2/3 sm:w-1/4 aspect-video mx-auto sm:ml-0'>
-          <Image
-            src={`${image_url}${currentMovie?.logos?.[0]}`}
-            alt={`${currentMovie?.title} poster image`}
-            sizes='full'
-            fill
-            priority
-            className='object-contain object-bottom sm:object-left-bottom drop-shadow-lg shadow-black'
-          />
+          {currentMovie?.logos?.[0] === undefined ? (
+            <div style={{ textWrap: 'balance' }} className='text-3xl font-bold'>
+              {currentMovie?.title}
+            </div>
+          ) : (
+            <Image
+              src={`${image_url}${currentMovie?.logos?.[0]}`}
+              alt={`${currentMovie?.title} poster image`}
+              sizes='full'
+              fill
+              priority
+              className='object-contain object-bottom sm:object-left-bottom drop-shadow-lg shadow-black'
+            />
+          )}
         </div>
 
         {/* DETAILS */}

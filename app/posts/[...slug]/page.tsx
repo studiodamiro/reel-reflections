@@ -11,17 +11,6 @@ interface PostProps {
   };
 }
 
-export async function generateMetadata({ params }: PostProps): Promise<Metadata> {
-  const post = await getPostFromParams(params);
-
-  if (!post) return {};
-
-  return {
-    title: post.title,
-    description: post.description,
-  };
-}
-
 export default async function PostPage({ params }: PostProps) {
   const post = await getPostFromParams(params);
   if (!post) notFound();
@@ -39,6 +28,17 @@ export default async function PostPage({ params }: PostProps) {
       {stringToDate(post.created)}
     </ArticlePost>
   );
+}
+
+export async function generateMetadata({ params }: PostProps): Promise<Metadata> {
+  const post = await getPostFromParams(params);
+
+  if (!post) return {};
+
+  return {
+    title: post.title,
+    description: post.description,
+  };
 }
 
 async function getPostFromParams(params: PostProps['params']) {

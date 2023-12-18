@@ -10,34 +10,36 @@ import { useMovies } from '@/providers/MoviesProvider';
 
 export default function BackgroundSlider() {
   const { recentMovies, currentRecentMovieIndex } = useMovies();
-  const [currentImage, setCurrentImage] = useState<MovieType | null>(null);
+  const [currentImage, setCurrentImage] = useState<MovieType | undefined>(undefined);
 
   useEffect(() => {
-    setCurrentImage(recentMovies[currentRecentMovieIndex] ?? null);
+    setCurrentImage(recentMovies[currentRecentMovieIndex] ?? undefined);
   }, [currentRecentMovieIndex]);
 
   return (
-    <div className='z-[-1] absolute inset-0 w-full min-h-screen aspect-square lg:aspect-video overflow-hidden'>
-      <AnimatePresence mode='wait'>
-        <motion.div
-          key={currentImage?.id}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: { duration: 0.7, ease: 'easeOut' } }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
-          className='relative inset-0 w-full aspect-square lg:aspect-video'
-        >
-          {/* {currentImage?.title} */}
-          <Image
-            src={`${image_url}${currentImage?.backdrops?.[0]}`}
-            alt={`${currentImage?.title} poster image`}
-            sizes='full'
-            fill
-            priority
-            className='object-center object-cover'
-          />
-        </motion.div>
-      </AnimatePresence>
+    <div className='z-[-1] absolute inset-0 w-screen h-screen aspect-square lg:aspect-video overflow-hidden'>
+      {currentImage && (
+        <AnimatePresence mode='wait'>
+          <motion.div
+            key={currentImage?.id}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { duration: 0.7, ease: 'easeOut' } }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className='relative inset-0 w-full aspect-square lg:aspect-video'
+          >
+            {/* {currentImage?.title} */}
+            <Image
+              src={`${image_url}${currentImage?.backdrops?.[0]}`}
+              alt={`${currentImage?.title} poster image`}
+              sizes='full'
+              fill
+              priority
+              className='object-center object-cover'
+            />
+          </motion.div>
+        </AnimatePresence>
+      )}
       <div
         className={cn(
           'absolute inset-0 w-full aspect-square lg:aspect-video bg-blend-multiply',
