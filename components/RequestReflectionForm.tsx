@@ -6,27 +6,17 @@ import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { cn } from '@/lib/utils';
 import { Textarea } from './ui/textarea';
-import { z } from 'zod';
 import { useRouter } from 'next/navigation';
+import { RequestReflectionValidator, TRequestReflectionValidator } from '@/lib/validators/requestReflectionFrom';
 
 export default function RequestReflectionForm() {
-  const RequestReflectionValidator = z.object({
-    email: z.string().email({ message: 'Invalid email address' }),
-    name: z.string().min(1, { message: 'Name is required' }),
-    movie: z.string().min(1, { message: 'Movie is required' }),
-    details: z.string().min(1, { message: 'Details are required' }),
-  });
-
-  type TRequestReflectionValidator = z.infer<typeof RequestReflectionValidator>;
+  const router = useRouter();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TRequestReflectionValidator>({ resolver: zodResolver(RequestReflectionValidator) });
-
-  const router = useRouter();
-  const navToHome = () => router.push('/success');
 
   const submitHandler: SubmitHandler<TRequestReflectionValidator> = (data) => {
     const { email, name, movie, details } = data;
@@ -37,7 +27,9 @@ export default function RequestReflectionForm() {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: JSON.stringify({ 'form-name': 'request-reflection', ...data }),
     })
-      .then(() => navToHome())
+      .then(() => {
+        router.push('/success');
+      })
       .catch((error) => console.error(error));
   };
 
