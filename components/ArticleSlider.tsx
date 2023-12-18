@@ -65,14 +65,14 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
 
   return (
     <>
-      <div className='relative w-full object-cover object-center aspect-square sm:aspect-video overflow-hidden'>
+      <div className='relative min-w-screen aspect-square sm:aspect-video object-cover object-center overflow-hidden'>
         <div className='absolute z-20 min-w-full min-h-full flex flex-col gap-4 justify-center sm:justify-end px-4 sm:px-16 md:px-28'>
           {/* REEL LOGO */}
           <span className='block sm:hidden relative grow-[2] sm:grow-[3]' />
           <motion.div
             id={movie.title}
             initial={{ opacity: 0, y: 20, scale: 0.5 }}
-            animate={{ opacity: 1, y: 0, scale: 0.5, transition: { duration: 0.7, delay: 5, ease: 'easeIn' } }}
+            animate={{ opacity: 1, y: 0, scale: 0.5, transition: { duration: 0.7, delay: 3, ease: 'easeOut' } }}
             className='relative scale-50 origin-bottom sm:origin-bottom-left mx-auto sm:ml-0'
           >
             <ReelLogo inline={false} color={priColor!} secColor={secColor!} />
@@ -133,7 +133,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
           <motion.div
             key={currentImageIndex}
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1, transition: { duration: 0.7, ease: 'easeIn' } }}
+            animate={{ opacity: 1, transition: { duration: 0.7, ease: 'easeOut' } }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
             className='absolute z-0 object-center object-cover w-full aspect-video '

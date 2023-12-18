@@ -22,9 +22,9 @@ export default function BackgroundSlider() {
         <motion.div
           key={currentImage?.id}
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: { duration: 0.7, ease: 'easeIn' } }}
+          animate={{ opacity: 1, transition: { duration: 0.7, ease: 'easeOut' } }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
           className='relative inset-0 w-full aspect-square lg:aspect-video'
         >
           {/* {currentImage?.title} */}

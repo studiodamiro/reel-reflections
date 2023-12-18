@@ -10,7 +10,7 @@ export default function Counter() {
     <motion.div
       initial={{ rotate: 180 }}
       animate={{ rotate: 0 }}
-      transition={{ duration: 1.2, delay: 2, ease: 'easeInOut' }}
+      transition={{ duration: 1.2, delay: 2, ease: 'easeOut' }}
     >
       <button className='bg-red-400 rounded-sm w-8 h-8' onClick={() => setCount(count + 1)}>
         +
