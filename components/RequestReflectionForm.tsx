@@ -1,28 +1,45 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { cn } from '@/lib/utils';
 import { Textarea } from './ui/textarea';
 import { z } from 'zod';
+import { useRouter } from 'next/router';
 
 export default function RequestReflectionForm() {
-  const AuthSCredentialsValidator = z.object({
+  const RequestReflectionValidator = z.object({
     email: z.string().email({ message: 'Invalid email address' }),
     name: z.string().min(1, { message: 'Name is required' }),
     movie: z.string().min(1, { message: 'Movie is required' }),
     details: z.string().min(1, { message: 'Details are required' }),
   });
 
-  type TAuthSCredentialsValidator = z.infer<typeof AuthSCredentialsValidator>;
+  type TRequestReflectionValidator = z.infer<typeof RequestReflectionValidator>;
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TAuthSCredentialsValidator>({ resolver: zodResolver(AuthSCredentialsValidator) });
+  } = useForm<TRequestReflectionValidator>({ resolver: zodResolver(RequestReflectionValidator) });
+
+  const router = useRouter();
+  const navToHome = () => router.push('/success');
+
+  const submitHandler: SubmitHandler<TRequestReflectionValidator> = (data) => {
+    const { email, name, movie, details } = data;
+    console.log(email, name, movie, details);
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: JSON.stringify({ 'form-name': 'request-reflection', ...data }),
+    })
+      .then(() => navToHome())
+      .catch((error) => console.error(error));
+  };
 
   return (
     <div className='-mx-[2px]'>
@@ -30,9 +47,9 @@ export default function RequestReflectionForm() {
         name='request-reflection'
         method='POST'
         data-netlify='true'
-        className='flex flex-col gap-4'
         data-netlify-honeypot='bot-field'
-        action='/success'
+        onSubmit={handleSubmit(submitHandler)}
+        className='flex flex-col gap-4'
       >
         <input type='hidden' name='form-name' value='request-reflection' />
         <div>
