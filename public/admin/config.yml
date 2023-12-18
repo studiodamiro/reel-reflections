@@ -15,7 +15,7 @@ collections:
     identifier_field: title
     slug: '{{fields.title}}'
     fields:
-      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Title', name: 'title', widget: 'string' required: true }
       - { label: 'Description', name: 'description', widget: 'string' }
       - { label: 'Body', name: 'body', widget: 'markdown' }
   - name: posts
@@ -25,9 +25,10 @@ collections:
     identifier_field: title
     slug: '{{fields.title}}'
     fields:
-      - { label: 'Movie Title', name: 'title', widget: 'string' }
-      - { label: 'Movie Release Date', name: 'release', widget: 'datetime' }
-      - { label: 'Article Title', name: 'article', widget: 'string' }
-      - { label: 'Article Creation Date', name: 'created', widget: 'datetime' }
+      - { label: 'Movie Title', name: 'title', widget: 'string' required: true }
+      - { label: 'Movie Release Date', name: 'release', widget: 'datetime' required: true }
+      - { label: 'Article Title', name: 'article', widget: 'string' required: true }
+      - { label: 'Article Creation Date', name: 'created', widget: 'datetime' required: true }
+      - { label: 'Article Description', name: 'description', widget: 'string' }
       - { label: 'Movie Personal Rate', name: 'rating', widget: 'number' }
       - { label: 'Body', name: 'body', widget: 'markdown' }

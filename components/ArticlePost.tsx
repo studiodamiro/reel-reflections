@@ -51,9 +51,11 @@ export default function ArticlePost({ children, title }: ArticlePostProps) {
           <span className='sr-only'>Close Post Button</span>
           <IoCloseSharp />
         </Link>
-        <ArticleSlider title={title} />
-        <article className='px-4 sm:px-16 md:px-28 pb-16 max-w-full mx-auto prose dark:prose-invert prose-sm prose-quoteless'>
-          {children}
+        <article>
+          <ArticleSlider title={title} />
+          <div className='px-4 sm:px-16 md:px-28 pb-16 max-w-full mx-auto prose dark:prose-invert prose-sm prose-quoteless'>
+            {children}
+          </div>
         </article>
       </motion.div>
     </AnimatePresence>
