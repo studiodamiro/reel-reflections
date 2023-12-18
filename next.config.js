@@ -7,6 +7,8 @@ const nextConfig = {
   images: {
     remotePatterns: [{ protocol: 'https', hostname: 'image.tmdb.org' }],
   },
+
+  // Remove while in devt on localhost
   async rewrites() {
     return [{ source: '/:any*', destination: '/' }];
   },

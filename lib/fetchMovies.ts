@@ -5,7 +5,7 @@ import { requestMovie, requestImages, requestVideos, requestGenreList } from './
 export type MovieType = {
   id?: number;
   title: string;
-  release?: string;
+  release?: number;
   article: string;
   description?: string;
   created?: string;
@@ -73,7 +73,7 @@ const fetchDetails = async (title: string, release: string) => {
   const data = (await detailsResponse.json()) as any;
   const result = data.results
     .filter((result: { title: string }) => result.title.toLowerCase() === title.toLowerCase())
-    .filter((result: { release_date: string }) => result.release_date.slice(0, 4) === release.slice(0, 4));
+    .filter((result: { release_date: number }) => result.release_date.toString().slice(0, 4) === release.slice(0, 4));
 
   if (result.length === 0) {
     throw Error(`No matching movie found for title: ${title} and release: ${release}`);
