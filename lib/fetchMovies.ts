@@ -31,7 +31,7 @@ export default async function fetchMovies() {
           const images = await fetchImages(details.id);
 
           // Filter backdrop images with iso_639_1 = null
-          const backdrops = await fetchBackdrops(images, details.id);
+          const backdrops = await fetchBackdrops(images);
 
           // Fetch the videos for the movie
           const videos = await fetchVideos(details.id);
@@ -55,8 +55,8 @@ export default async function fetchMovies() {
             videos: videos,
           };
         } catch (error) {
-          console.error(`Error fetching movie: ${error}`);
-          return [];
+          console.error(`fetching error: ${error}`);
+          return null;
         }
       })
     )
@@ -70,20 +70,26 @@ const fetchDetails = async (title: string, release: string) => {
   if (!detailsResponse.ok) throw Error(`Failed to fetch details: ${detailsResponse.statusText}`);
 
   const data = await detailsResponse.json();
-  const result = await data.results
+  const result = data.results
     .filter((result: { title: string }) => result.title.toLowerCase() === title.toLowerCase())
     .filter((result: { release_date: string }) => result.release_date.slice(0, 4) === release.slice(0, 4));
+
+  if (result.length === 0) {
+    throw Error(`No matching movie found for title: ${title} and release: ${release}`);
+  }
+
   return result[0];
 };
 
 const fetchImages = async (id: number) => {
   const imagesResponse = await fetch(requestImages(id));
   if (!imagesResponse.ok) throw new Error(`Failed to fetch images: ${imagesResponse.statusText}`);
+  // console.log(imagesResponse.json);
   return await imagesResponse.json();
 };
 
-const fetchBackdrops = async (images: any, id: number) => {
-  return images.backdrops
+const fetchBackdrops = async (images: any) => {
+  return (images?.backdrops ?? [])
     .filter((backdrop: { iso_639_1: string | null }) => backdrop.iso_639_1 === null)
     .map((backdrop: { file_path: string }) => backdrop.file_path);
 };

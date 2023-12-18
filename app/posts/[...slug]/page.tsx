@@ -25,7 +25,9 @@ export default async function PostPage({ params }: PostProps) {
       <hr className='my-4' />
       <Mdx code={post.body.code} />
       <hr className='my-4' />
-      {stringToDate(post.created)}
+      <span>
+        Movie Rating: {post.rating} | {stringToDate(post.created)}
+      </span>
     </ArticlePost>
   );
 }
