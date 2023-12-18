@@ -1,3 +1,4 @@
+import fetch from 'node-fetch';
 import { allPosts } from '@/.contentlayer/generated';
 import { requestMovie, requestImages, requestVideos, requestGenreList } from './requests';
 
@@ -69,7 +70,7 @@ const fetchDetails = async (title: string, release: string) => {
   const detailsResponse = await fetch(requestMovie(title, release.slice(0, 4)));
   if (!detailsResponse.ok) throw Error(`Failed to fetch details: ${detailsResponse.statusText}`);
 
-  const data = await detailsResponse.json();
+  const data = (await detailsResponse.json()) as any;
   const result = data.results
     .filter((result: { title: string }) => result.title.toLowerCase() === title.toLowerCase())
     .filter((result: { release_date: string }) => result.release_date.slice(0, 4) === release.slice(0, 4));
@@ -85,7 +86,7 @@ const fetchImages = async (id: number) => {
   const imagesResponse = await fetch(requestImages(id));
   if (!imagesResponse.ok) throw new Error(`Failed to fetch images: ${imagesResponse.statusText}`);
   // console.log(imagesResponse.json);
-  return await imagesResponse.json();
+  return (await imagesResponse.json()) as any;
 };
 
 const fetchBackdrops = async (images: any) => {
@@ -97,7 +98,8 @@ const fetchBackdrops = async (images: any) => {
 const fetchVideos = async (id: number) => {
   const videosResponse = await fetch(requestVideos(id));
   if (!videosResponse.ok) throw new Error(`Failed to fetch videos: ${videosResponse.statusText}`);
-  const videosData = await videosResponse.json();
+  const videosData = (await videosResponse.json()) as any;
+
   return videosData.results
     .filter((video: { iso_639_1: string | null }) => video.iso_639_1 === 'en')
     .map((video: { key: string }) => video.key);
@@ -106,7 +108,7 @@ const fetchVideos = async (id: number) => {
 const fetchGenres = async (genre_ids: any) => {
   const genreResponse = await fetch(requestGenreList());
   if (!genreResponse.ok) throw new Error(`Failed to fetch genres: ${genreResponse.statusText}`);
-  const genreData = await genreResponse.json();
+  const genreData = (await genreResponse.json()) as any;
   return genre_ids.map((genreId: number) => {
     const genre = genreData.genres.find((g: { id: number; name: string }) => g.id === genreId);
     return genre && genre.name;
