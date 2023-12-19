@@ -11,7 +11,7 @@ const nextConfig = {
   // Remove while in devt on localhost
   // A must for prod SPA behavior tested on netlify
   // TODO replace for better solution
-  rewrites: async () => [{ source: '/:any*', destination: '/' }],
+  // rewrites: async () => [{ source: '/:any*', destination: '/' }],
 };
 
 module.exports = withContentlayer(nextConfig);

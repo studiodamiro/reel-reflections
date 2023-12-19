@@ -23,7 +23,7 @@ export default function RequestReflectionForm() {
       const response = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: JSON.stringify({ 'form-name': 'request-reflection', ...data }),
+        body: new URLSearchParams({ 'form-name': 'request-reflection', ...data }).toString(),
       });
 
       if (response.ok) {
