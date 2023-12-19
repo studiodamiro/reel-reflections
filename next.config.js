@@ -9,7 +9,7 @@ const nextConfig = {
   },
 
   rewrites() {
-    const isLocalhost = false; // process.env.NODE_ENV === 'development';
+    const isLocalhost = process.env.NODE_ENV === 'development';
 
     // Remove while in devt on localhost
     // A must for prod SPA behavior tested on netlify
