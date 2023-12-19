@@ -18,19 +18,22 @@ export default function RequestReflectionForm() {
     formState: { errors },
   } = useForm<TRequestReflectionValidator>({ resolver: zodResolver(RequestReflectionValidator) });
 
-  const submitHandler: SubmitHandler<TRequestReflectionValidator> = (data) => {
-    const { email, name, movie, details } = data;
-    console.log(email, name, movie, details);
+  const submitHandler: SubmitHandler<TRequestReflectionValidator> = async (data) => {
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: JSON.stringify({ 'form-name': 'request-reflection', ...data }),
+      });
 
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: JSON.stringify({ 'form-name': 'request-reflection', ...data }),
-    })
-      .then(() => {
+      if (response.ok) {
         router.push('/success');
-      })
-      .catch((error) => console.error(error));
+      } else {
+        console.error('Error:', response.status);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
@@ -44,6 +47,7 @@ export default function RequestReflectionForm() {
         className='flex flex-col gap-4'
       >
         <input type='hidden' name='form-name' value='request-reflection' />
+        <input className='hidden' name='bot-field' />
         <div>
           <Label htmlFor='email'>Email</Label>
           <Input
