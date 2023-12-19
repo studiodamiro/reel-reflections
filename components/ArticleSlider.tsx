@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils';
 import adjustHexColor from '@/lib/adjustColor';
 import arrangeColors from '@/lib/arrangeColors';
 import ReelLogo from './ReelLogo';
+import ImageFadeIn from './ImageFadeIn';
 
 interface ArticleSliderProps {
   title: string;
@@ -82,11 +83,9 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
           {/* MOVIE LOGO */}
           <div className='relative w-3/5 sm:w-1/2 grow-[3] sm:grow-[2] mx-auto sm:ml-0 origin-bottom-left'>
             {logos ? (
-              <Image
+              <ImageFadeIn
                 src={`${image_url}${logos[0]}`}
                 alt={`${title} poster image ${currentImageIndex + 1}`}
-                sizes='full'
-                fill
                 priority
                 className={cn('object-contain object-bottom sm:object-left-bottom drop-shadow-lg shadow-black')}
               />
@@ -138,11 +137,9 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
             transition={{ duration: 0.3, ease: 'easeOut' }}
             className='absolute z-0 object-center object-cover w-full aspect-video '
           >
-            <Image
+            <ImageFadeIn
               src={`${image_url}${currentImage}`}
               alt={`${title} poster image ${currentImageIndex + 1}`}
-              sizes='full'
-              fill
               priority
               className='object-center object-cover'
             />

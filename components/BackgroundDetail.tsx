@@ -12,6 +12,7 @@ import { MovieType } from '@/lib/fetchMovies';
 import { image_url } from '@/lib/constants';
 import adjustHexColor from '@/lib/adjustColor';
 import arrangeColors from '@/lib/arrangeColors';
+import ImageFadeIn from './ImageFadeIn';
 
 type BackgroundDetailProps = {
   className?: string;
@@ -71,11 +72,9 @@ export default function BackgroundDetail({ className }: BackgroundDetailProps) {
               {currentMovie?.title}
             </div>
           ) : (
-            <Image
+            <ImageFadeIn
               src={`${image_url}${currentMovie?.logos?.[0]}`}
               alt={`${currentMovie?.title} poster image`}
-              sizes='full'
-              fill
               priority
               className='object-contain object-bottom sm:object-left-bottom drop-shadow-lg shadow-black'
             />

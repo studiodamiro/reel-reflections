@@ -1,8 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useRef, useState } from 'react';
-import { useInView } from 'framer-motion';
+import { SyntheticEvent, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 interface ImageFadeInProps {
@@ -13,25 +12,24 @@ interface ImageFadeInProps {
 }
 
 export default function ImageFadeIn({ src, alt, priority = false, className }: ImageFadeInProps) {
-  const ref = useRef(null);
-  const [reveal, setReveal] = useState(false);
-  const isInView = useInView(ref, { once: true, amount: 0.5 });
+  const [imageIsLoaded, setImageIsLoaded] = useState(false);
 
   return (
     <Image
-      ref={ref}
       src={src}
       alt={alt}
       fill
-      sizes='full'
+      // sizes='full'
+      sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
       priority={priority}
-      onError={() => setReveal(true)}
-      onLoadingComplete={() => setReveal(true)}
-      className={cn(
-        'opacity-0',
-        className,
-        reveal && isInView && 'opacity-100 transition-opacity duration-150 delay-75 ease-in'
-      )}
+      placeholder='blur'
+      blurDataURL={'/placeholder.png'}
+      onLoad={(event: SyntheticEvent<HTMLImageElement, Event>) => {
+        const target = event.target as HTMLImageElement;
+        // next/image use an 1x1 px git as placeholder. We only want the onLoad event on the actual image
+        if (target.src.indexOf('data:image/gif;base64') < 0) setImageIsLoaded(true);
+      }}
+      className={cn('opacity-0', className, imageIsLoaded && 'opacity-100 transition-opacity duration-300 ease-in')}
     />
   );
 }

@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { MovieType } from '@/lib/fetchMovies';
 import { image_url } from '@/lib/constants';
 import { useMovies } from '@/providers/MoviesProvider';
+import ImageFadeIn from './ImageFadeIn';
 
 export default function BackgroundSlider() {
   const { recentMovies, currentRecentMovieIndex } = useMovies();
@@ -29,11 +30,9 @@ export default function BackgroundSlider() {
             className='relative inset-0 w-full aspect-square lg:aspect-video'
           >
             {/* {currentImage?.title} */}
-            <Image
+            <ImageFadeIn
               src={`${image_url}${currentImage?.backdrops?.[0]}`}
               alt={`${currentImage?.title} poster image`}
-              sizes='full'
-              fill
               priority
               className='object-center object-cover'
             />

@@ -8,13 +8,19 @@ const nextConfig = {
     remotePatterns: [{ protocol: 'https', hostname: 'image.tmdb.org' }],
   },
 
-  // Remove while in devt on localhost
-  // A must for prod SPA behavior tested on netlify
-  // TODO replace for better solution,
-  rewrites: async () => [
-    { source: '/logo-login.svg', destination: '/logo-login.svg' },
-    // { source: '/:any*', destination: '/' },
-  ],
+  rewrites() {
+    const isLocalhost = process.env.NODE_ENV === 'development';
+
+    // Remove while in devt on localhost
+    // A must for prod SPA behavior tested on netlify
+    // TODO replace for better solution,
+    const rewrites = [
+      { source: '/placeholder.png', destination: '/placeholder.png' },
+      { source: isLocalhost ? '/' : '/:any*', destination: isLocalhost ? 'http://localhost:3000/' : '/' },
+    ];
+
+    return rewrites;
+  },
 };
 
 module.exports = withContentlayer(nextConfig);

@@ -4,6 +4,7 @@ import { MotionValue, motion, useTransform } from 'framer-motion';
 import { MovieType } from '@/lib/fetchMovies';
 import { image_url } from '@/lib/constants';
 import { cn } from '@/lib/utils';
+import ImageFadeIn from './ImageFadeIn';
 
 type ElementProps = {
   id: number;
@@ -62,11 +63,9 @@ export function CarouselElement({
         )}
       >
         <div className='relative w-full h-full'>
-          <Image
+          <ImageFadeIn
             src={`${image_url}${element.logos?.[0]}`}
             alt={`Movie logo for ${element.title}`}
-            sizes='full'
-            fill
             priority
             className='z-20 scale-[0.66] oject-center object-contain'
           />
@@ -76,11 +75,9 @@ export function CarouselElement({
               'transition-full duration-700 delay-500'
             )}
           />
-          <Image
+          <ImageFadeIn
             src={`${image_url}${element.backdrops?.[0]}`}
             alt={`Movie backdrop for ${element.title}`}
-            sizes='full'
-            fill
             className={cn(
               'z-0 object-center object-cover',
               'transition-full duration-700 delay-500',
