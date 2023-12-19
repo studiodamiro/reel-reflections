@@ -12,7 +12,7 @@ const nextConfig = {
   // A must for prod SPA behavior tested on netlify
   // TODO replace for better solution,
   rewrites: async () => [
-    { source: '/favicon.ico', destination: '/favicon.ico' },
+    { source: '/logo-login.svg', destination: '/logo-login.svg' },
     { source: '/:any*', destination: '/' },
   ],
 };
