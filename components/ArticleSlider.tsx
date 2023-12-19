@@ -24,7 +24,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
   if (!movie) return null;
 
   const backdrops = movie.backdrops?.slice(0, 3); // limit to 3 images
-  const logos = movie.logos;
+  const logos = movie.logo;
   const video = movie.videos;
   const videoLink = `${video_url}${video}`;
 
@@ -44,7 +44,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
 
   const [priColor, setPriColor] = useState<string | null>(null);
   const [secColor, setSecColor] = useState<string | null>(null);
-  const { data, loading, error } = usePalette(`${image_url}${logos?.[0]}`, 4, 'hex', {
+  const { data, loading, error } = usePalette(`${image_url}${logos}`, 4, 'hex', {
     crossOrigin: 'anonymous',
     quality: 10,
   });

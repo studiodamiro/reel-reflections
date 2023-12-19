@@ -23,14 +23,15 @@ export default function BackgroundDetail({ className }: BackgroundDetailProps) {
 
   const { containerWidth, elementWidth } = useWidth();
   const { recentMovies, currentRecentMovieIndex, priColor, secColor, setPriColor, setSecColor } = useMovies();
-  const [currentMovie, setCurrentMovie] = useState<MovieType | undefined>(undefined);
+  const [currentMovie, setCurrentMovie] = useState<MovieType | undefined>();
   if (!recentMovies) return null;
 
   useEffect(() => {
     setCurrentMovie(recentMovies[currentRecentMovieIndex] ?? undefined);
   }, [currentRecentMovieIndex]);
 
-  const { data, loading, error } = usePalette(`${image_url}${currentMovie?.logos?.[0]}`, 4, 'hex', {
+  const imageUrl = currentMovie?.logo ? `${image_url}${currentMovie.logo}` : '';
+  const { data, loading, error } = usePalette(imageUrl, 4, 'hex', {
     crossOrigin: 'anonymous',
     quality: 10,
   });
@@ -67,13 +68,13 @@ export default function BackgroundDetail({ className }: BackgroundDetailProps) {
       >
         {/* LOGO */}
         <div className='relative w-2/3 sm:w-1/4 aspect-video mx-auto sm:ml-0'>
-          {currentMovie?.logos?.[0] === undefined ? (
+          {currentMovie?.logo === undefined || currentMovie?.logo === null ? (
             <div style={{ textWrap: 'balance' }} className='text-3xl font-bold'>
               {currentMovie?.title}
             </div>
           ) : (
             <ImageFadeIn
-              src={`${image_url}${currentMovie?.logos?.[0]}`}
+              src={`${image_url}${currentMovie?.logo}`}
               alt={`${currentMovie?.title} poster image`}
               priority
               className='object-contain object-bottom sm:object-left-bottom drop-shadow-lg shadow-black'

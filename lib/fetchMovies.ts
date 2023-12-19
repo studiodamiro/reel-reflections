@@ -13,7 +13,7 @@ export type MovieType = {
   overview?: string;
   vote_average?: number;
   backdrops?: string[];
-  logos?: string[];
+  logo?: string;
   posters?: string[];
   videos?: string[];
   genre?: string[];
@@ -50,10 +50,14 @@ export default async function fetchMovies() {
             release: details.release_date && details.release_date.slice(0, 4),
             overview: details.overview,
             genre: genres,
-            backdrops: backdrops,
-            logos: images.logos.map((result: any) => result.file_path),
-            posters: images.posters.map((result: any) => result.file_path),
             videos: videos,
+            backdrops: backdrops,
+            logo: images.logos
+              .map((result: any) => result.file_path)
+              .find((item: string) => item !== undefined && item !== null),
+            posters: images.posters
+              .map((result: any) => result.file_path)
+              .filter((item: string) => item !== undefined && item !== null),
           };
         } catch (error) {
           console.error(`fetching error: ${error}`);
@@ -92,6 +96,7 @@ const fetchImages = async (id: number) => {
 const fetchBackdrops = async (images: any) => {
   return (images?.backdrops ?? [])
     .filter((backdrop: { iso_639_1: string | null }) => backdrop.iso_639_1 === null)
+    .filter((backdrop: { file_path: string }) => backdrop.file_path !== undefined && backdrop.file_path !== null)
     .map((backdrop: { file_path: string }) => backdrop.file_path);
 };
 

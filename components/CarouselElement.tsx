@@ -64,7 +64,7 @@ export function CarouselElement({
       >
         <div className='relative w-full h-full'>
           <ImageFadeIn
-            src={`${image_url}${element.logos?.[0]}`}
+            src={`${image_url}${element.logo}`}
             alt={`Movie logo for ${element.title}`}
             priority
             className='z-20 scale-[0.66] oject-center object-contain'
