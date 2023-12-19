@@ -13,7 +13,7 @@ const nextConfig = {
   // TODO replace for better solution,
   rewrites: async () => [
     { source: '/logo-login.svg', destination: '/logo-login.svg' },
-    { source: '/:any*', destination: '/' },
+    // { source: '/:any*', destination: '/' },
   ],
 };
 
