@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { MotionValue, motion, useTransform } from 'framer-motion';
 import { MovieType } from '@/lib/fetchMovies';
 import { image_url } from '@/lib/constants';
@@ -62,29 +61,27 @@ export function CarouselElement({
           viewDistance === numberOfElements - 1 && 'origin-right'
         )}
       >
-        <div className='relative w-full h-full'>
-          <ImageFadeIn
-            src={`${image_url}${element.logo}`}
-            alt={`Movie logo for ${element.title}`}
-            priority
-            className='z-20 scale-[0.66] oject-center object-contain'
-          />
-          <div
-            className={cn(
-              'absolute z-10 inset-0 bg-black/60 group-hover:bg-black/0',
-              'transition-full duration-700 delay-500'
-            )}
-          />
-          <ImageFadeIn
-            src={`${image_url}${element.backdrops?.[0]}`}
-            alt={`Movie backdrop for ${element.title}`}
-            className={cn(
-              'z-0 object-center object-cover',
-              'transition-full duration-700 delay-500',
-              'grayscale group-hover:grayscale-0'
-            )}
-          />
-        </div>
+        <ImageFadeIn
+          src={`${image_url}${element.logo}`}
+          alt={`Movie logo for ${element.title}`}
+          priority
+          className='z-20 scale-[0.66] oject-center object-contain'
+        />
+        <div
+          className={cn(
+            'absolute z-10 inset-0 bg-slate-950/70 group-hover:bg-slate-950/20',
+            'transition-colors duration-700 delay-500 mix-blend-multiply'
+          )}
+        />
+        <ImageFadeIn
+          src={`${image_url}${element.backdrops?.[0]}`}
+          alt={`Movie backdrop for ${element.title}`}
+          className={cn(
+            'z-0 object-center object-cover',
+            'grayscale group-hover:grayscale-0'
+            // 'transition-all duration-700 delay-500'
+          )}
+        />
       </Link>
     </motion.span>
   );

@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import useTimedFunction from '@/hooks/useTimedFunction';
 import { useEffect, useState } from 'react';
@@ -39,7 +38,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
   });
 
   useEffect(() => {
-    setCurrentImage(backdrops![currentImageIndex]);
+    setCurrentImage(backdrops![currentImageIndex] ?? undefined);
   }, [currentImageIndex]);
 
   const [priColor, setPriColor] = useState<string | null>(null);
