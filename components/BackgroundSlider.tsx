@@ -8,7 +8,8 @@ import { image_url } from '@/lib/constants';
 import { useMovies } from '@/providers/MoviesProvider';
 import ImageFadeIn from './ImageFadeIn';
 
-export default function BackgroundSlider() {
+export default function BackgroundSlider({ scrollOffset }: { scrollOffset: number }) {
+  const IMAGE_SCROLL_DIVIDER = 2;
   const { recentMovies, currentRecentMovieIndex } = useMovies();
   const [currentImage, setCurrentImage] = useState<MovieType | undefined>(undefined);
 
@@ -27,8 +28,8 @@ export default function BackgroundSlider() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
             className='relative inset-0 w-full aspect-square lg:aspect-video'
+            style={{ transform: `translateY(-${scrollOffset / IMAGE_SCROLL_DIVIDER}px)` }}
           >
-            {/* {currentImage?.title} */}
             <ImageFadeIn
               src={`${image_url}${currentImage?.backdrops?.[0]}`}
               alt={`${currentImage?.title} poster image`}
@@ -39,6 +40,7 @@ export default function BackgroundSlider() {
         </AnimatePresence>
       )}
       <div
+        style={{ transform: `translateY(-${scrollOffset}px)` }}
         className={cn(
           'absolute inset-0 w-full aspect-square lg:aspect-video bg-blend-multiply',
           'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))]',
@@ -46,14 +48,21 @@ export default function BackgroundSlider() {
           'from-transparent from-0% via-slate-950/10 to-80% to-slate-950'
         )}
       />
-      <div
-        className={cn(
-          'absolute inset-0 w-full aspect-square lg:aspect-video bg-blend-multiply',
-          'bg-gradient-to-b from-0% via-80% to-100% ',
-          'from-slate-300/0 via-slate-300/20 to-slate-300',
-          'dark:from-slate-900/0 dark:via-slate-950/20 dark:to-slate-950'
-        )}
-      />
+      <div className='absolute inset-0 w-full h-screen '>
+        <div
+          style={{ transform: `translateY(-${scrollOffset}px)` }}
+          className={cn(
+            'relative inset-0 w-full aspect-square lg:aspect-video bg-blend-multiply',
+            'bg-gradient-to-b from-0% via-80% to-100% ',
+            'from-slate-300/0 via-slate-300/20 to-slate-300',
+            'dark:from-slate-900/0 dark:via-slate-950/20 dark:to-slate-950'
+          )}
+        />
+        <div
+          style={{ transform: `translateY(-${scrollOffset}px)` }}
+          className='relative inset-0 w-full h-full bg-slate-950'
+        />
+      </div>
     </div>
   );
 }

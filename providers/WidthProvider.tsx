@@ -46,7 +46,7 @@ export const WidthProvider = ({ children }: WidthProviderProps) => {
     if (newWindowWidth < 480) {
       newBreakpoint = 'sm';
       newNumberOfElements = 3;
-    } else if (newWindowWidth < 768) {
+    } else if (newWindowWidth < 640) {
       newBreakpoint = 'md';
       newNumberOfElements = 3;
     } else if (newWindowWidth < 1024) {
