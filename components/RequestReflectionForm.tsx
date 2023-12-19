@@ -20,7 +20,7 @@ export default function RequestReflectionForm() {
 
   const submitHandler: SubmitHandler<TRequestReflectionValidator> = async (data) => {
     try {
-      const response = await fetch('/', {
+      const response = await fetch('/placeholder.png', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams({ 'form-name': 'request-reflection', ...data }).toString(),
