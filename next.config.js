@@ -8,9 +8,10 @@ const nextConfig = {
     remotePatterns: [{ protocol: 'https', hostname: 'image.tmdb.org' }],
   },
   async rewrites() {
+    const isLocalhost = process.env.NODE_ENV === 'development';
     return [
       { source: '/placeholder.png', destination: '/placeholder.png' },
-      { source: '/:any*', destination: '/' },
+      { source: isLocalhost ? '/' : '/:any*', destination: isLocalhost ? 'http://localhost:3000/' : '/' },
     ];
   },
 };
