@@ -31,7 +31,10 @@ export default function Home() {
   }, []);
 
   return (
-    <div ref={ref} className={cn(pathname !== '/' && 'fixed', 'w-full max-h-screen overflow-hidden overflow-y-auto')}>
+    <div
+      ref={ref}
+      className={cn(pathname !== '/' && 'fixed', 'w-full max-h-screen overflow-hidden overflow-y-auto scrollbar-hide')}
+    >
       <Header scrollOffset={scrollOffset} />
       <div className={cn('flex flex-col w-full min-h-[90vh] gap-16 overflow-hidden')}>
         <BackgroundDetail className='flex-1' />
