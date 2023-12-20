@@ -10,10 +10,8 @@ import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import { cn } from '@/lib/utils';
 import ArticleSlider from './ArticleSlider';
 import { useMovies } from '@/providers/MoviesProvider';
-import { MovieType } from '@/lib/fetchMovies';
 import getGenreFilteredMovies from '@/lib/getGenreFilteredMovies';
 import CollectionCard from './CollectionCard';
-import shuffleArray from '@/lib/shuffleArray';
 
 interface ArticlePostProps {
   title: string;
@@ -72,7 +70,7 @@ export default function ArticlePost({ children, title }: ArticlePostProps) {
           <span className='px-4 sm:px-16 md:px-28 flex justify-center sm:justify-start font-bold uppercase text-md: md:text-lg tracking-wider'>
             MORE LIKE THIS
           </span>
-          <div className='pb-8 sm:pb-16 flex flex-row gap-0 w-full items-center justify-center'>
+          <div className='pb-8 sm:pb-16 px-3 sm:px-8 md:px-0 lg:px-24 flex flex-row gap-0 w-full items-center justify-center'>
             {filteredAndSortedMovies.slice(0, 3).map((movie) => (
               <CollectionCard key={parseInt(String(movie.id))} movie={movie} />
             ))}

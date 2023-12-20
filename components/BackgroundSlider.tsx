@@ -33,7 +33,6 @@ export default function BackgroundSlider({ scrollOffset }: { scrollOffset: numbe
             <ImageFadeIn
               src={`${image_url}${currentImage?.backdrops?.[0]}`}
               alt={`${currentImage?.title} poster image`}
-              priority
               className='object-center object-cover'
             />
           </motion.div>
