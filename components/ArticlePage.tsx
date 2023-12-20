@@ -8,6 +8,7 @@ import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import { MdClose } from 'react-icons/md';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import PageWrapper from './PageWrapper';
 
 interface ArticlePageProps {
   title: string;
@@ -50,9 +51,7 @@ export default function ArticlePage({ children, title }: ArticlePageProps) {
         <span className='sr-only'>Close Page Button</span>
         <MdClose />
       </Link>
-      <div className='px-4 sm:px-16 md:px-28 py-16 max-w-full mx-auto prose dark:prose-invert prose-sm prose-quoteless'>
-        {children}
-      </div>
+      <PageWrapper>{children}</PageWrapper>
     </motion.article>
   );
 }

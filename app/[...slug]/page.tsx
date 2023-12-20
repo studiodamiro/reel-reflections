@@ -49,8 +49,12 @@ export default async function PagePage({ params }: PageProps) {
 
   return (
     <ArticlePage title={page.title}>
-      <h1>{page.title}</h1>
-      {page.description && <p className=' pt-4 text-sm font-semibold sm:text-xl sm:font-normal'>{page.description}</p>}
+      <h1 className='text-center sm:text-left'>{page.title}</h1>
+      {page.description && (
+        <p className='pt-4 text-center sm:text-left text-sm font-semibold sm:text-xl sm:font-normal'>
+          {page.description}
+        </p>
+      )}
       <hr className='my-4' />
       <Mdx code={page.body.code} />
     </ArticlePage>

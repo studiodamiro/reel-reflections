@@ -8,7 +8,11 @@ import { image_url } from '@/lib/constants';
 import { useMovies } from '@/providers/MoviesProvider';
 import ImageFadeIn from './ImageFadeIn';
 
-export default function BackgroundSlider({ scrollOffset }: { scrollOffset: number }) {
+type BackgroundSliderProps = {
+  scrollOffset?: number;
+};
+
+export default function BackgroundSlider({ scrollOffset = 0 }: BackgroundSliderProps) {
   const IMAGE_SCROLL_DIVIDER = 2;
   const { recentMovies, currentRecentMovieIndex } = useMovies();
   const [currentImage, setCurrentImage] = useState<MovieType | undefined>(undefined);
