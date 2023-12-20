@@ -47,7 +47,7 @@ export default function BackgroundSlider({ scrollOffset }: { scrollOffset: numbe
           'from-transparent from-0% via-slate-950/10 to-80% to-slate-950'
         )}
       />
-      <div className='absolute inset-0 w-full h-screen '>
+      <div className='absolute inset-0 w-full h-screen'>
         <div
           style={{ transform: `translateY(-${scrollOffset}px)` }}
           className={cn(

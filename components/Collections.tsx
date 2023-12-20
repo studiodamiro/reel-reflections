@@ -13,7 +13,7 @@ export default function Collections() {
   const filteredMovies = movies.slice(FILTER_NUMBER);
 
   return (
-    <div className='w-full bg-slate-950'>
+    <div className='w-full'>
       <div style={{ width: containerWidth }} className='w-full h-auto mx-auto flex flex-col'>
         <span className='w-full px-4 md:px-6 tracking-widest text-center sm:text-left font-bold uppercase text-md: md:text-lg'>
           ARCHIVE
