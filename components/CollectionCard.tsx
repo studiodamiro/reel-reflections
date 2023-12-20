@@ -29,7 +29,7 @@ export default function CollectionCard({ movie, id }: CollectionCardProps) {
           <div
             className={cn(
               'object-center object-cover w-full aspect-[3/4] overflow-hidden rounded-md m-0 p-0 shadow-black/20 shadow-md',
-              'opacity-50 hover:opacity-100 scale-100 hover:scale-110 bg-red-500',
+              'opacity-50 hover:opacity-100 scale-100 hover:scale-110',
               'transition-all duration-300'
             )}
           >

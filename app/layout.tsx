@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 import fetchMovies from '@/lib/fetchMovies';
 import Curtain from '../components/Curtain';
 import Home from '@/components/Home';
+import Header from '@/components/Header';
 
 const inter = Inter({
   subsets: ['latin'],
