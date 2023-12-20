@@ -9,6 +9,9 @@ export default function Collections() {
   const { movies } = useMovies();
   const { containerWidth, elementWidth } = useWidth();
 
+  const FILTER_NUMBER = 12;
+  const filteredMovies = movies.slice(FILTER_NUMBER);
+
   return (
     <div className='w-full bg-slate-950'>
       <div style={{ width: containerWidth }} className='w-full h-auto mx-auto flex flex-col'>
@@ -16,11 +19,11 @@ export default function Collections() {
           ARCHIVE
         </span>
         <div
-          style={{ gridTemplateColumns: `repeat(auto-fit, minmax(${elementWidth}px, 1fr))` }}
+          style={{ gridTemplateColumns: `repeat(auto-fit, minmax(${elementWidth - 1}px, 1fr))` }}
           className={cn('grid gap-0')}
         >
-          {movies.map((movie, index) => (
-            <CollectionCard key={movie.id} movie={movie} id={index} />
+          {filteredMovies.map((movie) => (
+            <CollectionCard key={movie.id} movie={movie} />
           ))}
         </div>
       </div>

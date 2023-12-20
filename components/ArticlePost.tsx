@@ -9,6 +9,11 @@ import { useWidth } from '@/providers/WidthProvider';
 import { useOnClickOutside } from '@/hooks/useOnClickOutside';
 import { cn } from '@/lib/utils';
 import ArticleSlider from './ArticleSlider';
+import { useMovies } from '@/providers/MoviesProvider';
+import { MovieType } from '@/lib/fetchMovies';
+import getGenreFilteredMovies from '@/lib/getGenreFilteredMovies';
+import CollectionCard from './CollectionCard';
+import shuffleArray from '@/lib/shuffleArray';
 
 interface ArticlePostProps {
   title: string;
@@ -16,6 +21,10 @@ interface ArticlePostProps {
 }
 
 export default function ArticlePost({ children, title }: ArticlePostProps) {
+  const { movies } = useMovies();
+  const movie = movies.find((movie) => movie.title === title);
+  if (!movie) return null;
+
   const { containerWidth } = useWidth();
   const homeRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
@@ -23,11 +32,15 @@ export default function ArticlePost({ children, title }: ArticlePostProps) {
 
   useOnClickOutside(homeRef, navToHome);
 
+  const genres = [movie.genre[0], movie.genre[1]]; // Should be an array []
+  const filteredAndSortedMovies = getGenreFilteredMovies({ genres, titleToExclude: movie.title });
+  // const randomThreeItems = shuffleArray<MovieType>(filteredAndSortedMovies).slice(0, 3);
+
   return (
     <AnimatePresence mode='wait'>
       <motion.div
         ref={homeRef}
-        id={title}
+        id={movie.slug}
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0, transition: { duration: 0.3 } }}
         exit={{ opacity: 0, y: 100 }}
@@ -52,9 +65,17 @@ export default function ArticlePost({ children, title }: ArticlePostProps) {
           <IoCloseSharp />
         </Link>
         <article>
-          <ArticleSlider title={title} />
-          <div className='px-4 sm:px-16 md:px-28 pb-16 max-w-full mx-auto prose dark:prose-invert prose-sm prose-quoteless'>
+          <ArticleSlider movie={movie} />
+          <div className='px-4 sm:px-16 md:px-28 pb-12 max-w-full mx-auto prose dark:prose-invert prose-sm prose-quoteless'>
             {children}
+          </div>
+          <span className='px-4 sm:px-16 md:px-28 flex justify-center sm:justify-start font-bold uppercase text-md: md:text-lg tracking-wider'>
+            MORE LIKE THIS
+          </span>
+          <div className='pb-8 sm:pb-16 flex flex-row gap-0 w-full items-center justify-center'>
+            {filteredAndSortedMovies.slice(0, 3).map((movie) => (
+              <CollectionCard key={parseInt(String(movie.id))} movie={movie} />
+            ))}
           </div>
         </article>
       </motion.div>

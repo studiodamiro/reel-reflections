@@ -7,28 +7,19 @@ import ImageFadeIn from './ImageFadeIn';
 import Marker from './Marker';
 
 type CollectionCardProps = {
-  id: number;
   movie: MovieType;
 };
 
-export default function CollectionCard({ movie, id }: CollectionCardProps) {
+export default function CollectionCard({ movie }: CollectionCardProps) {
   const { elementWidth } = useWidth();
 
   return (
     <div style={{ width: elementWidth }} className='px-1 sm:px-2 py-6'>
       <Link href={`${movie.slug}`}>
         <div className='relative z-0 group'>
-          {/* MARKER */}
-          <Marker
-            text={'latest'}
-            id={id}
-            color={'red'}
-            className='scale-100 group-hover:scale-110 origin-top-left transition-all duration-300'
-          />
-
           <div
             className={cn(
-              'object-center object-cover w-full aspect-[3/4] overflow-hidden rounded-md m-0 p-0 shadow-black/20 shadow-md',
+              'relative object-center object-cover w-full aspect-[3/4] overflow-hidden rounded-md m-0 p-0 shadow-black/20 shadow-md',
               'opacity-50 hover:opacity-100 scale-100 hover:scale-110',
               'transition-all duration-300'
             )}

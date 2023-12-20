@@ -87,7 +87,7 @@ export default function Carousel({ infinite = true, className }: CarouselProps) 
           <div className={'relative w-full'}>
             {recentMovies.map((movie, index: number | null | undefined) => (
               <CarouselElement
-                key={movie.slug}
+                key={movie.id}
                 id={index!}
                 infinite={infinite}
                 motionValue={animatedValue}

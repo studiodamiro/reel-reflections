@@ -11,7 +11,7 @@ export default function Footer() {
   return (
     <header
       style={{ width: containerWidth }}
-      className='mx-auto px-4 md:px-6 flex flex-col sm:flex-row gap-2 justify-between my-6'
+      className='mx-auto px-4 md:px-6 flex flex-col sm:flex-row gap-2 justify-between my-8'
     >
       <Link href={'/'}>
         <ReelLogo

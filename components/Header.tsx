@@ -1,11 +1,11 @@
 'use client';
 
-import Navigation from './Navigation';
-import { useWidth } from '@/providers/WidthProvider';
-import { cn } from '@/lib/utils';
-import ReelLogo from './ReelLogo';
-import { useMovies } from '@/providers/MoviesProvider';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
+import { useWidth } from '@/providers/WidthProvider';
+import { useMovies } from '@/providers/MoviesProvider';
+import ReelLogo from './ReelLogo';
+import Navigation from './Navigation';
 
 type HeaderProps = {
   className?: string;
@@ -20,12 +20,10 @@ export default function Header({ className, scrollOffset }: HeaderProps) {
     <div
       className={cn(
         'fixed z-30 w-screen',
-        'bg-gradient-to-t from-0% via-0% to-100%',
         scrollOffset > 300
           ? 'from-slate-950/0 via-slate-950/0 to-slate-950'
           : 'from-slate-950/0 via-slate-950/0 to-slate-0',
-        'bg-opacity-0 sm:bg-opacity-0 group-hover:bg-opacity-100',
-        'transition-all duration-300',
+        'bg-gradient-to-t from-0% via-0% to-100%',
         className
       )}
     >

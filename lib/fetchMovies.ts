@@ -16,7 +16,7 @@ export type MovieType = {
   logo?: string;
   poster?: string[];
   videos?: string[];
-  genre?: string[];
+  genre: string[];
   genre_ids?: number[];
 };
 

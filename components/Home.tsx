@@ -1,12 +1,12 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 import Header from './Header';
 import BackgroundDetail from './BackgroundDetail';
 import CarouselWrapper from './CarouselWrapper';
 import BackgroundSlider from './BackgroundSlider';
-import { cn } from '@/lib/utils';
-import { usePathname } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
 import Collections from './Collections';
 import Footer from './Footer';
 

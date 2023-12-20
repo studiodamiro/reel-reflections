@@ -4,7 +4,6 @@ import Link from 'next/link';
 import useTimedFunction from '@/hooks/useTimedFunction';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useMovies } from '@/providers/MoviesProvider';
 import { image_url, video_url } from '@/lib/constants';
 import { usePalette } from 'color-thief-react';
 import { cn } from '@/lib/utils';
@@ -12,16 +11,13 @@ import adjustHexColor from '@/lib/adjustColor';
 import arrangeColors from '@/lib/arrangeColors';
 import ReelLogo from './ReelLogo';
 import ImageFadeIn from './ImageFadeIn';
+import { MovieType } from '@/lib/fetchMovies';
 
 interface ArticleSliderProps {
-  title: string;
+  movie: MovieType;
 }
 
-export default function ArticleSlider({ title }: ArticleSliderProps) {
-  const { movies } = useMovies();
-  const movie = movies.find((movie) => movie.title === title);
-  if (!movie) return null;
-
+export default function ArticleSlider({ movie }: ArticleSliderProps) {
   const backdrops = movie.backdrops?.slice(0, 3); // limit to 3 images
   const logo = movie.logo;
   const video = movie.videos;
@@ -70,7 +66,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
           {/* REEL LOGO */}
           <span className='block sm:hidden relative grow-[2] sm:grow-[3]' />
           <motion.div
-            id={movie.title}
+            id={movie.id?.toString()}
             initial={{ opacity: 0, y: 20, scale: 0.5 }}
             animate={{ opacity: 1, y: 0, scale: 0.5, transition: { duration: 0.7, delay: 3, ease: 'easeOut' } }}
             className='relative scale-50 origin-bottom sm:origin-bottom-left mx-auto sm:ml-0'
@@ -84,7 +80,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
             {logo ? (
               <ImageFadeIn
                 src={`${image_url}${logo}`}
-                alt={`${title} poster image ${currentImageIndex + 1}`}
+                alt={`${movie.title} poster image ${currentImageIndex + 1}`}
                 priority
                 className='object-contain object-bottom sm:object-left-bottom drop-shadow-lg shadow-black'
               />
@@ -138,7 +134,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
           >
             <ImageFadeIn
               src={`${image_url}${currentImage}`}
-              alt={`${title} poster image ${currentImageIndex + 1}`}
+              alt={`${movie.title} poster image ${currentImageIndex + 1}`}
               className='object-center object-cover'
             />
           </motion.div>
