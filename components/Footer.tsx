@@ -11,13 +11,19 @@ export default function Footer() {
   return (
     <header
       style={{ width: containerWidth }}
-      className='mx-auto px-4 md:px-6 flex flex-row justify-between items-center'
+      className='mx-auto px-4 md:px-6 flex flex-col sm:flex-row gap-2 justify-between my-6'
     >
       <Link href={'/'}>
-        <ReelLogo color={priColor} secColor={secColor} className='scale-[0.3] sm:scale-20 origin-left' />
+        <ReelLogo
+          color={priColor}
+          secColor={secColor}
+          className='scale-[0.3] sm:scale-20 origin-left h-[30px] object-center'
+        />
       </Link>
-      <span>All rights reserved © 2023</span>
-      <Navigation />
+      <div className='flex flex-row-reverse sm:flex-row gap-2 justify-between items-center text-xs text-slate-500'>
+        <span className='hidden sm:block'>All rights reserved</span>© 2023
+        <Navigation />
+      </div>
     </header>
   );
 }

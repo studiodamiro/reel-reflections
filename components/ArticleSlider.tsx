@@ -23,7 +23,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
   if (!movie) return null;
 
   const backdrops = movie.backdrops?.slice(0, 3); // limit to 3 images
-  const logos = movie.logo;
+  const logo = movie.logo;
   const video = movie.videos;
   const videoLink = `${video_url}${video}`;
 
@@ -43,7 +43,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
 
   const [priColor, setPriColor] = useState<string | null>(null);
   const [secColor, setSecColor] = useState<string | null>(null);
-  const { data, loading, error } = usePalette(`${image_url}${logos}`, 4, 'hex', {
+  const { data, loading, error } = usePalette(`${image_url}${logo}`, 4, 'hex', {
     crossOrigin: 'anonymous',
     quality: 10,
   });
@@ -81,9 +81,9 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
 
           {/* MOVIE LOGO */}
           <div className='relative w-3/5 sm:w-1/2 grow-[3] sm:grow-[2] mx-auto sm:ml-0 origin-bottom-left'>
-            {logos ? (
+            {logo ? (
               <ImageFadeIn
-                src={`${image_url}${logos[0]}`}
+                src={`${image_url}${logo}`}
                 alt={`${title} poster image ${currentImageIndex + 1}`}
                 priority
                 className='object-contain object-bottom sm:object-left-bottom drop-shadow-lg shadow-black'
@@ -134,12 +134,11 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
             animate={{ opacity: 1, transition: { duration: 0.7, ease: 'easeOut' } }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className='absolute z-0 object-center object-cover w-full aspect-video '
+            className='absolute z-0 object-center object-cover w-full aspect-video'
           >
             <ImageFadeIn
               src={`${image_url}${currentImage}`}
               alt={`${title} poster image ${currentImageIndex + 1}`}
-              priority
               className='object-center object-cover'
             />
           </motion.div>

@@ -81,6 +81,19 @@ export default function BackgroundDetail({ className }: BackgroundDetailProps) {
           )}
         </div>
 
+        {/* OVERVIEW */}
+        <div className='flex flex-col gap-2 w-full sm:w-2/3 lg:w-2/5 text-center sm:text-left'>
+          <span
+            style={{ textWrap: 'balance', color: priColor! }}
+            className='font-semibold text-lg text-center sm:text-left'
+          >
+            {currentMovie?.article ? currentMovie?.article : currentMovie?.article}
+          </span>
+          <span className='text-sm line-clamp-3'>
+            {currentMovie?.description ? currentMovie?.description : currentMovie?.overview}
+          </span>
+        </div>
+
         {/* DETAILS */}
         <div className='relative flex flex-col items-start justify-left gap-2 sm:gap-4 md:gap-6'>
           <div className='flex flex-col-reverse sm:flex-row mx-auto sm:ml-0 items-center justify-center gap-2 sm:gap-4'>
@@ -108,11 +121,6 @@ export default function BackgroundDetail({ className }: BackgroundDetailProps) {
                 </span>
               </div>
             </div>
-          </div>
-
-          {/* OVERVIEW */}
-          <div className='w-full sm:w-2/3 lg:w-2/5 text-sm text-center sm:text-left line-clamp-3'>
-            {currentMovie?.description ? currentMovie?.description : currentMovie?.overview}
           </div>
         </div>
       </motion.div>
