@@ -43,7 +43,7 @@ export default function ArticlePage({ children, title }: ArticlePageProps) {
       <Link
         href={'/'}
         className={cn(
-          'absolute z-30 top-4 right-4 md:top-6 md:right-6 rounded-md w-6 aspect-square flex items-center justify-center',
+          'absolute z-50 top-4 right-4 md:top-6 md:right-6 rounded-md w-6 aspect-square flex items-center justify-center',
           'bg-slate-200/50 hover:bg-white text-slate-950 shadow-md shadow-black/20',
           'transition-colors duration-300 ease-out'
         )}
