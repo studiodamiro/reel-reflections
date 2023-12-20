@@ -14,7 +14,7 @@ export type MovieType = {
   vote_average?: number;
   backdrops?: string[];
   logo?: string;
-  posters?: string[];
+  poster?: string[];
   videos?: string[];
   genre?: string[];
   genre_ids?: number[];
@@ -55,9 +55,7 @@ export default async function fetchMovies() {
             logo: images.logos
               .map((result: any) => result.file_path)
               .find((item: string) => item !== undefined && item !== null),
-            posters: images.posters
-              .map((result: any) => result.file_path)
-              .filter((item: string) => item !== undefined && item !== null),
+            poster: images.posters[0].file_path ? [images.posters[0].file_path] : null,
           };
         } catch (error) {
           console.error(`fetching error: ${error}`);

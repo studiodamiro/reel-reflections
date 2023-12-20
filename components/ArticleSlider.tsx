@@ -86,7 +86,7 @@ export default function ArticleSlider({ title }: ArticleSliderProps) {
                 src={`${image_url}${logos[0]}`}
                 alt={`${title} poster image ${currentImageIndex + 1}`}
                 priority
-                className={cn('object-contain object-bottom sm:object-left-bottom drop-shadow-lg shadow-black')}
+                className='object-contain object-bottom sm:object-left-bottom drop-shadow-lg shadow-black'
               />
             ) : (
               <h2 style={{ textWrap: 'balance' }} className='text-3xl font-bold'>

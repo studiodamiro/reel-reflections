@@ -70,17 +70,14 @@ export function CarouselElement({
         <div
           className={cn(
             'absolute z-10 inset-0 bg-slate-950/70 group-hover:bg-slate-950/20',
-            'transition-colors duration-700 delay-500 mix-blend-multiply'
+            'backdrop-grayscale group-hover:backdrop-grayscale-0',
+            'transition-all duration-700 delay-300 mix-blend-multiply'
           )}
         />
         <ImageFadeIn
           src={`${image_url}${element.backdrops?.[0]}`}
           alt={`Movie backdrop for ${element.title}`}
-          className={cn(
-            'z-0 object-center object-cover',
-            'grayscale group-hover:grayscale-0'
-            // 'transition-all duration-700 delay-500'
-          )}
+          className={cn('z-0 object-center object-cover')}
         />
       </Link>
     </motion.span>

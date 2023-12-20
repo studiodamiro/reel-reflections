@@ -17,7 +17,7 @@ export default function CarouselWrapper({ className }: CarouselWrapperProps) {
         style={{ width: containerWidth }}
         className='w-full h-auto mx-auto flex items-center justify-between mb-4 px-4 md:px-6'
       >
-        <span className='w-full tracking-wider text-center sm:text-left font-bold uppercase text-md: md:text-lg'>
+        <span className='w-full tracking-widest text-center sm:text-left font-bold uppercase text-md: md:text-lg'>
           RECENT REFLECTIONS
         </span>
         {/* <p>selection</p> */}
