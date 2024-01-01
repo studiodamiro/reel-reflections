@@ -7,6 +7,7 @@ import { useMovies } from '@/providers/MoviesProvider';
 export default function Footer() {
   const { containerWidth } = useWidth();
   const { priColor, secColor } = useMovies();
+  const year = new Date().getFullYear();
 
   return (
     <header
@@ -21,7 +22,7 @@ export default function Footer() {
         />
       </Link>
       <div className='flex flex-row-reverse sm:flex-row gap-2 justify-between items-center text-xs text-slate-500'>
-        <span className='hidden sm:block'>All rights reserved</span>© 2023
+        <span className='hidden sm:block'>All rights reserved</span>© {year}
         <Navigation />
       </div>
     </header>
